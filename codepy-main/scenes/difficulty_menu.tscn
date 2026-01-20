@@ -1,0 +1,71 @@
+[gd_scene load_steps=2 format=3 uid="uid://c35xkq9bflv3n"]
+
+[ext_resource type="Script" path="res://scripts/difficulty_menu.gd" id="1_8jk4p"]
+
+[node name="DifficultyMenu" type="Control"]
+layout_mode = 3
+anchors_left = 0.0
+anchors_top = 0.0
+anchors_right = 1.0
+anchors_bottom = 1.0
+script = ExtResource("1_8jk4p")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_left = 0.0
+anchors_top = 0.0
+anchors_right = 1.0
+anchors_bottom = 1.0
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_left = 0.5
+anchors_top = 0.5
+anchors_right = 0.5
+anchors_bottom = 0.5
+offset_left = -150.0
+offset_top = -150.0
+offset_right = 150.0
+offset_bottom = 150.0
+alignment = 1
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Select Difficulty"
+horizontal_alignment = 1
+add_theme_font_size_override("font_size", 32)
+add_theme_color_override("font_color", Color.CYAN)
+
+[node name="Spacer1" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 20)
+
+[node name="EasyBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(300, 60)
+text = "Easy"
+modulate = Color(0, 1, 0, 1)
+
+[node name="MediumBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(300, 60)
+text = "Medium"
+modulate = Color(1, 1, 0, 1)
+
+[node name="HardBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(300, 60)
+text = "Hard"
+modulate = Color(1, 0, 0, 1)
+
+[node name="BackBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(300, 60)
+text = "Back"
+modulate = Color(1, 1, 1, 1)
+
+[connection signal="pressed" from="VBoxContainer/EasyBtn" to="." method="_on_easy_pressed"]
+[connection signal="pressed" from="VBoxContainer/MediumBtn" to="." method="_on_medium_pressed"]
+[connection signal="pressed" from="VBoxContainer/HardBtn" to="." method="_on_hard_pressed"]
+[connection signal="pressed" from="VBoxContainer/BackBtn" to="." method="_on_back_pressed"]

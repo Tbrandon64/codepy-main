@@ -1,0 +1,88 @@
+[gd_scene load_steps=2 format=3 uid="uid://u3hy7v24b92xl"]
+
+[ext_resource type="Script" path="res://scripts/victory_screen.gd" id="1_klyp5"]
+
+[node name="VictoryScreen" type="Control"]
+layout_mode = 3
+anchors_left = 0.0
+anchors_top = 0.0
+anchors_right = 1.0
+anchors_bottom = 1.0
+script = ExtResource("1_klyp5")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_left = 0.0
+anchors_top = 0.0
+anchors_right = 1.0
+anchors_bottom = 1.0
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_left = 0.5
+anchors_top = 0.5
+anchors_right = 0.5
+anchors_bottom = 0.5
+offset_left = -150.0
+offset_top = -150.0
+offset_right = 150.0
+offset_bottom = 150.0
+alignment = 1
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "VICTORY!"
+horizontal_alignment = 1
+add_theme_font_size_override("font_size", 64)
+add_theme_color_override("font_color", Color.YELLOW)
+
+[node name="Spacer1" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 30)
+
+[node name="ScoreLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Your Score: 100"
+horizontal_alignment = 1
+add_theme_font_size_override("font_size", 32)
+add_theme_color_override("font_color", Color.GREEN)
+
+[node name="OpponentLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Opponent Score: 95"
+horizontal_alignment = 1
+add_theme_font_size_override("font_size", 32)
+add_theme_color_override("font_color", Color.RED)
+
+[node name="Spacer2" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 30)
+
+[node name="HighScoreLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "🏆 New High Score! Rank #1"
+horizontal_alignment = 1
+add_theme_font_size_override("font_size", 24)
+add_theme_color_override("font_color", Color.YELLOW)
+
+[node name="Spacer3" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 20)
+
+[node name="RestartBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(300, 70)
+text = "Play Again"
+modulate = Color(0, 1, 0, 1)
+add_theme_font_size_override("font_size", 28)
+
+[node name="MenuBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(300, 70)
+text = "Main Menu"
+modulate = Color(1, 0.5, 0, 1)
+add_theme_font_size_override("font_size", 28)
+
+[connection signal="pressed" from="VBoxContainer/RestartBtn" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="VBoxContainer/MenuBtn" to="." method="_on_menu_pressed"]

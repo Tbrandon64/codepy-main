@@ -1,0 +1,116 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2y8q3h5mw9jk"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_2kp8l"]
+
+[node name="Game" type="Control"]
+layout_mode = 3
+anchors_left = 0.0
+anchors_top = 0.0
+anchors_right = 1.0
+anchors_bottom = 1.0
+script = ExtResource("1_2kp8l")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_left = 0.0
+anchors_top = 0.0
+anchors_right = 1.0
+anchors_bottom = 1.0
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_left = 0.1
+anchors_top = 0.1
+anchors_right = 0.9
+anchors_bottom = 0.9
+
+[node name="Header" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 60)
+
+[node name="DifficultyLabel" type="Label" parent="VBoxContainer/Header"]
+layout_mode = 2
+text = "Difficulty: Easy"
+add_theme_font_size_override("font_size", 20)
+add_theme_color_override("font_color", Color.CYAN)
+
+[node name="ScoreLabel" type="Label" parent="VBoxContainer/Header"]
+layout_mode = 2
+text = "Score: 0/0"
+horizontal_alignment = 2
+add_theme_font_size_override("font_size", 20)
+add_theme_color_override("font_color", Color.CYAN)
+
+[node name="ProblemContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 150)
+
+[node name="ProblemLabel" type="Label" parent="VBoxContainer/ProblemContainer"]
+layout_mode = 2
+text = "0 + 0 = ?"
+horizontal_alignment = 1
+vertical_alignment = 1
+add_theme_font_size_override("font_size", 48)
+add_theme_color_override("font_color", Color.WHITE)
+
+[node name="Spacer" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 30)
+
+[node name="OptionsGrid" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+columns = 2
+custom_minimum_size = Vector2(0, 300)
+
+[node name="Option1Btn" type="Button" parent="VBoxContainer/OptionsGrid"]
+layout_mode = 2
+custom_minimum_size = Vector2(200, 70)
+text = "0"
+add_theme_font_size_override("font_size", 24)
+
+[node name="Option2Btn" type="Button" parent="VBoxContainer/OptionsGrid"]
+layout_mode = 2
+custom_minimum_size = Vector2(200, 70)
+text = "0"
+add_theme_font_size_override("font_size", 24)
+
+[node name="Option3Btn" type="Button" parent="VBoxContainer/OptionsGrid"]
+layout_mode = 2
+custom_minimum_size = Vector2(200, 70)
+text = "0"
+add_theme_font_size_override("font_size", 24)
+
+[node name="Option4Btn" type="Button" parent="VBoxContainer/OptionsGrid"]
+layout_mode = 2
+custom_minimum_size = Vector2(200, 70)
+text = "0"
+add_theme_font_size_override("font_size", 24)
+
+[node name="BackBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(100, 50)
+text = "Back to Menu"
+
+[node name="ResultDialog" type="AcceptDialog" parent="."]
+title = "Result"
+initial_position = 2
+size = Vector2i(400, 200)
+
+[node name="ResultLabel" type="Label" parent="ResultDialog"]
+layout_mode = 2
+anchor_left = 0.1
+anchor_top = 0.2
+anchor_right = 0.9
+anchor_bottom = 0.7
+text = "Correct!"
+horizontal_alignment = 1
+vertical_alignment = 1
+add_theme_font_size_override("font_size", 28)
+
+[connection signal="pressed" from="VBoxContainer/OptionsGrid/Option1Btn" to="." method="_on_option_selected" binds=[0]]
+[connection signal="pressed" from="VBoxContainer/OptionsGrid/Option2Btn" to="." method="_on_option_selected" binds=[1]]
+[connection signal="pressed" from="VBoxContainer/OptionsGrid/Option3Btn" to="." method="_on_option_selected" binds=[2]]
+[connection signal="pressed" from="VBoxContainer/OptionsGrid/Option4Btn" to="." method="_on_option_selected" binds=[3]]
+[connection signal="pressed" from="VBoxContainer/BackBtn" to="." method="_on_back_pressed"]
+[connection signal="confirmed" from="ResultDialog" to="." method="_on_result_confirmed"]
