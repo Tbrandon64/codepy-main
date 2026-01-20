@@ -12,6 +12,9 @@ run/main_scene="res://scenes/main_menu.tscn"
 [autoload]
 GameManager="*res://scripts/game_manager.gd"
 HighScoreManager="*res://scripts/high_score_manager.gd"
+EnergySystem="*res://scripts/energy_system.gd"
+AdventureManager="*res://scripts/adventure_manager.gd"
+FeatureConfig="*res://scripts/feature_config.gd"
 
 [debug]
 gdscript/warnings/unused_variable=1

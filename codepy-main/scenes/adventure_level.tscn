@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0n7lnbqk5uqm"]
+
+[ext_resource type="Script" path="res://scripts/adventure_level.gd" id="1_a2b3c"]
+
+[node name="AdventureLevel" type="Control"]
+layout_mode = 3
+anchors_left = 0.0
+anchors_top = 0.0
+anchors_right = 1.0
+anchors_bottom = 1.0
+script = ExtResource("1_a2b3c")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_left = 0.0
+anchors_top = 0.0
+anchors_right = 1.0
+anchors_bottom = 1.0
+color = Color(0.1, 0.1, 0.2, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_left = 0.5
+anchors_top = 0.5
+anchors_right = 0.5
+anchors_bottom = 0.5
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 200.0
+
+[node name="LevelLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Adventure Level"
+text_overrun_behavior = 3
+
+[node name="ScoreLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Score: 0"
+text_overrun_behavior = 3
+
+[node name="TimerLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Time: 15.0"
+text_overrun_behavior = 3
+
+[node name="EnergyLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Energy: 100/100"
+text_overrun_behavior = 3
+
+[node name="ProblemLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "1 + 1 = ?"
+text_overrun_behavior = 3
+
+[node name="ButtonsContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1

@@ -2,6 +2,9 @@ extends Control
 
 var current_problem: GameManager.MathProblem
 var waiting_for_answer: bool = false
+var game_start_time: float = 0.0
+var total_correct: int = 0
+var total_attempted: int = 0
 
 func _ready() -> void:
 	# Connect buttons
@@ -11,6 +14,16 @@ func _ready() -> void:
 	$VBoxContainer/OptionsGrid/Option4Btn.pressed.connect(_on_option_selected.bindv([3]))
 	$VBoxContainer/BackBtn.pressed.connect(_on_back_pressed)
 	$ResultDialog.confirmed.connect(_on_result_confirmed)
+	
+	# Consume energy if enabled
+	if FeatureConfig.energy_system_enabled:
+		var difficulty_str = GameManager.Difficulty.keys()[GameManager.current_difficulty].to_lower()
+		var cost = EnergySystem.calculate_energy_cost("single_player", difficulty_str)
+		if not EnergySystem.consume_energy(cost, "game_start"):
+			_show_error_dialog("Not enough energy to play. Please try again later.")
+			return
+	
+	game_start_time = Time.get_ticks_msec() / 1000.0
 	
 	# Display initial problem
 	_display_next_problem()
@@ -54,6 +67,10 @@ func _on_option_selected(option_index: int) -> void:
 	var selected_answer = current_problem.options[option_index]
 	var is_correct = GameManager.check_answer(selected_answer)
 	
+	total_attempted += 1
+	if is_correct:
+		total_correct += 1
+	
 	# Show result
 	var result_text = "Correct!" if is_correct else "Wrong!\nCorrect answer: %d" % current_problem.correct_answer
 	var result_color = Color.GREEN if is_correct else Color.RED
@@ -76,6 +93,22 @@ func _on_option_selected(option_index: int) -> void:
 func _on_result_confirmed() -> void:
 	_display_next_problem()
 
+## Show error dialog
+func _show_error_dialog(message: String) -> void:
+	var dialog = AcceptDialog.new()
+	dialog.title = "Error"
+	dialog.dialog_text = message
+	dialog.confirmed.connect(func(): get_tree().change_scene_to_file("res://scenes/main_menu.tscn"))
+	add_child(dialog)
+	dialog.popup_centered()
+
 ## Go back to main menu
 func _on_back_pressed() -> void:
+	# Award energy based on performance if enabled
+	if FeatureConfig.energy_system_enabled and total_attempted > 0:
+		var accuracy = float(total_correct) / float(total_attempted)
+		var bonus_energy = int(accuracy * 5.0)  # Max 5 energy bonus
+		if bonus_energy > 0:
+			EnergySystem.gain_energy(bonus_energy, "game_performance_bonus")
+	
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")

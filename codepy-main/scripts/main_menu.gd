@@ -12,6 +12,10 @@ func _ready() -> void:
 	$VBoxContainer/SinglePlayerBtn.pressed.connect(_on_single_player_pressed)
 	$VBoxContainer/HostBtn.pressed.connect(_on_host_pressed)
 	$VBoxContainer/JoinBtn.pressed.connect(_on_join_pressed)
+	if FeatureConfig.adventure_mode_enabled:
+		$VBoxContainer/AdventureBtn.pressed.connect(_on_adventure_pressed)
+	if FeatureConfig.teacher_portal_enabled:
+		$VBoxContainer/TeacherPortalBtn.pressed.connect(_on_teacher_portal_pressed)
 	$VBoxContainer/QuitBtn.pressed.connect(_on_quit_pressed)
 	
 	# Connect dialog signals
@@ -36,6 +40,11 @@ func _setup_button_styles() -> void:
 	var single_btn = $VBoxContainer/SinglePlayerBtn
 	_style_button(single_btn, Color(0, 0.4, 1, 1), font, font_size)
 	
+	# Adventure - Purple
+	if FeatureConfig.adventure_mode_enabled:
+		var adventure_btn = $VBoxContainer/AdventureBtn
+		_style_button(adventure_btn, Color(0.8, 0, 0.8, 1), font, font_size)
+	
 	# Host - Green
 	var host_btn = $VBoxContainer/HostBtn
 	_style_button(host_btn, Color(0, 1, 0, 1), font, font_size)
@@ -43,6 +52,11 @@ func _setup_button_styles() -> void:
 	# Join - Orange
 	var join_btn = $VBoxContainer/JoinBtn
 	_style_button(join_btn, Color(1, 0.65, 0, 1), font, font_size)
+	
+	# Teacher Portal - Red/Dark Red
+	if FeatureConfig.teacher_portal_enabled:
+		var teacher_btn = $VBoxContainer/TeacherPortalBtn
+		_style_button(teacher_btn, Color(0.7, 0, 0, 1), font, 20)
 	
 	# Quit - Red
 	var quit_btn = $VBoxContainer/QuitBtn
@@ -70,6 +84,17 @@ func _style_button(button: Button, color: Color, font: Font, font_size: int) -> 
 func _on_single_player_pressed() -> void:
 	# Load single player scene
 	get_tree().change_scene_to_file("res://scenes/single_player.tscn")
+
+func _on_adventure_pressed() -> void:
+	# Start adventure mode
+	if FeatureConfig.energy_system_enabled:
+		# Initialize adventure if needed
+		AdventureManager.start_adventure()
+	get_tree().change_scene_to_file("res://scenes/adventure_map.tscn")
+
+func _on_teacher_portal_pressed() -> void:
+	# Load teacher portal
+	get_tree().change_scene_to_file("res://scenes/teacher_portal.tscn")
 
 func _on_host_pressed() -> void:
 	# Show port input dialog

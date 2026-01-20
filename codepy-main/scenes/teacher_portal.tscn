@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://btl1m8xqk5uvw"]
+
+[ext_resource type="Script" path="res://scripts/teacher_portal.gd" id="1_t4c5e"]
+
+[node name="TeacherPortal" type="Control"]
+layout_mode = 3
+anchors_left = 0.0
+anchors_top = 0.0
+anchors_right = 1.0
+anchors_bottom = 1.0
+script = ExtResource("1_t4c5e")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_left = 0.0
+anchors_top = 0.0
+anchors_right = 1.0
+anchors_bottom = 1.0
+color = Color(0.1, 0.1, 0.15, 1)

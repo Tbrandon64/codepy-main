@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4ux7mrlk5sxnk"]
+
+[ext_resource type="Script" path="res://scripts/adventure_map.gd" id="1_m9c3h"]
+
+[node name="AdventureMap" type="Control"]
+layout_mode = 3
+anchors_left = 0.0
+anchors_top = 0.0
+anchors_right = 1.0
+anchors_bottom = 1.0
+script = ExtResource("1_m9c3h")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_left = 0.0
+anchors_top = 0.0
+anchors_right = 1.0
+anchors_bottom = 1.0
+color = Color(0.1, 0.1, 0.2, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_left = 0.0
+anchors_top = 0.0
+anchors_right = 1.0
+anchors_bottom = 0.15
+offset_right = 0.0
+offset_bottom = 100.0
+
+[node name="Canvas" type="Control" parent="."]
+layout_mode = 1
+anchors_left = 0.0
+anchors_top = 0.15
+anchors_right = 1.0
+anchors_bottom = 1.0
