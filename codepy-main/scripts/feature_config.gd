@@ -94,7 +94,7 @@ func set_teacher_mode_active(active: bool) -> void:
 
 ## Update teacher settings
 func update_teacher_settings(new_settings: Dictionary) -> void:
-	teacher_settings = teacher_settings.merge(new_settings)
+	teacher_settings.merge(new_settings)
 	_save_configuration()
 
 ## Get a teacher setting value
