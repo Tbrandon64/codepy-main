@@ -288,9 +288,9 @@ FeatureConfig.set_teacher_portal_enabled(true)
 
 # Apply reasonable education defaults
 FeatureConfig.update_teacher_settings({
-    "difficulty_restrictions": [],  # No restrictions by default
-    "time_limit_multiplier": 1.5,  # 50% more time for students
-    "energy_cost_multiplier": 0.7  # 30% discount
+	"difficulty_restrictions": [],  # No restrictions by default
+	"time_limit_multiplier": 1.5,  # 50% more time for students
+	"energy_cost_multiplier": 0.7  # 30% discount
 })
 ```
 

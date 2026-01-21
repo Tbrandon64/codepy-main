@@ -126,7 +126,7 @@ var problem = SystemManager.safe_generate_problem()
 ```gdscript
 var saved = SystemManager.safe_save_score("Player", 100, "HARD")
 if not saved:
-    print("Score in memory only")
+	print("Score in memory only")
 ```
 
 ### Safe Achievement Update
@@ -144,9 +144,9 @@ SystemManager.safe_play_correct_sound()
 ### System Status Check
 ```gdscript
 if SystemManager.are_critical_systems_available():
-    print("Full features enabled")
+	print("Full features enabled")
 else:
-    print("Running in degraded mode")
+	print("Running in degraded mode")
 ```
 
 ---

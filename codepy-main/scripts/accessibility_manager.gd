@@ -256,5 +256,5 @@ func get_animation_duration(default_duration: float) -> float:
 # Helper to check if any accessibility features are enabled
 func has_accessibility_features() -> bool:
 	return high_contrast_enabled or tts_enabled or font_size_multiplier != 1.0 or \
-	       colorblind_mode != "none" or screen_reader_enabled or show_button_hints or \
-	       captions_enabled or dyslexia_friendly_font or reduce_animations
+		   colorblind_mode != "none" or screen_reader_enabled or show_button_hints or \
+		   captions_enabled or dyslexia_friendly_font or reduce_animations

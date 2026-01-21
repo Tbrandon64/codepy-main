@@ -111,53 +111,53 @@ set_difficulty()                # Configuration action
 **backup_system.py:**
 ```python
 class BackupSystem:
-    """Unified backup system interface for MathBlat.
+	"""Unified backup system interface for MathBlat.
     
     Provides fallback implementations for core game systems (problem generation,
     score management, configuration) if Godot systems fail completely.
     Implements lazy-loading for optional features like teacher mode.
-    """
+	"""
 ```
 
 **problem_generator.py:**
 ```python
 def _calculate_answer(self, op1: int, op2: int, operation: str) -> int:
-    """Calculate correct answer for given operands and operation.
+	"""Calculate correct answer for given operands and operation.
     
     Args:
         op1: First operand (left side)
         op2: Second operand (right side)
-        operation: Operator string ("+", "-", "*", "/")
+		operation: Operator string ("+", "-", "*", "/")
         
     Returns:
         Calculated integer result, or None if operation invalid/impossible
-    """
-    try:
-        # Addition
-        if operation == "+":
-            return op1 + op2
-        # Subtraction
-        elif operation == "-":
-            return op1 - op2
-        # ... etc
+	"""
+	try:
+		# Addition
+		if operation == "+":
+			return op1 + op2
+		# Subtraction
+		elif operation == "-":
+			return op1 - op2
+		# ... etc
 ```
 
 **score_manager.py:**
 ```python
 class ScoreManager:
-    """Manage high scores with persistent JSON storage.
+	"""Manage high scores with persistent JSON storage.
     
     Stores and retrieves player high scores with automatic ranking.
     Persists scores to ~/.mathblat/high_scores.json by default.
     Maintains a maximum of 10 high score entries.
-    """
-    
-    # Default storage directory (~/.mathblat/)
-    DEFAULT_SCORES_DIR = Path.home() / ".mathblat"
-    # Default scores file location
-    DEFAULT_SCORES_FILE = DEFAULT_SCORES_DIR / "high_scores.json"
-    # Maximum number of high scores to keep
-    MAX_HIGH_SCORES = 10
+	"""
+	
+	# Default storage directory (~/.mathblat/)
+	DEFAULT_SCORES_DIR = Path.home() / ".mathblat"
+	# Default scores file location
+	DEFAULT_SCORES_FILE = DEFAULT_SCORES_DIR / "high_scores.json"
+	# Maximum number of high scores to keep
+	MAX_HIGH_SCORES = 10
 ```
 
 #### GDScript Comments Added
@@ -181,18 +181,18 @@ class ScoreManager:
 
 ## Problem data structure with clearly organized fields
 class MathProblem:
-    ## First number in the problem
-    var operand1: int
-    ## Second number in the problem
-    var operand2: int
-    ## Operation symbol: "+", "-", "*", or "/"
-    var operation: String
-    ## The correct answer to the problem
-    var correct_answer: int
-    ## List of 4 multiple choice options (includes correct answer)
-    var options: Array[int]
-    ## Human-readable problem text (e.g., "5 + 3 = ?")
-    var problem_text: String
+	## First number in the problem
+	var operand1: int
+	## Second number in the problem
+	var operand2: int
+	## Operation symbol: "+", "-", "*", or "/"
+	var operation: String
+	## The correct answer to the problem
+	var correct_answer: int
+	## List of 4 multiple choice options (includes correct answer)
+	var options: Array[int]
+	## Human-readable problem text (e.g., "5 + 3 = ?")
+	var problem_text: String
 ```
 
 **Comment Style Rules Applied:**
@@ -296,11 +296,11 @@ problem_type          # GOOD - categorization
 ```python
 # Consistent pattern: try-except-return None
 try:
-    # operation
-    return result
+	# operation
+	return result
 except Exception as e:
-    print(f"WARNING: Operation failed: {e}")
-    return None
+	print(f"WARNING: Operation failed: {e}")
+	return None
 ```
 
 **Function Organization:**
@@ -421,20 +421,20 @@ Already comprehensive; verified it covers:
 **BEFORE:**
 ```python
 def generate_problem(self) -> Dict:
-    """Generate a math problem based on current difficulty
+	"""Generate a math problem based on current difficulty
     Optimized with cached difficulty ranges and operation array
-    """
-    try:
-        var problem = MathProblem.new()
-        
-        # Get difficulty range from cache
-        var range_data = _difficulty_ranges.get(current_difficulty, _difficulty_ranges[Difficulty.EASY])
+	"""
+	try:
+		var problem = MathProblem.new()
+		
+		# Get difficulty range from cache
+		var range_data = _difficulty_ranges.get(current_difficulty, _difficulty_ranges[Difficulty.EASY])
 ```
 
 **AFTER:**
 ```python
 def generate_problem(self) -> Dict:
-    """Generate a math problem based on current difficulty.
+	"""Generate a math problem based on current difficulty.
     
     Creates a random problem using the current difficulty level.
     Operands are chosen from the difficulty-specific range.
@@ -443,13 +443,13 @@ def generate_problem(self) -> Dict:
     Returns:
         MathProblem object with all fields populated
         (fallback problem if generation fails)
-    """
-    try:
-        # Create new problem instance
-        problem = MathProblem.new()
-        
-        # Get difficulty range from cache (EASY/MEDIUM/HARD)
-        range_data = _difficulty_ranges.get(current_difficulty, _difficulty_ranges[Difficulty.EASY])
+	"""
+	try:
+		# Create new problem instance
+		problem = MathProblem.new()
+		
+		# Get difficulty range from cache (EASY/MEDIUM/HARD)
+		range_data = _difficulty_ranges.get(current_difficulty, _difficulty_ranges[Difficulty.EASY])
 ```
 
 ### Example 2: GDScript Class Documentation

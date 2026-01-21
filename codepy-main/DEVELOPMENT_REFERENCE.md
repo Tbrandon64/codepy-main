@@ -129,18 +129,18 @@ HighScoreManager.get_high_scores()
 ```gdscript
 @rpc("authority", "call_local", "reliable")
 func _sync_problem(num1: int, operation: String, num2: int, options: Array) -> void:
-    # Only host authority can call
-    # Called locally on host + synced to clients
-    # Reliable delivery (no packet loss)
-    pass
+	# Only host authority can call
+	# Called locally on host + synced to clients
+	# Reliable delivery (no packet loss)
+	pass
 ```
 
 ### Signal Connection Pattern
 ```gdscript
 func _ready() -> void:
-    button.pressed.connect(_on_button_pressed)
-    timer.timeout.connect(_on_timer_timeout)
-    multiplayer.peer_connected.connect(_on_peer_connected)
+	button.pressed.connect(_on_button_pressed)
+	timer.timeout.connect(_on_timer_timeout)
+	multiplayer.peer_connected.connect(_on_peer_connected)
 ```
 
 ### Tween Animation Pattern
@@ -177,11 +177,11 @@ var is_host: bool = false
 ### Math Problem
 ```gdscript
 class MathProblem:
-    var num1: int
-    var num2: int
-    var operation: String  # "+", "-", "*", "/"
-    var correct_answer: int
-    var options: Array[int]  # 4 choices
+	var num1: int
+	var num2: int
+	var operation: String  # "+", "-", "*", "/"
+	var correct_answer: int
+	var options: Array[int]  # 4 choices
 ```
 
 ---
@@ -233,8 +233,8 @@ var win_score: int = 100  # Change this value
 File: `game_manager.gd`
 ```gdscript
 func check_answer(option_index: int) -> bool:
-    var points = 10 * (int(current_difficulty) + 1)  # Modify multiplier
-    GameManager.score += points
+	var points = 10 * (int(current_difficulty) + 1)  # Modify multiplier
+	GameManager.score += points
 ```
 
 ### Change Countdown Time
@@ -248,10 +248,10 @@ $GameTimer.wait_time = 1.0  # Must match
 File: `game_scene.gd`
 ```gdscript
 func _get_ai_answer() -> int:
-    if randf() < 0.7:  # Change 0.7 to adjust AI accuracy
-        return problem.correct_answer
-    else:
-        return problem.options[randi() % 4]
+	if randf() < 0.7:  # Change 0.7 to adjust AI accuracy
+		return problem.correct_answer
+	else:
+		return problem.options[randi() % 4]
 ```
 
 ### Customize Colors
@@ -288,7 +288,7 @@ window/size/viewport_height=768
 # In _process(delta)
 var fps = 1.0 / delta
 if int(fps) % 10 == 0:
-    print("FPS: %.1f" % fps)
+	print("FPS: %.1f" % fps)
 ```
 
 ---

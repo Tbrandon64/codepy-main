@@ -86,8 +86,8 @@ Systematically improved code organization, clarity, and consistency across the M
 **Before**:
 ```gdscript
 func _generate_perfect_square() -> Dictionary:
-    try:
-        var base = randi_range(2, 10)  # 2-10
+	try:
+		var base = randi_range(2, 10)  # 2-10
 ```
 
 **After**:
@@ -190,10 +190,10 @@ Comprehensive style guide with:
 ```
 a4e7f61 docs: Add code quality improvement summary
 74d9a03 refactor: Improve code quality and consistency
-        ├── Improved comments across 4 systems
-        ├── Simplified error messages
-        ├── Better documentation
-        └── Added CODE_STYLE_GUIDE.md
+		├── Improved comments across 4 systems
+		├── Simplified error messages
+		├── Better documentation
+		└── Added CODE_STYLE_GUIDE.md
 ```
 
 ---

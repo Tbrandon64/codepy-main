@@ -414,7 +414,7 @@ name: Export MathBlat
 on:
   push:
     tags:
-      - 'v*'
+	  - 'v*'
 
 jobs:
   export-web:
@@ -423,7 +423,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '7.0'
+		  dotnet-version: '7.0'
       - name: Download Godot
         run: |
           wget https://github.com/godotengine/godot-builds/releases/download/4.5-stable/Godot_v4.5-stable_linux.x86_64.zip
@@ -510,7 +510,7 @@ package/unique_name="com.company.mathblat"
 # In game_scene.gd _process():
 var fps = Engine.get_frames_drawn() % 60
 if fps == 0:
-    print("FPS: %d" % int(1.0 / delta))
+	print("FPS: %d" % int(1.0 / delta))
 ```
 
 ---

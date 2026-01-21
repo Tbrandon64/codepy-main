@@ -22,9 +22,9 @@ For advanced logic, check availability first:
 
 ```gdscript
 if SystemManager.systems_available["AchievementSystem"]:
-    SystemManager.safe_unlock_achievement("first_ten_correct")
+	SystemManager.safe_unlock_achievement("first_ten_correct")
 else:
-    print("Achievements not available")
+	print("Achievements not available")
 ```
 
 ---
@@ -45,9 +45,9 @@ display_problem(problem)
 # Save score with error handling
 var saved = SystemManager.safe_save_score(player_name, score, difficulty)
 if saved:
-    print("Score saved!")
+	print("Score saved!")
 else:
-    print("Score saved in memory only (not persisted)")
+	print("Score saved in memory only (not persisted)")
 ```
 
 ### Achievement Updates
@@ -104,12 +104,12 @@ var saved = SystemManager.safe_save_setting("Audio", "MasterVolume", 0.8)
 ```gdscript
 # Check if specific system is available
 if SystemManager.systems_available["GameManager"]:
-    print("Game system operational")
+	print("Game system operational")
 
 # Get all system status
 var status = SystemManager.get_system_status()
 for system_name in status.keys():
-    print("%s: %s" % [system_name, "✅" if status[system_name] else "❌"])
+	print("%s: %s" % [system_name, "✅" if status[system_name] else "❌"])
 ```
 
 ### Detect Failures
@@ -117,12 +117,12 @@ for system_name in status.keys():
 ```gdscript
 # Check if any system failed
 if SystemManager.are_any_systems_failed():
-    var failed = SystemManager.get_failed_systems()
-    print("Failed systems: ", failed)
+	var failed = SystemManager.get_failed_systems()
+	print("Failed systems: ", failed)
 
 # Check if critical systems available
 if not SystemManager.are_critical_systems_available():
-    print("WARNING: Critical systems unavailable!")
+	print("WARNING: Critical systems unavailable!")
 ```
 
 ### Attempt Recovery
@@ -130,9 +130,9 @@ if not SystemManager.are_critical_systems_available():
 ```gdscript
 # Try to reinitialize a system
 if SystemManager.reinitialize_system("AudioManager"):
-    print("AudioManager reinitialized successfully")
+	print("AudioManager reinitialized successfully")
 else:
-    print("Failed to reinitialize AudioManager")
+	print("Failed to reinitialize AudioManager")
 ```
 
 ---
@@ -145,32 +145,32 @@ else:
 extends Node
 
 func _ready() -> void:
-    # Verify systems at game start
-    if not SystemManager.are_critical_systems_available():
-        print("WARNING: Running in degraded mode")
-    
-    start_game()
+	# Verify systems at game start
+	if not SystemManager.are_critical_systems_available():
+		print("WARNING: Running in degraded mode")
+	
+	start_game()
 
 func start_game() -> void:
-    var problem = SystemManager.safe_generate_problem()
-    display_problem(problem)
+	var problem = SystemManager.safe_generate_problem()
+	display_problem(problem)
 
 func on_answer_selected(answer: int) -> void:
-    var is_correct = GameManager.check_answer(answer)
-    
-    if is_correct:
-        SystemManager.safe_on_correct_answer()
-        SystemManager.safe_play_correct_sound()
-    else:
-        SystemManager.safe_play_wrong_sound()
+	var is_correct = GameManager.check_answer(answer)
+	
+	if is_correct:
+		SystemManager.safe_on_correct_answer()
+		SystemManager.safe_play_correct_sound()
+	else:
+		SystemManager.safe_play_wrong_sound()
 
 func on_game_won() -> void:
-    var saved = SystemManager.safe_save_score(
-        player_name, 
-        GameManager.score, 
+	var saved = SystemManager.safe_save_score(
+		player_name, 
+		GameManager.score, 
         "MEDIUM"
-    )
-    show_victory_screen()
+	)
+	show_victory_screen()
 ```
 
 ### In Main Menu
@@ -179,26 +179,26 @@ func on_game_won() -> void:
 extends Node
 
 func _ready() -> void:
-    SystemManager.verify_all_systems()
-    SystemManager.report_system_status()
-    
-    # Adjust UI based on available systems
-    if not SystemManager.systems_available["LocalizationManager"]:
-        print("Translation not available, using English")
+	SystemManager.verify_all_systems()
+	SystemManager.report_system_status()
+	
+	# Adjust UI based on available systems
+	if not SystemManager.systems_available["LocalizationManager"]:
+		print("Translation not available, using English")
 
 func on_settings_pressed() -> void:
-    # Load settings with fallback
-    var master_volume = SystemManager.safe_load_setting(
-        "Audio", 
-        "MasterVolume", 
-        1.0
-    )
-    
-    show_settings_dialog(master_volume)
+	# Load settings with fallback
+	var master_volume = SystemManager.safe_load_setting(
+		"Audio", 
+		"MasterVolume", 
+		1.0
+	)
+	
+	show_settings_dialog(master_volume)
 
 func on_volume_changed(new_volume: float) -> void:
-    # Save settings
-    SystemManager.safe_save_setting("Audio", "MasterVolume", new_volume)
+	# Save settings
+	SystemManager.safe_save_setting("Audio", "MasterVolume", new_volume)
 ```
 
 ### In Pause Menu
@@ -207,21 +207,21 @@ func on_volume_changed(new_volume: float) -> void:
 extends Node
 
 func _ready() -> void:
-    # Display current system status
-    update_status_indicator()
+	# Display current system status
+	update_status_indicator()
 
 func update_status_indicator() -> void:
-    var status = SystemManager.get_system_status()
-    var available = 0
-    
-    for system_available in status.values():
-        if system_available:
-            available += 1
-    
-    status_label.text = "Systems: %d/7 operational" % available
-    
-    if available < 5:
-        status_label.add_theme_color_override("font_color", Color.YELLOW)
+	var status = SystemManager.get_system_status()
+	var available = 0
+	
+	for system_available in status.values():
+		if system_available:
+			available += 1
+	
+	status_label.text = "Systems: %d/7 operational" % available
+	
+	if available < 5:
+		status_label.add_theme_color_override("font_color", Color.YELLOW)
 ```
 
 ---
@@ -232,42 +232,42 @@ func update_status_indicator() -> void:
 
 ```gdscript
 func safe_game_operation() -> void:
-    try:
-        # Attempt operation
-        SystemManager.safe_on_correct_answer()
-    except:
-        print("Operation failed, using basic mode")
-        # Fallback behavior
+	try:
+		# Attempt operation
+		SystemManager.safe_on_correct_answer()
+	except:
+		print("Operation failed, using basic mode")
+		# Fallback behavior
 ```
 
 ### Null Safety Check
 
 ```gdscript
 func use_system(system_name: String) -> void:
-    if SystemManager.systems_available.has(system_name):
-        if SystemManager.systems_available[system_name]:
-            # System is available
-            pass
-        else:
-            print("System '%s' unavailable" % system_name)
-    else:
-        print("Unknown system '%s'" % system_name)
+	if SystemManager.systems_available.has(system_name):
+		if SystemManager.systems_available[system_name]:
+			# System is available
+			pass
+		else:
+			print("System '%s' unavailable" % system_name)
+	else:
+		print("Unknown system '%s'" % system_name)
 ```
 
 ### Graceful Degradation
 
 ```gdscript
 func update_ui() -> void:
-    # Always show basics
-    score_label.text = str(GameManager.score)
-    
-    # Only show extras if available
-    if SystemManager.systems_available["GameplayEnhancementSystem"]:
-        combo_label.visible = true
-        streak_label.visible = true
-    else:
-        combo_label.visible = false
-        streak_label.visible = false
+	# Always show basics
+	score_label.text = str(GameManager.score)
+	
+	# Only show extras if available
+	if SystemManager.systems_available["GameplayEnhancementSystem"]:
+		combo_label.visible = true
+		streak_label.visible = true
+	else:
+		combo_label.visible = false
+		streak_label.visible = false
 ```
 
 ---
@@ -300,11 +300,11 @@ SystemManager.reinitialize_system("AudioManager")
 print("After: %d systems available" % calculate_available())
 
 func calculate_available() -> int:
-    var count = 0
-    for available in SystemManager.systems_available.values():
-        if available:
-            count += 1
-    return count
+	var count = 0
+	for available in SystemManager.systems_available.values():
+		if available:
+			count += 1
+	return count
 ```
 
 ---
@@ -315,34 +315,34 @@ func calculate_available() -> int:
 
 ```gdscript
 func load_game_settings() -> void:
-    var difficulty = SystemManager.safe_load_setting(
-        "Game", 
-        "Difficulty", 
+	var difficulty = SystemManager.safe_load_setting(
+		"Game", 
+		"Difficulty", 
         "EASY"
-    )
-    
-    var volume = SystemManager.safe_load_setting(
-        "Audio", 
-        "MasterVolume", 
-        1.0
-    )
-    
-    var language = SystemManager.safe_load_setting(
-        "Localization", 
-        "Language", 
+	)
+	
+	var volume = SystemManager.safe_load_setting(
+		"Audio", 
+		"MasterVolume", 
+		1.0
+	)
+	
+	var language = SystemManager.safe_load_setting(
+		"Localization", 
+		"Language", 
         "EN"
-    )
-    
-    apply_settings(difficulty, volume, language)
+	)
+	
+	apply_settings(difficulty, volume, language)
 ```
 
 ### Save All Settings
 
 ```gdscript
 func save_game_settings() -> void:
-    SystemManager.safe_save_setting("Game", "Difficulty", current_difficulty)
-    SystemManager.safe_save_setting("Audio", "MasterVolume", master_volume)
-    SystemManager.safe_save_setting("Localization", "Language", current_language)
+	SystemManager.safe_save_setting("Game", "Difficulty", current_difficulty)
+	SystemManager.safe_save_setting("Audio", "MasterVolume", master_volume)
+	SystemManager.safe_save_setting("Localization", "Language", current_language)
 ```
 
 ---
