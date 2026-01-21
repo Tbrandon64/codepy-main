@@ -3,23 +3,19 @@ extends Node
 ## Localization Manager - Handles multi-language support for the game
 ## Supports: English, Spanish, French (easily extensible)
 
-class_name LocalizationManager
-
 var current_language: String = "en"
 var translations: Dictionary = {}
 var _current_translation_dict: Dictionary = {} # Cache for faster lookups
 
 func _ready() -> void:
-	try:
-		_initialize_translations()
-		# Load saved language preference
-		var saved_lang = ConfigFileHandler.load_setting("game", "language", "en") if ConfigFileHandler else "en"
-		set_language(saved_lang)
-	except:
-		# Fallback: Initialize English-only if initialization fails
-		print("WARNING: LocalizationManager initialization failed, using English-only mode")
-		_initialize_translations()
-		set_language("en")
+	_initialize_translations()
+	# Load saved language preference
+	var saved_lang = "en"
+	if ConfigFileHandler:
+		var loaded = ConfigFileHandler.load_setting("game", "language", "en")
+		if loaded != null:
+			saved_lang = loaded
+	set_language(saved_lang)
 
 ## Initialize all translation dictionaries
 func _initialize_translations() -> void:
@@ -166,94 +162,73 @@ func _initialize_translations() -> void:
 
 ## Set the current language
 func set_language(language_code: String) -> void:
-	try:
-		if not language_code or language_code.is_empty():
-			print("WARNING: set_language received empty language_code, using 'en'")
-			language_code = "en"
+	if not language_code or language_code.is_empty():
+		print("WARNING: set_language received empty language_code, using 'en'")
+		language_code = "en"
+	
+	if language_code in translations:
+		current_language = language_code
+		_current_translation_dict = translations[language_code]
 		
-		if language_code in translations:
-			current_language = language_code
-			_current_translation_dict = translations[language_code]
-			
-			if ConfigFileHandler:
-				try:
-					ConfigFileHandler.save_setting("game", "language", language_code)
-				except:
-					print("WARNING: Failed to save language preference for '%s'" % language_code)
-			language_changed.emit()
-		else:
-			# Fallback to English if language not found
-			print("WARNING: Language '%s' not found, falling back to English" % language_code)
-			current_language = "en"
-			if "en" in translations:
-				_current_translation_dict = translations["en"]
-			else:
-				print("ERROR: English language not found in translations!")
-				_current_translation_dict = {}
-			language_changed.emit()
-	except:
-		print("ERROR: set_language failed, defaulting to English")
+		if ConfigFileHandler:
+			var saved = ConfigFileHandler.save_setting("game", "language", language_code)
+			if not saved:
+				print("WARNING: Failed to save language preference for '%s'" % language_code)
+		language_changed.emit()
+	else:
+		# Fallback to English if language not found
+		print("WARNING: Language '%s' not found, falling back to English" % language_code)
 		current_language = "en"
-		_current_translation_dict = translations.get("en", {})
+		if "en" in translations:
+			_current_translation_dict = translations["en"]
+		else:
+			print("ERROR: English language not found in translations!")
+			_current_translation_dict = {}
+		language_changed.emit()
 
 ## Get translated string with safe fallback handling
 ## First tries current language, then English, then default text
 func get_text(key: String, default_text: String = "") -> String:
-	try:
-		if not key or key.is_empty():
-			print("WARNING: get_text received empty key")
-			return default_text
+	if not key or key.is_empty():
+		print("WARNING: get_text received empty key")
+		return default_text
+	
+	# Try current language
+	if _current_translation_dict and key in _current_translation_dict:
+		return _current_translation_dict[key]
 		
-		# Try current language
-		if _current_translation_dict and key in _current_translation_dict:
-			return _current_translation_dict[key]
-			
-		# Fallback to English if not found in current language (and current isn't English)
-		if current_language != "en" and "en" in translations and key in translations["en"]:
-			return translations["en"][key]
-			
-		return default_text
-	except:
-		print("ERROR: get_text failed for key '%s'" % key)
-		return default_text
+	# Fallback to English if not found in current language (and current isn't English)
+	if current_language != "en" and "en" in translations and key in translations["en"]:
+		return translations["en"][key]
+		
+	return default_text
 
 ## Get formatted translated string with variable substitution
 ## Handles format string errors gracefully
 func get_text_formatted(key: String, args: Array = []) -> String:
-	try:
-		var text = get_text(key, key)  # Use key as fallback if translation missing
-		if args.size() > 0:
+	var text = get_text(key, key)  # Use key as fallback if translation missing
+	if args.size() > 0:
+		if text.contains("%"):
 			text = text % args
-		return text
-	except:
-		print("ERROR: get_text_formatted failed for key '%s'" % key)
-		if args.size() > 0:
-			return (key % args) if key.contains("%") else key
-		return key
+		else:
+			print("WARNING: Text '%s' does not contain format specifiers" % key)
+	return text
 
 ## Get list of available languages
 func get_available_languages() -> Array[String]:
-	try:
-		return ["en", "es", "fr"]
-	except:
-		print("ERROR: get_available_languages failed, returning English only")
-		return ["en"]
+	return ["en", "es", "fr"]
 
 ## Get language display name
 func get_language_name(language_code: String) -> String:
-	try:
-		if not language_code or language_code.is_empty():
-			print("WARNING: get_language_name received empty language_code")
-			return "Unknown"
-		
-		var names = {
-			"en": "English",
-			"es": "Español",
-			"fr": "Français"
-		}
-		return names.get(language_code, language_code)
-	except:
-		print("ERROR: get_language_name failed for '%s'" % language_code)
-		return language_code
+	if not language_code or language_code.is_empty():
+		print("WARNING: get_language_name received empty language_code")
+		return "Unknown"
+	
+	var names = {
+		"en": "English",
+		"es": "Español",
+		"fr": "Français"
+	}
+	return names.get(language_code, language_code)
 
 signal language_changed

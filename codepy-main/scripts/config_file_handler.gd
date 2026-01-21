@@ -3,8 +3,6 @@ extends Node
 ## Configuration and Settings Manager - Handles persistent game settings
 ## Stores: language, volume, difficulty preferences, etc.
 
-class_name ConfigFileHandler
-
 const CONFIG_FILE = "user://mathblat_config.json"
 
 var config_data: Dictionary = {

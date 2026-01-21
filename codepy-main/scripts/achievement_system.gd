@@ -3,8 +3,6 @@ extends Node
 ## Achievement and Engagement System - Tracks player progress and unlocks
 ## Achievements: First Win, Perfect Game, Speed Demon, Combo Master, etc.
 
-class_name AchievementSystem
-
 const ACHIEVEMENTS_FILE = "user://math_blast_achievements.json"
 
 var achievements: Dictionary = {}
@@ -13,12 +11,9 @@ var player_experience: int = 0
 var experience_to_next_level: int = 100
 
 func _ready() -> void:
-	try:
+	if true:  # Always attempt initialization
 		_initialize_achievements()
 		load_achievements()
-	except:
-		print("WARNING: AchievementSystem initialization failed")
-		_initialize_achievements()  # Ensure basic structure exists
 
 ## Initialize achievement definitions
 func _initialize_achievements() -> void:
@@ -83,15 +78,17 @@ func _initialize_achievements() -> void:
 
 ## Unlock an achievement
 func unlock_achievement(achievement_id: String) -> void:
-	try:
-		if achievement_id in achievements and not achievements[achievement_id]["unlocked"]:
-			achievements[achievement_id]["unlocked"] = true
-			var exp_gain = achievements[achievement_id]["points"]
-			add_experience(exp_gain)
-			achievement_unlocked.emit(achievement_id, achievements[achievement_id]["name"])
-			save_achievements()
-	except:
-		print("WARNING: Failed to unlock achievement '%s'" % achievement_id)
+	if achievement_id in achievements and not achievements[achievement_id]["unlocked"]:
+		achievements[achievement_id]["unlocked"] = true
+		var exp_gain = achievements[achievement_id]["points"]
+		add_experience(exp_gain)
+		achievement_unlocked.emit(achievement_id, achievements[achievement_id]["name"])
+		var saved = save_achievements()
+		if not saved:
+			print("WARNING: Failed to save achievements for '%s'" % achievement_id)
+	else:
+		if not (achievement_id in achievements):
+			print("WARNING: Achievement '%s' not found" % achievement_id)
 
 ## Update achievement progress
 func update_progress(achievement_id: String, amount: int = 1) -> void:
@@ -104,16 +101,18 @@ func update_progress(achievement_id: String, amount: int = 1) -> void:
 
 ## Add experience and handle leveling
 func add_experience(amount: int) -> void:
-	try:
+	if amount > 0:
 		player_experience += amount
 		while player_experience >= experience_to_next_level:
 			player_experience -= experience_to_next_level
 			player_level += 1
 			experience_to_next_level = int(100 * pow(1.1, player_level))
 			level_up.emit(player_level)
-		save_achievements()
-	except:
-		print("WARNING: Failed to add experience")
+		var saved = save_achievements()
+		if not saved:
+			print("WARNING: Failed to save achievements after experience gain")
+	else:
+		print("WARNING: Invalid experience amount: %d" % amount)
 
 ## Get achievement info
 func get_achievement(achievement_id: String) -> Dictionary:
@@ -144,50 +143,56 @@ func get_progress_percentage(achievement_id: String) -> float:
 
 ## Save achievements to file
 func save_achievements() -> bool:
-	try:
-		var save_data = {
-			"achievements": achievements,
-			"player_level": player_level,
-			"player_experience": player_experience
-		}
-		var json_string = JSON.stringify(save_data)
-		var file = FileAccess.open(ACHIEVEMENTS_FILE, FileAccess.WRITE)
-		if file == null:
-			print("WARNING: Failed to open achievements file: ", FileAccess.get_open_error())
-			return false
-		file.store_string(json_string)
-		return true
-	except:
-		print("WARNING: Failed to save achievements")
+	var save_data = {
+		"achievements": achievements,
+		"player_level": player_level,
+		"player_experience": player_experience
+	}
+	var json_string = JSON.stringify(save_data)
+	var file = FileAccess.open(ACHIEVEMENTS_FILE, FileAccess.WRITE)
+	if file == null:
+		print("WARNING: Failed to open achievements file: ", FileAccess.get_open_error())
 		return false
+	if json_string.is_empty():
+		print("WARNING: Failed to stringify achievements data")
+		return false
+	file.store_string(json_string)
+	return true
 
 ## Load achievements from file
 func load_achievements() -> void:
-	try:
-		if not FileAccess.file_exists(ACHIEVEMENTS_FILE):
-			save_achievements()
-			return
-		
-		var file = FileAccess.open(ACHIEVEMENTS_FILE, FileAccess.READ)
-		if file == null:
-			print("WARNING: Failed to load achievements: ", FileAccess.get_open_error())
-			return
-		
-		var json = JSON.new()
-		var error = json.parse(file.get_as_text())
-		if error != OK:
-			print("WARNING: Failed to parse achievements JSON")
-			return
-		
-		var data = json.data
+	if not FileAccess.file_exists(ACHIEVEMENTS_FILE):
+		var saved = save_achievements()
+		if not saved:
+			print("WARNING: Failed to create achievements file")
+		return
+	
+	var file = FileAccess.open(ACHIEVEMENTS_FILE, FileAccess.READ)
+	if file == null:
+		print("WARNING: Failed to load achievements: ", FileAccess.get_open_error())
+		return
+	
+	var file_content = file.get_as_text()
+	if file_content.is_empty():
+		print("WARNING: Achievements file is empty")
+		return
+	
+	var json = JSON.new()
+	var error = json.parse(file_content)
+	if error != OK:
+		print("WARNING: Failed to parse achievements JSON")
+		return
+	
+	var data = json.data
+	if data and data is Dictionary:
 		if "achievements" in data:
 			achievements = data["achievements"]
 		if "player_level" in data:
 			player_level = data["player_level"]
 		if "player_experience" in data:
 			player_experience = data["player_experience"]
-	except:
-		print("WARNING: Failed to load achievements, using defaults")
+	else:
+		print("WARNING: Achievements data is not a valid Dictionary")
 
 signal achievement_unlocked(achievement_id: String, achievement_name: String)
 signal level_up(new_level: int)

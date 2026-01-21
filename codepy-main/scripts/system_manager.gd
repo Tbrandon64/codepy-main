@@ -3,8 +3,6 @@ extends Node
 ## System Manager - Handles initialization and fail-safes for all systems
 ## Detects missing/failed systems and provides fallback functionality
 
-class_name SystemManager
-
 # System availability flags
 var systems_available: Dictionary = {
 	"GameManager": false,
@@ -77,10 +75,15 @@ func report_system_status() -> void:
 ## Safe wrapper for GameManager.generate_problem()
 func safe_generate_problem():
 	if systems_available["GameManager"]:
-		try:
-			return GameManager.generate_problem()
-		except:
-			print("ERROR: Failed to generate problem")
+		if GameManager and GameManager.has_method("generate_problem"):
+			var result = GameManager.generate_problem()
+			if result:
+				return result
+			else:
+				print("ERROR: GameManager.generate_problem() returned null")
+				return _fallback_problem()
+		else:
+			print("ERROR: GameManager method not available")
 			return _fallback_problem()
 	else:
 		print("WARNING: GameManager unavailable, using fallback problem")
@@ -101,10 +104,15 @@ func _fallback_problem():
 ## Safe wrapper for LocalizationManager.get_text()
 func safe_get_text(key: String, default: String = "") -> String:
 	if systems_available["LocalizationManager"]:
-		try:
-			return LocalizationManager.get_text(key, default)
-		except:
-			print("WARNING: Localization failed for key '%s'" % key)
+		if LocalizationManager and LocalizationManager.has_method("get_text"):
+			var result = LocalizationManager.get_text(key, default)
+			if result != null:
+				return result
+			else:
+				print("WARNING: Localization returned null for key '%s'" % key)
+				return default
+		else:
+			print("WARNING: LocalizationManager not valid")
 			return default
 	else:
 		return default
@@ -112,11 +120,10 @@ func safe_get_text(key: String, default: String = "") -> String:
 ## Safe wrapper for AudioManager.play_correct_sound()
 func safe_play_correct_sound() -> void:
 	if systems_available["AudioManager"]:
-		try:
+		if AudioManager and AudioManager.has_method("play_correct_sound"):
 			AudioManager.play_correct_sound()
-		except:
-			print("WARNING: Failed to play correct sound")
-			# Game continues without audio
+		else:
+			print("WARNING: AudioManager method not available")
 	else:
 		# Audio system not available, game continues without sound
 		pass
@@ -124,11 +131,10 @@ func safe_play_correct_sound() -> void:
 ## Safe wrapper for AudioManager.play_wrong_sound()
 func safe_play_wrong_sound() -> void:
 	if systems_available["AudioManager"]:
-		try:
+		if AudioManager and AudioManager.has_method("play_wrong_sound"):
 			AudioManager.play_wrong_sound()
-		except:
-			print("WARNING: Failed to play wrong sound")
-			# Game continues without audio
+		else:
+			print("WARNING: AudioManager method not available")
 	else:
 		# Audio system not available, game continues without sound
 		pass
@@ -136,10 +142,10 @@ func safe_play_wrong_sound() -> void:
 ## Safe wrapper for AchievementSystem.unlock_achievement()
 func safe_unlock_achievement(achievement_id: String) -> void:
 	if systems_available["AchievementSystem"]:
-		try:
+		if AchievementSystem and AchievementSystem.has_method("unlock_achievement"):
 			AchievementSystem.unlock_achievement(achievement_id)
-		except:
-			print("WARNING: Failed to unlock achievement '%s'" % achievement_id)
+		else:
+			print("WARNING: AchievementSystem method not available")
 	else:
 		# Achievement system not available, game continues without achievements
 		pass
@@ -147,18 +153,18 @@ func safe_unlock_achievement(achievement_id: String) -> void:
 ## Safe wrapper for AchievementSystem.update_progress()
 func safe_update_achievement_progress(achievement_id: String, amount: int = 1) -> void:
 	if systems_available["AchievementSystem"]:
-		try:
+		if AchievementSystem and AchievementSystem.has_method("update_progress"):
 			AchievementSystem.update_progress(achievement_id, amount)
-		except:
-			print("WARNING: Failed to update achievement '%s'" % achievement_id)
+		else:
+			print("WARNING: AchievementSystem method not available")
 
 ## Safe wrapper for GameplayEnhancementSystem.on_correct_answer()
 func safe_on_correct_answer() -> void:
 	if systems_available["GameplayEnhancementSystem"]:
-		try:
+		if GameplayEnhancementSystem and GameplayEnhancementSystem.has_method("on_correct_answer"):
 			GameplayEnhancementSystem.on_correct_answer()
-		except:
-			print("WARNING: Failed to update correct answer state")
+		else:
+			print("WARNING: GameplayEnhancementSystem method not available")
 	else:
 		# Gameplay enhancements not available, basic gameplay continues
 		pass
@@ -166,10 +172,15 @@ func safe_on_correct_answer() -> void:
 ## Safe wrapper for GameplayEnhancementSystem.calculate_bonus_points()
 func safe_calculate_bonus_points(base_points: int) -> int:
 	if systems_available["GameplayEnhancementSystem"]:
-		try:
-			return GameplayEnhancementSystem.calculate_bonus_points(base_points)
-		except:
-			print("WARNING: Failed to calculate bonus points")
+		if GameplayEnhancementSystem and GameplayEnhancementSystem.has_method("calculate_bonus_points"):
+			var result = GameplayEnhancementSystem.calculate_bonus_points(base_points)
+			if result >= 0:
+				return result
+			else:
+				print("WARNING: calculate_bonus_points returned invalid value")
+				return base_points
+		else:
+			print("WARNING: GameplayEnhancementSystem method not available")
 			return base_points
 	else:
 		# No multipliers, return base points
@@ -178,10 +189,15 @@ func safe_calculate_bonus_points(base_points: int) -> int:
 ## Safe wrapper for HighScoreManager.save_score()
 func safe_save_score(player_name: String, score: int, difficulty: String) -> bool:
 	if systems_available["HighScoreManager"]:
-		try:
-			return HighScoreManager.save_score(player_name, score, difficulty)
-		except:
-			print("WARNING: Failed to save high score")
+		if HighScoreManager and HighScoreManager.has_method("save_score"):
+			var result = HighScoreManager.save_score(player_name, score, difficulty)
+			if result is bool:
+				return result
+			else:
+				print("WARNING: save_score returned invalid type")
+				return false
+		else:
+			print("WARNING: HighScoreManager method not available")
 			return false
 	else:
 		# High score system not available
@@ -191,10 +207,14 @@ func safe_save_score(player_name: String, score: int, difficulty: String) -> boo
 ## Safe wrapper for ConfigFileHandler.load_setting()
 func safe_load_setting(category: String, key: String, default = null):
 	if systems_available["ConfigFileHandler"]:
-		try:
-			return ConfigFileHandler.load_setting(category, key, default)
-		except:
-			print("WARNING: Failed to load setting %s.%s" % [category, key])
+		if ConfigFileHandler and ConfigFileHandler.has_method("load_setting"):
+			var result = ConfigFileHandler.load_setting(category, key, default)
+			if result != null:
+				return result
+			else:
+				return default
+		else:
+			print("WARNING: ConfigFileHandler method not available")
 			return default
 	else:
 		# Config system not available
@@ -203,10 +223,15 @@ func safe_load_setting(category: String, key: String, default = null):
 ## Safe wrapper for ConfigFileHandler.save_setting()
 func safe_save_setting(category: String, key: String, value) -> bool:
 	if systems_available["ConfigFileHandler"]:
-		try:
-			return ConfigFileHandler.save_setting(category, key, value)
-		except:
-			print("WARNING: Failed to save setting %s.%s" % [category, key])
+		if ConfigFileHandler and ConfigFileHandler.has_method("save_setting"):
+			var result = ConfigFileHandler.save_setting(category, key, value)
+			if result is bool:
+				return result
+			else:
+				print("WARNING: save_setting returned invalid type")
+				return false
+		else:
+			print("WARNING: ConfigFileHandler method not available")
 			return false
 	else:
 		# Config system not available

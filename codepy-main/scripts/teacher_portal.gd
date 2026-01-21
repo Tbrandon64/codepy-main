@@ -192,9 +192,9 @@ func _create_classes_panel() -> PanelContainer:
 	
 	# Class info template
 	var sample_class = HBoxContainer.new()
-	var class_name = Label.new()
-	class_name.text = "📌 Class Name: Math 101"
-	sample_class.add_child(class_name)
+	var class_label = Label.new()
+	class_label.text = "📌 Class Name: Math 101"
+	sample_class.add_child(class_label)
 	
 	var spacer = Control.new()
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL

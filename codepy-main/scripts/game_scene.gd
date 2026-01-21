@@ -345,9 +345,6 @@ func _on_opponent_victory() -> void:
 	)
 	dialog.popup_centered_ratio(0.6)
 
-func _on_opponent_victory() -> void:
-	pass
-
 ## Pause game
 func _pause_game() -> void:
 	is_paused = true

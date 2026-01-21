@@ -3,8 +3,6 @@ extends Node
 ## Gameplay Enhancement System - Adds power-ups, combos, and streaks
 ## Features: Combo multiplier, power-ups (2x Score, Freeze Time), streak tracking
 
-class_name GameplayEnhancementSystem
-
 var combo_count: int = 0
 var streak_count: int = 0
 var current_combo_multiplier: float = 1.0
@@ -41,26 +39,25 @@ func reset_state() -> void:
 
 ## Handle correct answer - increase combo and streak
 func on_correct_answer() -> void:
-	try:
-		combo_count += 1
-		streak_count += 1
-		
-		# Update combo multiplier (1x base, up to 5x at 25 combo)
-		current_combo_multiplier = 1.0 + (float(combo_count) / 25.0) * 4.0
-		current_combo_multiplier = min(current_combo_multiplier, 5.0)
-		
-		# Check for achievement updates (with fail-safe)
-		if is_instance_valid(AchievementSystem):
-			try:
-				AchievementSystem.update_progress("combo_master", combo_count)
-				AchievementSystem.update_progress("perfect_game", streak_count)
-			except:
-				print("WARNING: Failed to update achievements")
-		
-		combo_changed.emit(combo_count, current_combo_multiplier)
-		streak_changed.emit(streak_count)
-	except:
-		print("WARNING: Failed to process correct answer")
+	combo_count += 1
+	streak_count += 1
+	
+	# Update combo multiplier (1x base, up to 5x at 25 combo)
+	current_combo_multiplier = 1.0 + (float(combo_count) / 25.0) * 4.0
+	current_combo_multiplier = min(current_combo_multiplier, 5.0)
+	
+	# Check for achievement updates (with fail-safe)
+	if is_instance_valid(AchievementSystem):
+		if AchievementSystem.has_method("update_progress"):
+			AchievementSystem.update_progress("combo_master", combo_count)
+			AchievementSystem.update_progress("perfect_game", streak_count)
+		else:
+			print("WARNING: AchievementSystem.update_progress not available")
+	else:
+		print("WARNING: AchievementSystem not valid")
+	
+	combo_changed.emit(combo_count, current_combo_multiplier)
+	streak_changed.emit(streak_count)
 
 ## Handle wrong answer - reset combo, check for shield power-up
 func on_wrong_answer() -> bool:
@@ -76,19 +73,22 @@ func on_wrong_answer() -> bool:
 
 ## Calculate bonus points based on current multipliers
 func calculate_bonus_points(base_points: int) -> int:
-	try:
-		var bonus = base_points
+	if base_points < 0:
+		print("WARNING: calculate_bonus_points received negative base_points")
+		return 0
+	
+	var bonus = base_points
+	if current_combo_multiplier > 0:
 		bonus = int(bonus * current_combo_multiplier)
-		
-		# Check for 2x score power-up
-		if "double_score" in active_power_ups:
-			bonus *= 2
-			remove_power_up("double_score")
-		
-		return bonus
-	except:
-		print("WARNING: Failed to calculate bonus points, returning base")
-		return base_points
+	else:
+		print("WARNING: Invalid combo multiplier")
+	
+	# Check for 2x score power-up
+	if "double_score" in active_power_ups:
+		bonus *= 2
+		remove_power_up("double_score")
+	
+	return bonus
 
 ## Add a power-up
 func add_power_up(power_up_id: String) -> void:
