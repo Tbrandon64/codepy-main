@@ -196,8 +196,8 @@ func set_language(language_code: String) -> void:
 		current_language = "en"
 		_current_translation_dict = translations.get("en", {})
 
-## Get a translated string
-## Optimized: Uses cached dictionary for O(1) lookup
+## Get translated string with safe fallback handling
+## First tries current language, then English, then default text
 func get_text(key: String, default_text: String = "") -> String:
 	try:
 		if not key or key.is_empty():
@@ -217,7 +217,8 @@ func get_text(key: String, default_text: String = "") -> String:
 		print("ERROR: get_text failed for key '%s'" % key)
 		return default_text
 
-## Get a translated string with formatted parameters
+## Get formatted translated string with variable substitution
+## Handles format string errors gracefully
 func get_text_formatted(key: String, args: Array = []) -> String:
 	try:
 		var text = get_text(key, key)  # Use key as fallback if translation missing

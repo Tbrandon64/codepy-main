@@ -86,7 +86,7 @@ func set_master_volume(volume: float) -> void:
 			ConfigFileHandler.save_setting("audio", "master_volume", master_volume)
 		apply_volume_settings()
 	except:
-		print("WARNING: set_master_volume failed, using default master_volume = 1.0")
+		print("WARNING: Failed to set master volume, using default (1.0)")
 		master_volume = 1.0
 
 ## Set music volume (0.0 - 1.0)
@@ -97,7 +97,7 @@ func set_music_volume(volume: float) -> void:
 			ConfigFileHandler.save_setting("audio", "music_volume", music_volume)
 		apply_volume_settings()
 	except:
-		print("WARNING: set_music_volume failed, using default music_volume = 1.0")
+		print("WARNING: Failed to set music volume, using default (1.0)")
 		music_volume = 1.0
 
 ## Set SFX volume (0.0 - 1.0)
@@ -108,7 +108,7 @@ func set_sfx_volume(volume: float) -> void:
 			ConfigFileHandler.save_setting("audio", "sfx_volume", sfx_volume)
 		apply_volume_settings()
 	except:
-		print("WARNING: set_sfx_volume failed, using default sfx_volume = 1.0")
+		print("WARNING: Failed to set SFX volume, using default (1.0)")
 		sfx_volume = 1.0
 
 ## Toggle sound on/off
@@ -119,10 +119,10 @@ func set_sound_enabled(enabled: bool) -> void:
 			ConfigFileHandler.save_setting("audio", "enable_sound", enabled)
 		apply_volume_settings()
 	except:
-		print("WARNING: set_sound_enabled failed, using default enable_sound = true")
+		print("WARNING: Failed to toggle sound, using default (enabled=true)")
 		enable_sound = true
 
-## Play procedural "ding" sound for correct answer
+## Play "ding" sound for correct answers
 func play_correct_sound() -> void:
 	try:
 		if not enable_sound or not _ding_stream:
@@ -131,7 +131,7 @@ func play_correct_sound() -> void:
 	except:
 		print("WARNING: play_correct_sound failed, audio playback skipped")
 
-## Play procedural "buzz" sound for wrong answer
+## Play "buzz" sound for wrong answers
 func play_wrong_sound() -> void:
 	try:
 		if not enable_sound or not _buzz_stream:
@@ -140,7 +140,7 @@ func play_wrong_sound() -> void:
 	except:
 		print("WARNING: play_wrong_sound failed, audio playback skipped")
 
-## Helper to play a stream and cleanup
+## Play audio stream and clean up
 func _play_stream(stream: AudioStream) -> void:
 	try:
 		if not stream:
@@ -174,7 +174,8 @@ func _generate_cached_sounds() -> void:
 		_ding_stream = null
 		_buzz_stream = null
 
-## Create a WAV stream programmatically
+## Create WAV stream from sine wave parameters
+## Parameters: frequency (Hz), duration (seconds), volume (0-1), is_buzz (bool)
 func _create_wav_stream(freq_start: float, freq_end: float, duration: float, volume: float, is_buzz: bool) -> AudioStreamWAV:
 	try:
 		if freq_start <= 0 or freq_end <= 0 or duration <= 0 or volume <= 0:

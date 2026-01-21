@@ -307,9 +307,9 @@ func _get_pemdas_complexity() -> int:
 		print("ERROR: _get_pemdas_complexity failed")
 		return 1
 
+## Generate simple PEMDAS (Order of Operations) problem
+## Format: a + b * c (multiplication evaluated first)
 func _generate_simple_pemdas() -> Dictionary:
-	try:
-		## Format: a + b * c (multiplication first)
 		var a = randi_range(1, 10)
 		var b = randi_range(1, 10)
 		var c = randi_range(1, 10)
@@ -334,6 +334,8 @@ func _generate_simple_pemdas() -> Dictionary:
 			"expression": "1 + 2 * 3"
 		}
 
+## Generate intermediate PEMDAS problem
+## Format: (a + b) * c - d (parentheses, multiplication, subtraction)
 func _generate_intermediate_pemdas() -> Dictionary:
 	try:
 		## Format: (a + b) * c - d
@@ -361,6 +363,8 @@ func _generate_intermediate_pemdas() -> Dictionary:
 			"expression": "(1 + 2) * 3 - 1"
 		}
 
+## Generate advanced PEMDAS problem
+## Format: a * b + c * d - e (multiple operations)
 func _generate_advanced_pemdas() -> Dictionary:
 	try:
 		## Format: a * b + c * d - e
@@ -389,10 +393,9 @@ func _generate_advanced_pemdas() -> Dictionary:
 			"expression": "2 * 3 + 4 * 5 - 6"
 		}
 
+## Generate perfect square (sqrt) problem
+## Example: √4 = 2, √25 = 5
 func _generate_perfect_square() -> Dictionary:
-	try:
-		var base = randi_range(2, 10)  # 2-10
-		var radicand = base * base
 		
 		return {
 			"type": "SQUARE_ROOT",
@@ -411,10 +414,9 @@ func _generate_perfect_square() -> Dictionary:
 			"options": [2, 1, 3, 4]
 		}
 
+## Generate extended perfect square (larger numbers)
+## Range: 2-20 for more challenging problems
 func _generate_perfect_square_extended() -> Dictionary:
-	try:
-		var base = randi_range(2, 20)  # 2-20
-		var radicand = base * base
 		
 		return {
 			"type": "SQUARE_ROOT",
@@ -433,6 +435,8 @@ func _generate_perfect_square_extended() -> Dictionary:
 			"options": [3, 1, 5, 2]
 		}
 
+## Generate square root approximation (non-perfect squares)
+## Requires rounding to nearest integer
 func _generate_square_root_approximation() -> Dictionary:
 	try:
 		## Non-perfect square approximation
@@ -456,6 +460,8 @@ func _generate_square_root_approximation() -> Dictionary:
 			"options": [3, 2, 4, 1]
 		}
 
+## Generate mixed square root expression (a * √b + c)
+## Example: 2 * √4 + 1 = 5
 func _generate_square_root_mixed() -> Dictionary:
 	try:
 		## Format: a * √b + c
@@ -483,6 +489,8 @@ func _generate_square_root_mixed() -> Dictionary:
 			"options": [5, 4, 10, 0]
 		}
 
+## Generate simple long division (2-digit ÷ 1-digit)
+## Example: 12 ÷ 3 = 4
 func _generate_simple_long_division() -> Dictionary:
 	try:
 		## 2-digit ÷ 1-digit
@@ -514,6 +522,8 @@ func _generate_simple_long_division() -> Dictionary:
 			"options": [4, 3, 5, 6]
 		}
 
+## Generate intermediate long division (3-digit ÷ 1-digit)
+## Example: 54 ÷ 6 = 9
 func _generate_intermediate_long_division() -> Dictionary:
 	try:
 		## 3-digit ÷ 1-digit
@@ -545,6 +555,8 @@ func _generate_intermediate_long_division() -> Dictionary:
 			"options": [9, 4, 14, 8]
 		}
 
+## Generate advanced long division (4-digit ÷ 2-digit)
+## Example: 144 ÷ 12 = 12
 func _generate_advanced_long_division() -> Dictionary:
 	try:
 		## 4-digit ÷ 2-digit
@@ -576,6 +588,8 @@ func _generate_advanced_long_division() -> Dictionary:
 			"options": [12, 2, 22, 7]
 		}
 
+## Generate mastery long division (4-digit ÷ 2-3 digit with remainders)
+## Most challenging: complex numbers with possible remainders
 func _generate_mastery_long_division() -> Dictionary:
 	try:
 		## 4-digit ÷ 2-3 digit with remainder

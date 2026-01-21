@@ -112,8 +112,7 @@ func generate_problem() -> MathProblem:
 		return _generate_fallback_problem()
 
 ## Calculate correct answer based on operation
-## Optimized: Extracted function for clarity and reusability
-## Division logic optimized to O(1) to avoid loops
+## Division handled specially to ensure whole number result
 func _calculate_correct_answer(problem: MathProblem, max_num: int) -> void:
 	try:
 		if not problem:
@@ -132,21 +131,16 @@ func _calculate_correct_answer(problem: MathProblem, max_num: int) -> void:
 			"*":
 				problem.correct_answer = problem.operand1 * problem.operand2
 			"/":
-				# Optimized Division: Reverse engineer the problem to ensure clean division
-				# 1. Keep operand2 (divisor) as generated (random 1..max)
-				# 2. Calculate max possible quotient to keep operand1 (dividend) within reasonable bounds
-				
-				# Ensure divisor is not 0
+				# Division: Ensure clean division (no remainders)
+				# Adjust operand2 to avoid zero
 				if problem.operand2 == 0: problem.operand2 = 1
 				
-				# Calculate maximum quotient that results in operand1 <= max_num
+				# Calculate max quotient within bounds
 				var max_quotient = max_num / problem.operand2
 				if max_quotient < 1: max_quotient = 1
 					
-				# Generate a random correct answer (quotient)
+				# Generate quotient, then set dividend as multiple
 				problem.correct_answer = randi_range(1, max_quotient)
-				
-				# Recalculate operand1 (dividend) to guarantee it is a multiple of operand2
 				problem.operand1 = problem.correct_answer * problem.operand2
 			_:
 				print("WARNING: Unknown operation '%s', defaulting to '+'" % problem.operation)
@@ -159,7 +153,7 @@ func _calculate_correct_answer(problem: MathProblem, max_num: int) -> void:
 			problem.correct_answer = problem.operand1 + problem.operand2
 
 ## Generate 4 unique answer options with 1 correct and 3 wrong
-## Optimized: Deterministic generation to avoid while-loops and collisions
+## Uses deterministic offset generation to avoid collision loops
 func _generate_options(correct_answer: int) -> Array[int]:
 	try:
 		var options: Array[int] = []
