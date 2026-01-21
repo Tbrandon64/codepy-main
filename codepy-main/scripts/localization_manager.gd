@@ -7,6 +7,7 @@ class_name LocalizationManager
 
 var current_language: String = "en"
 var translations: Dictionary = {}
+var _current_translation_dict: Dictionary = {} # Cache for faster lookups
 
 func _ready() -> void:
 	try:
@@ -18,7 +19,7 @@ func _ready() -> void:
 		# Fallback: Initialize English-only if initialization fails
 		print("WARNING: LocalizationManager initialization failed, using English-only mode")
 		_initialize_translations()
-		current_language = "en"
+		set_language("en")
 
 ## Initialize all translation dictionaries
 func _initialize_translations() -> void:
@@ -165,47 +166,93 @@ func _initialize_translations() -> void:
 
 ## Set the current language
 func set_language(language_code: String) -> void:
-	if language_code in translations:
-		current_language = language_code
-		if ConfigFileHandler:
-			try:
-				ConfigFileHandler.save_setting("game", "language", language_code)
-			except:
-				print("WARNING: Failed to save language preference")
-		language_changed.emit()
-	else:
-		# Fallback to English if language not found
-		print("WARNING: Language '%s' not found, falling back to English" % language_code)
+	try:
+		if not language_code or language_code.is_empty():
+			print("WARNING: set_language received empty language_code, using 'en'")
+			language_code = "en"
+		
+		if language_code in translations:
+			current_language = language_code
+			_current_translation_dict = translations[language_code]
+			
+			if ConfigFileHandler:
+				try:
+					ConfigFileHandler.save_setting("game", "language", language_code)
+				except:
+					print("WARNING: Failed to save language preference for '%s'" % language_code)
+			language_changed.emit()
+		else:
+			# Fallback to English if language not found
+			print("WARNING: Language '%s' not found, falling back to English" % language_code)
+			current_language = "en"
+			if "en" in translations:
+				_current_translation_dict = translations["en"]
+			else:
+				print("ERROR: English language not found in translations!")
+				_current_translation_dict = {}
+			language_changed.emit()
+	except:
+		print("ERROR: set_language failed, defaulting to English")
 		current_language = "en"
-		language_changed.emit()
+		_current_translation_dict = translations.get("en", {})
 
 ## Get a translated string
+## Optimized: Uses cached dictionary for O(1) lookup
 func get_text(key: String, default_text: String = "") -> String:
-	if current_language in translations and key in translations[current_language]:
-		return translations[current_language][key]
-	# Fallback to English
-	if "en" in translations and key in translations["en"]:
-		return translations["en"][key]
-	return default_text
+	try:
+		if not key or key.is_empty():
+			print("WARNING: get_text received empty key")
+			return default_text
+		
+		# Try current language
+		if _current_translation_dict and key in _current_translation_dict:
+			return _current_translation_dict[key]
+			
+		# Fallback to English if not found in current language (and current isn't English)
+		if current_language != "en" and "en" in translations and key in translations["en"]:
+			return translations["en"][key]
+			
+		return default_text
+	except:
+		print("ERROR: get_text failed for key '%s'" % key)
+		return default_text
 
 ## Get a translated string with formatted parameters
 func get_text_formatted(key: String, args: Array = []) -> String:
-	var text = get_text(key)
-	if args.size() > 0:
-		return text % args
-	return text
+	try:
+		var text = get_text(key, key)  # Use key as fallback if translation missing
+		if args.size() > 0:
+			text = text % args
+		return text
+	except:
+		print("ERROR: get_text_formatted failed for key '%s'" % key)
+		if args.size() > 0:
+			return (key % args) if key.contains("%") else key
+		return key
 
 ## Get list of available languages
 func get_available_languages() -> Array[String]:
-	return ["en", "es", "fr"]
+	try:
+		return ["en", "es", "fr"]
+	except:
+		print("ERROR: get_available_languages failed, returning English only")
+		return ["en"]
 
 ## Get language display name
 func get_language_name(language_code: String) -> String:
-	var names = {
-		"en": "English",
-		"es": "Español",
-		"fr": "Français"
-	}
-	return names.get(language_code, language_code)
+	try:
+		if not language_code or language_code.is_empty():
+			print("WARNING: get_language_name received empty language_code")
+			return "Unknown"
+		
+		var names = {
+			"en": "English",
+			"es": "Español",
+			"fr": "Français"
+		}
+		return names.get(language_code, language_code)
+	except:
+		print("ERROR: get_language_name failed for '%s'" % language_code)
+		return language_code
 
 signal language_changed
