@@ -40,39 +40,43 @@ func _ready() -> void:
 ## Generate a new math problem based on current difficulty
 ## Optimized with cached difficulty ranges and operation array
 func generate_problem() -> MathProblem:
-	var problem = MathProblem.new()
-	
-	# Get difficulty range from cache
-	var range_data = _difficulty_ranges.get(current_difficulty, _difficulty_ranges[Difficulty.EASY])
-	var min_num: int = range_data["min"]
-	var max_num: int = range_data["max"]
-	
-	# Generate random operands
-	problem.operand1 = randi_range(min_num, max_num)
-	problem.operand2 = randi_range(max(1, min_num), max_num)
-	
-	# Choose random operation from cached array
-	problem.operation = _operations[randi() % _operations.size()]
-	# Calculate correct answer - optimized with match pattern
-	_calculate_correct_answer(problem, max_num)
-	
-	# Generate problem text
-	problem.problem_text = "%d %s %d = ?" % [problem.operand1, problem.operation, problem.operand2]
-	
-	# Generate 4 answer options: 1 correct + 3 wrong
-	problem.options = _generate_options(problem.correct_answer)
-	
-	# Store current problem in dictionary for backwards compatibility
-	current_problem = {
-		"operand1": problem.operand1,
-		"operand2": problem.operand2,
-		"operation": problem.operation,
-		"correct_answer": problem.correct_answer,
-		"problem_text": problem.problem_text,
-		"options": problem.options
-	}
-	
-	return problem
+	try:
+		var problem = MathProblem.new()
+		
+		# Get difficulty range from cache
+		var range_data = _difficulty_ranges.get(current_difficulty, _difficulty_ranges[Difficulty.EASY])
+		var min_num: int = range_data["min"]
+		var max_num: int = range_data["max"]
+		
+		# Generate random operands
+		problem.operand1 = randi_range(min_num, max_num)
+		problem.operand2 = randi_range(max(1, min_num), max_num)
+		
+		# Choose random operation from cached array
+		problem.operation = _operations[randi() % _operations.size()]
+		# Calculate correct answer - optimized with match pattern
+		_calculate_correct_answer(problem, max_num)
+		
+		# Generate problem text
+		problem.problem_text = "%d %s %d = ?" % [problem.operand1, problem.operation, problem.operand2]
+		
+		# Generate 4 answer options: 1 correct + 3 wrong
+		problem.options = _generate_options(problem.correct_answer)
+		
+		# Store current problem in dictionary for backwards compatibility
+		current_problem = {
+			"operand1": problem.operand1,
+			"operand2": problem.operand2,
+			"operation": problem.operation,
+			"correct_answer": problem.correct_answer,
+			"problem_text": problem.problem_text,
+			"options": problem.options
+		}
+		
+		return problem
+	except:
+		print("WARNING: Failed to generate problem, using fallback")
+		return _generate_fallback_problem()
 
 ## Calculate correct answer based on operation
 ## Optimized: Extracted function for clarity and reusability
@@ -99,41 +103,45 @@ func _calculate_correct_answer(problem: MathProblem, max_num: int) -> void:
 ## Generate 4 unique answer options with 1 correct and 3 wrong
 ## Optimized: Reduced allocation, clear logic, max iteration limit
 func _generate_options(correct_answer: int) -> Array[int]:
-	var options: Array[int] = []
-	options.append(correct_answer)
-	
-	# Generate 3 wrong answers by applying random offsets
-	# Optimization: Maximum 50 attempts to prevent infinite loops
-	var attempts = 0
-	var max_attempts = 50
-	
-	while options.size() < 4 and attempts < max_attempts:
-		var offset = randi_range(1, max(5, abs(correct_answer)))
+	try:
+		var options: Array[int] = []
+		options.append(correct_answer)
 		
-		# Randomly choose to add or subtract (ensure positive result)
-		var wrong_answer: int
-		if randi() % 2 == 0:
-			wrong_answer = correct_answer + offset
-		else:
-			wrong_answer = correct_answer - offset
+		# Generate 3 wrong answers by applying random offsets
+		# Optimization: Maximum 50 attempts to prevent infinite loops
+		var attempts = 0
+		var max_attempts = 50
 		
-		# Add if valid (positive and not duplicate)
-		if wrong_answer > 0 and wrong_answer not in options:
-			options.append(wrong_answer)
+		while options.size() < 4 and attempts < max_attempts:
+			var offset = randi_range(1, max(5, abs(correct_answer)))
+			
+			# Randomly choose to add or subtract (ensure positive result)
+			var wrong_answer: int
+			if randi() % 2 == 0:
+				wrong_answer = correct_answer + offset
+			else:
+				wrong_answer = correct_answer - offset
+			
+			# Add if valid (positive and not duplicate)
+			if wrong_answer > 0 and wrong_answer not in options:
+				options.append(wrong_answer)
+			
+			attempts += 1
 		
-		attempts += 1
-	
-	# If we couldn't generate 3 unique wrong answers, fill with simple variations
-	# Fallback: Ensure exactly 4 options
-	while options.size() < 4:
-		var fallback_answer = correct_answer + randi_range(-correct_answer + 1, correct_answer * 2)
-		if fallback_answer > 0 and fallback_answer not in options:
-			options.append(fallback_answer)
-	
-	# Shuffle options for randomness
-	options.shuffle()
-	
-	return options
+		# If we couldn't generate 3 unique wrong answers, fill with simple variations
+		# Fallback: Ensure exactly 4 options
+		while options.size() < 4:
+			var fallback_answer = correct_answer + randi_range(-correct_answer + 1, correct_answer * 2)
+			if fallback_answer > 0 and fallback_answer not in options:
+				options.append(fallback_answer)
+		
+		# Shuffle options for randomness
+		options.shuffle()
+		
+		return options
+	except:
+		print("WARNING: Failed to generate options, using fallback")
+		return [correct_answer, correct_answer + 1, correct_answer + 2, correct_answer - 1]
 
 ## Check if answer is correct - with documentation
 func check_answer(selected_answer: int) -> bool:
@@ -152,6 +160,28 @@ func check_answer(selected_answer: int) -> bool:
 		score += 1
 	problems_answered += 1
 	return is_correct
+
+## Generate a fallback problem when main generation fails
+func _generate_fallback_problem() -> MathProblem:
+	var problem = MathProblem.new()
+	problem.operand1 = 5
+	problem.operand2 = 3
+	problem.operation = "+"
+	problem.correct_answer = 8
+	problem.problem_text = "5 + 3 = ?"
+	problem.options = [8, 7, 9, 6]
+	
+	# Also update current_problem dictionary
+	current_problem = {
+		"operand1": 5,
+		"operand2": 3,
+		"operation": "+",
+		"correct_answer": 8,
+		"problem_text": "5 + 3 = ?",
+		"options": [8, 7, 9, 6]
+	}
+	
+	return problem
 
 ## Reset game state to initial conditions
 func reset() -> void:

@@ -9,10 +9,16 @@ var current_language: String = "en"
 var translations: Dictionary = {}
 
 func _ready() -> void:
-	_initialize_translations()
-	# Load saved language preference
-	var saved_lang = ConfigFileHandler.load_setting("game", "language", "en")
-	set_language(saved_lang)
+	try:
+		_initialize_translations()
+		# Load saved language preference
+		var saved_lang = ConfigFileHandler.load_setting("game", "language", "en") if ConfigFileHandler else "en"
+		set_language(saved_lang)
+	except:
+		# Fallback: Initialize English-only if initialization fails
+		print("WARNING: LocalizationManager initialization failed, using English-only mode")
+		_initialize_translations()
+		current_language = "en"
 
 ## Initialize all translation dictionaries
 func _initialize_translations() -> void:
@@ -161,7 +167,16 @@ func _initialize_translations() -> void:
 func set_language(language_code: String) -> void:
 	if language_code in translations:
 		current_language = language_code
-		ConfigFileHandler.save_setting("game", "language", language_code)
+		if ConfigFileHandler:
+			try:
+				ConfigFileHandler.save_setting("game", "language", language_code)
+			except:
+				print("WARNING: Failed to save language preference")
+		language_changed.emit()
+	else:
+		# Fallback to English if language not found
+		print("WARNING: Language '%s' not found, falling back to English" % language_code)
+		current_language = "en"
 		language_changed.emit()
 
 ## Get a translated string

@@ -16,33 +16,60 @@ var music_bus_idx: int = -1
 var sfx_bus_idx: int = -1
 
 func _ready() -> void:
-	# Get audio bus indices
-	master_bus_idx = AudioServer.get_bus_index("Master")
-	music_bus_idx = AudioServer.get_bus_index("Music") if AudioServer.get_bus_index("Music") != -1 else master_bus_idx
-	sfx_bus_idx = AudioServer.get_bus_index("SFX") if AudioServer.get_bus_index("SFX") != -1 else master_bus_idx
-	
-	# Load audio settings from config
-	load_audio_settings()
+	try:
+		# Get audio bus indices
+		master_bus_idx = AudioServer.get_bus_index("Master")
+		music_bus_idx = AudioServer.get_bus_index("Music") if AudioServer.get_bus_index("Music") != -1 else master_bus_idx
+		sfx_bus_idx = AudioServer.get_bus_index("SFX") if AudioServer.get_bus_index("SFX") != -1 else master_bus_idx
+		
+		# Load audio settings from config
+		load_audio_settings()
+	except:
+		print("WARNING: AudioManager initialization failed, using defaults")
+		master_bus_idx = 0
+		music_bus_idx = 0
+		sfx_bus_idx = 0
+		master_volume = 1.0
+		music_volume = 1.0
+		sfx_volume = 1.0
+		enable_sound = true
 
 ## Load audio settings from configuration
 func load_audio_settings() -> void:
-	master_volume = ConfigFileHandler.load_setting("audio", "master_volume", 1.0)
-	music_volume = ConfigFileHandler.load_setting("audio", "music_volume", 1.0)
-	sfx_volume = ConfigFileHandler.load_setting("audio", "sfx_volume", 1.0)
-	enable_sound = ConfigFileHandler.load_setting("audio", "enable_sound", true)
-	
-	apply_volume_settings()
+	try:
+		if ConfigFileHandler:
+			master_volume = ConfigFileHandler.load_setting("audio", "master_volume", 1.0)
+			music_volume = ConfigFileHandler.load_setting("audio", "music_volume", 1.0)
+			sfx_volume = ConfigFileHandler.load_setting("audio", "sfx_volume", 1.0)
+			enable_sound = ConfigFileHandler.load_setting("audio", "enable_sound", true)
+		apply_volume_settings()
+	except:
+		print("WARNING: Failed to load audio settings, using defaults")
+		master_volume = 1.0
+		music_volume = 1.0
+		sfx_volume = 1.0
+		enable_sound = true
+		apply_volume_settings()
 
 ## Apply current volume settings to audio buses
 func apply_volume_settings() -> void:
-	if not enable_sound:
-		AudioServer.set_bus_mute(master_bus_idx, true)
-		return
-	
-	AudioServer.set_bus_mute(master_bus_idx, false)
-	AudioServer.set_bus_volume_db(master_bus_idx, linear2db(master_volume))
-	AudioServer.set_bus_volume_db(music_bus_idx, linear2db(master_volume * music_volume))
-	AudioServer.set_bus_volume_db(sfx_bus_idx, linear2db(master_volume * sfx_volume))
+	try:
+		if master_bus_idx < 0:
+			return  # Audio buses not available
+		
+		if not enable_sound:
+			AudioServer.set_bus_mute(master_bus_idx, true)
+			return
+		
+		AudioServer.set_bus_mute(master_bus_idx, false)
+		if master_bus_idx >= 0:
+			AudioServer.set_bus_volume_db(master_bus_idx, linear2db(master_volume))
+		if music_bus_idx >= 0:
+			AudioServer.set_bus_volume_db(music_bus_idx, linear2db(master_volume * music_volume))
+		if sfx_bus_idx >= 0:
+			AudioServer.set_bus_volume_db(sfx_bus_idx, linear2db(master_volume * sfx_volume))
+	except:
+		print("WARNING: Failed to apply volume settings, audio buses may not be configured")
 
 ## Set master volume (0.0 - 1.0)
 func set_master_volume(volume: float) -> void:
