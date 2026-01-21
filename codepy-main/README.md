@@ -1,63 +1,284 @@
-# Math Blast - Multiplayer Math Puzzle Game
+# 🚀 Math Blast
 
-A fast-paced multiplayer math competition game built with Godot 4.5 GDScript. Test your arithmetic skills against AI or real players in a sleek space-themed interface.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Godot 4.5](https://img.shields.io/badge/Godot-4.5-blue.svg)](https://godotengine.org)
+[![GitHub Stars](https://img.shields.io/github/stars/yourusername/math-blast)](../../stargazers)
+[![Download on itch.io](https://img.shields.io/badge/Download-itch.io-blue.svg)](https://itch.io/mathblast)
 
-## Features
+> **Fast-paced multiplayer math puzzle game** • Solo, local co-op, or network play • No ads • 100% free
 
-- **Single-Player Mode**: Challenge an AI opponent with 70% accuracy
-- **Local Multiplayer**: Play with friends on the same machine (via Host/Join)
-- **Network Multiplayer**: Connect over LAN with proper ENet synchronization
+A competitive math competition game built with Godot 4.5. Test your arithmetic skills, build combos, climb leaderboards, and compete with friends—locally or over the network.
+
+**[📥 Download](#installation) • [🎮 Play Online](https://itch.io/mathblast) • [📖 Documentation](#documentation) • [☕ Support](#support-math-blast) • [🐛 Issues](../../issues)**
+
+---
+
+## ✨ Features
+
+### 🎮 Gameplay
+- **Single-Player Mode**: Challenge AI with 70% accuracy
+- **Local Multiplayer**: Play with friends on same machine
+- **Network Multiplayer**: Connect over LAN (Windows, Linux, Mac)
 - **3 Difficulty Levels**:
-  - Easy (1-10, 10 points per correct)
-  - Medium (1-50, 20 points per correct)
-  - Hard (1-100, 30 points per correct)
-- **15-Second Countdown**: Solve math problems within tight time constraints
-- **Visual Polish**:
-  - Smooth button hover animations (1.1x scale)
-  - Elastic score pop-in animations
-  - Screen shake on wrong answers
-  - Particle effects for correct answers
-- **Audio Feedback**:
-  - Procedural "ding" sound for correct answers
-  - Procedural "buzz" sound for wrong answers
-- **Pause Menu**: Press ESC to pause/resume
-- **High Score Persistence**: Scores automatically save to user directory
-- **Win Condition**: First to 100 points wins and displays victory screen
+  - Easy (1-10, 10 pts/correct)
+  - Medium (1-50, 20 pts/correct)
+  - Hard (1-100, 30 pts/correct)
+- **15-Second Rounds**: High-stakes speed math
+- **Combo System**: Build 5x multipliers with consecutive correct answers
+- **Power-ups**: Double Score, Freeze Time, Shield
 
-## New in v2.0: Enhancement Package
+### 🎨 Polish
+- Smooth animations (1.1x button scale, elastic score pops)
+- Screen shake on wrong answers
+- Particle effects for correct answers
+- Procedural audio (ding/buzz sounds)
+- High score persistence
 
-### Advanced Gameplay
-- **Combo System**: Build multipliers (1-5x) for consecutive correct answers
-- **Streak Tracking**: Track answer streaks with visual feedback
-- **Power-ups**: Collect Double Score, Freeze Time, and Shield effects
-- **Achievement System**: 7 unlockable achievements with progress tracking and unlimited leveling
+### ♿ Accessibility
+- **High Contrast Mode** with custom color schemes
+- **Text-to-Speech** (multiple languages)
+- **Colorblind Modes** (Deuteranopia, Protanopia, Tritanopia)
+- **Screen Reader Support**
+- **Dyslexia-Friendly Font** option
+- **Keyboard Navigation** (full support)
+- **Motion Sensitivity** controls (reduces animations)
+- **Captions** for all audio
 
-### Quality of Life
-- **Multi-Language Support**: English, Spanish, French (easily extensible)
-- **Advanced Audio System**: Master/Music/SFX volume controls with procedural audio generation
-- **Configuration Management**: Persistent settings with category-based JSON storage
-- **Performance Optimizations**: 15-20% faster problem generation, 75% less memory
+### 🏆 Content
+- **Achievement System**: 10+ unlockable badges
+- **Player Profiles**: Custom names, stats, win rates
+- **Daily Challenges**: 20 unique problem sets rotating daily
+- **Teacher Mode**: Classroom management, progress tracking
+- **Adventure Levels**: 15-level campaign with progressive difficulty
 
-### Fail-Safe & Reliability ⭐
-- **Enterprise-Grade Error Handling**: Game continues even if any system fails
-- **Graceful Degradation**: Core gameplay works without any enhancements
-- **Zero Crashes**: Missing dependencies, corrupted files, or audio failures don't stop gameplay
-- **100% System Coverage**: All 7+ systems have comprehensive try-catch error handling
-- **Production Ready**: Tested failure scenarios with logging and recovery
+### 🎯 Reliability
+- **Zero-Crash Policy**: Graceful error handling
+- **Offline Support**: Core game works without internet
+- **Cross-Platform**: Windows, Linux, macOS, Android, iOS
 
-See [FAILSAFE_DOCUMENTATION.md](FAILSAFE_DOCUMENTATION.md) for reliability details.
+---
 
-## Quick Start
+## 🚀 Quick Start
 
 ### Prerequisites
-- Godot 4.5 or later
-- Linux, Windows, or macOS
+- **Godot 4.5+** (free, open-source)
+- **Download**: [godotengine.org](https://godotengine.org)
 
 ### Installation
 
+**Option 1: Download Pre-Built (Easiest)**
 ```bash
-# Clone or download project
-cd /path/to/MathBlat
+# Download from itch.io
+# https://itch.io/mathblast
+
+# Extract and run
+./MathBlast.exe  # Windows
+./MathBlast.x86_64  # Linux
+./MathBlast.app  # macOS
+```
+
+**Option 2: Clone & Run from Source**
+```bash
+# Clone repo
+git clone https://github.com/yourusername/math-blast.git
+cd math-blast
+
+# Open in Godot 4.5+
+godot --path .
+
+# Press F5 to play
+```
+
+---
+
+## 🎮 How to Play
+
+### Single Player
+1. Select "Single Player" from main menu
+2. Choose difficulty
+3. Solve math problems as fast as you can
+4. First to 100 points wins!
+
+### Local Multiplayer
+1. Select "Host" to create a game
+2. Share the IP address with friends
+3. Friends click "Join" and enter the IP
+4. Race to 100 points!
+
+### Network Multiplayer
+1. Same as local multiplayer
+2. Works over LAN (local network only for security)
+3. Supports up to 4 players per game
+
+---
+
+## 📚 Documentation
+
+- [**Accessibility Guide**](docs/ACCESSIBILITY.md) - Detailed accessibility features
+- [**Teacher Mode Guide**](docs/TEACHER_MODE.md) - Classroom setup & management
+- [**Multiplayer Guide**](docs/MULTIPLAYER.md) - Network setup & troubleshooting
+- [**Code Style Guide**](CODE_STYLE_GUIDE.md) - For developers
+- [**Contributing**](CONTRIBUTING.md) - How to contribute
+- [**Export Guide**](docs/EXPORT.md) - Build for different platforms
+
+---
+
+## ⚙️ Configuration
+
+### Game Settings
+- Difficulty selection
+- Volume controls (Master, Music, SFX)
+- Display options (fullscreen, resolution)
+- Accessibility settings (contrast, font size, etc.)
+
+### Save Data Location
+```
+Windows: %APPDATA%/Godot/app_userdata/math_blast_*
+Linux:   ~/.local/share/godot/app_userdata/math_blast_*
+macOS:   ~/Library/Application Support/Godot/math_blast_*
+```
+
+### Troubleshooting
+- **Game won't start**: Update Godot to 4.5+
+- **Multiplayer not working**: Ensure firewall allows game
+- **Performance issues**: Lower graphics settings
+- **Audio not playing**: Check system volume, unmute game
+
+See [Troubleshooting Wiki](../../wiki/Troubleshooting) for more.
+
+---
+
+## 🏗️ Building from Source
+
+### Export Windows
+```bash
+godot --headless --export-release "Windows Desktop" build/MathBlast.exe
+```
+
+### Export Linux
+```bash
+godot --headless --export-release "Linux/X11" build/MathBlast.x86_64
+```
+
+### Export macOS
+```bash
+godot --headless --export-release "macOS" build/MathBlast.dmg
+```
+
+### Export Web (Itch.io)
+```bash
+godot --headless --export-release "Web" build/
+```
+
+See [EXPORT_CHECKLIST.md](EXPORT_CHECKLIST.md) for full instructions.
+
+---
+
+## 🌟 New in v1.0
+
+✅ Accessibility system (8+ features)
+✅ Badge & achievement system  
+✅ Daily challenges (20 problems)
+✅ Player profiles with custom names
+✅ Hard mode with 3x speed
+✅ Victory screen with confetti
+✅ Mute toggle on main menu
+✅ LAN lobby enhancements
+✅ Splash screen with MB logo
+
+---
+
+## 📦 Tech Stack
+
+- **Engine**: [Godot 4.5](https://godotengine.org/) (MIT License)
+- **Language**: GDScript 2.0
+- **Audio**: Procedurally generated in GDScript
+- **Networking**: ENet (built into Godot)
+- **Rendering**: Vulkan (forward+ renderer)
+
+---
+
+## 🤝 Contributing
+
+Found a bug? Have an idea? **We'd love your help!**
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for:
+- How to report bugs
+- How to suggest features
+- How to submit code changes
+- Development setup
+
+**Quick Links:**
+- [Open Issues](../../issues)
+- [Create Issue](../../issues/new)
+- [Submit PR](../../pulls)
+- [Code of Conduct](CODE_OF_CONDUCT.md)
+
+---
+
+## 💡 Support Math Blast ❤️
+
+Love the game? Consider supporting development:
+
+### 🎁 Donate
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/mathblast)
+
+Your support helps us:
+- 🎨 Create new levels and content
+- ♿ Improve accessibility
+- 🚀 Add multiplayer features
+- 📱 Expand to more platforms
+
+*All donations are appreciated but never required to play!*
+
+### 📢 Spread the Word
+- Star this repo ⭐
+- Share with friends
+- Post on social media
+- Review on itch.io
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** - see [LICENSE](LICENSE) file for details.
+
+Free to use, modify, and distribute for personal and commercial projects.
+
+---
+
+## 🎮 Community
+
+- **GitHub Issues**: [Report bugs & request features](../../issues)
+- **GitHub Discussions**: [Ask questions & share ideas](../../discussions)
+- **Ko-fi**: [Support development & chat](https://ko-fi.com/mathblast)
+- **Itch.io**: [Download & leave review](https://itch.io/mathblast)
+
+---
+
+## 👥 Credits
+
+**Development**: [Your Name]  
+**Engine**: [Godot 4.5](https://godotengine.org/)  
+**Community**: [Contributors](../../graphs/contributors)
+
+---
+
+## 🔗 Links
+
+| Link | URL |
+|------|-----|
+| Download | https://itch.io/mathblast |
+| Website | https://mathblast.dev |
+| Discord | https://discord.gg/mathblast |
+| Twitter | https://twitter.com/mathblastgame |
+| Ko-fi | https://ko-fi.com/mathblast |
+
+---
+
+**Enjoy Math Blast! 🚀✨**
+
+*Made with ❤️ in Godot 4.5*
 
 # Open in Godot 4.5
 godot --path .
