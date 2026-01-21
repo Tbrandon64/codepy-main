@@ -1,5 +1,5 @@
 e910c82af1378a97450e26817c58487e
-::res://::1769030411
+::res://::1769031581
 ADVENTURE_MODE_GUIDE.md::TextFile::-1::1768943976::0::1::::<><><>0<>0<><>::
 arial_bold.tres::FontFile::-1::1769027623::0::1::::<><><>0<>0<><>::
 CODE_QUALITY_IMPROVEMENTS.md::TextFile::-1::1769029680::0::1::::<><><>0<>0<><>::
@@ -66,7 +66,7 @@ achievement_system.gd::GDScript::8431159042384502400::1769029607::0::1::::<>Node
 adventure_level.gd::GDScript::6445615323586520474::1769029680::0::1::::<>Control<><>0<>0<><>::
 adventure_manager.gd::GDScript::2214029443027751046::1768943813::0::1::::<>Node<><>0<>0<><>::
 adventure_map.gd::GDScript::2228459998975171007::1768943837::0::1::::<>Control<><>0<>0<><>::
-audio_manager.gd::GDScript::7648618763651635649::1769029607::0::1::::<>Node<><>0<>0<><>::
+audio_manager.gd::GDScript::7648618763651635649::1769031314::0::1::::<>Node<><>0<>0<><>::
 badge_manager.gd::GDScript::7120910599477102215::1769015218::0::1::::BadgeManager<>Node<><>0<>0<><>::
 config_file_handler.gd::GDScript::744201397558876081::1769029607::0::1::::<>Node<><>0<>0<><>::
 daily_challenge_manager.gd::GDScript::1348426474105155839::1769015218::0::1::::DailyChallengeManager<>Node<><>0<>0<><>::
@@ -76,7 +76,7 @@ feature_config.gd::GDScript::3912419431111267345::1769027207::0::1::::<>Node<><>
 game.gd::GDScript::3059909220204685268::1768943943::0::1::::<>Control<><>0<>0<><>::
 gameplay_enhancement_system.gd::GDScript::7064083134055811188::1769029607::0::1::::<>Node<><>0<>0<><>::
 game_manager.gd::GDScript::6516139189954942190::1769027625::0::1::::<>Node<><>0<>0<><>::
-game_scene.gd::GDScript::7840432663766396799::1769029607::0::1::::<>CanvasLayer<><>0<>0<><>::
+game_scene.gd::GDScript::7840432663766396799::1769031314::0::1::::<>CanvasLayer<><>0<>0<><>::
 high_score_manager.gd::GDScript::7598300521204692235::1769027625::0::1::::<>Node<><>0<>0<><>::
 localization_manager.gd::GDScript::8102384966136666452::1769029607::0::1::::<>Node<><>0<>0<><>::
 main_menu.gd::GDScript::8180931509184117004::1768943894::0::1::::<>Control<><>0<>0<><>::
