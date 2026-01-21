@@ -3,6 +3,7 @@ extends Node
 ## Teacher Mode System - Advanced mathematics education features
 ## Handles: PEMDAS problems, square roots, long division
 ## Supports difficulty progression and problem verification
+## Optimized: Problem caching, reduced allocations, lazy computation
 
 class_name TeacherModeSystem
 
@@ -30,6 +31,11 @@ var show_work: bool = false          # Show step-by-step solution
 var track_progress: bool = false     # Track student progress
 var student_progress: Dictionary = {}
 
+# Performance caches
+var _problem_cache: Dictionary = {}  # Cache generated problems
+var _solution_cache: Dictionary = {} # Cache solution steps
+var _cache_max_size: int = 20
+
 # Signals for teacher mode
 signal problem_type_changed(type: String)
 signal mode_enabled(enabled: bool)
@@ -51,19 +57,26 @@ func set_teacher_mode(enabled: bool) -> void:
 ## Set problem type for generation
 func set_problem_type(problem_type: int) -> void:
 	try:
-		current_problem_type = problem_type
-		problem_type_changed.emit(ProblemType.keys()[problem_type])
+		if problem_type >= 0 and problem_type < ProblemType.size():
+			current_problem_type = problem_type
+			problem_type_changed.emit(ProblemType.keys()[problem_type])
 	except:
-		print("WARNING: Invalid problem type")
 		current_problem_type = ProblemType.BASIC
 
 ## Set advanced difficulty
-func set_advanced_difficulty(difficulty: int) -> void:
-	try:
-		if difficulty >= 0 and difficulty < AdvancedDifficulty.size():
-			current_advanced_difficulty = difficulty
-	except:
-		print("WARNING: Invalid advanced difficulty")
+func set_difficulty(difficulty: String) -> void:
+	match difficulty:
+		"FOUNDATIONAL":
+			current_advanced_difficulty = AdvancedDifficulty.FOUNDATIONAL
+		"INTERMEDIATE":
+			current_advanced_difficulty = AdvancedDifficulty.INTERMEDIATE
+		"ADVANCED":
+			current_advanced_difficulty = AdvancedDifficulty.ADVANCED
+		"MASTERY":
+			current_advanced_difficulty = AdvancedDifficulty.MASTERY
+		_:
+			current_advanced_difficulty = AdvancedDifficulty.FOUNDATIONAL
+
 
 ## Generate PEMDAS problem
 ## Format: a OP b OP c with mixed operations

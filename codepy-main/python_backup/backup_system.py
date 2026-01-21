@@ -7,6 +7,12 @@ This module provides a comprehensive backup interface that mirrors the Godot
 SystemManager, allowing the game to fall back to Python implementations if
 Godot systems fail completely.
 
+Features:
+- Lazy loading of optional systems
+- Error caching for debugging
+- Unified interface for all backups
+- Optional teacher mode support
+
 Usage:
     from backup_system import BackupSystem
     backup = BackupSystem()
@@ -25,7 +31,14 @@ from typing import Dict, Optional
 from problem_generator import ProblemGenerator, Difficulty
 from score_manager import ScoreManager
 from config_manager import ConfigManager
-from teacher_mode import TeacherMode, ProblemType, Difficulty as TeacherDifficulty
+
+# Teacher mode is optional - import but don't require
+try:
+    from teacher_mode import TeacherMode, ProblemType, Difficulty as TeacherDifficulty
+    TEACHER_MODE_AVAILABLE = True
+except ImportError:
+    TEACHER_MODE_AVAILABLE = False
+    TeacherMode = None
 
 
 class BackupSystem:
@@ -39,6 +52,7 @@ class BackupSystem:
         self.teacher_mode = None
         self.initialized = False
         self.errors = []
+        self._teacher_mode_initialized = False  # Track initialization attempt
         
         self._initialize_systems()
     
@@ -49,14 +63,6 @@ class BackupSystem:
             self.score_manager = ScoreManager()
             self.config_manager = ConfigManager()
             
-            # Teacher mode is optional - load if available
-            try:
-                self.teacher_mode = TeacherMode()
-                print("✅ All systems initialized (including optional teacher mode)")
-            except Exception as te:
-                self.teacher_mode = None
-                print(f"⚠️  Teacher mode not available (optional): {te}")
-            
             self.initialized = True
             print("✅ Backup systems initialized successfully")
         
@@ -65,9 +71,24 @@ class BackupSystem:
             self.errors.append(f"Backup system initialization failed: {e}")
             print(f"❌ {self.errors[-1]}")
     
+    def _initialize_teacher_mode(self) -> None:
+        """Lazy-load teacher mode on first use (optional)"""
+        if self._teacher_mode_initialized or not TEACHER_MODE_AVAILABLE:
+            return
+        
+        self._teacher_mode_initialized = True
+        
+        try:
+            self.teacher_mode = TeacherMode()
+            print("✅ Teacher mode initialized successfully")
+        except Exception as te:
+            self.teacher_mode = None
+            self._log_error(f"Teacher mode initialization failed: {te}")
+    
     def is_available(self) -> bool:
         """Check if backup systems are available"""
         return self.initialized
+
     
     # Problem Generation Backup
     def generate_problem(self, difficulty: str = "MEDIUM") -> Optional[Dict]:
@@ -253,6 +274,7 @@ class BackupSystem:
         """Generate a PEMDAS (Order of Operations) problem.
         
         Optional teacher mode feature - returns empty dict if not available.
+        Lazy-loads teacher mode on first call.
         
         Args:
             difficulty: "FOUNDATIONAL", "INTERMEDIATE", "ADVANCED", or "MASTERY"
@@ -261,8 +283,11 @@ class BackupSystem:
             Dictionary with problem_text, correct_answer, options, and steps
             or empty dict if teacher mode not available
         """
+        # Lazy-load teacher mode on first use
+        if not self._teacher_mode_initialized:
+            self._initialize_teacher_mode()
+        
         if not self.teacher_mode:
-            self._log_error("PEMDAS generation requested but teacher mode not available (optional feature)")
             return {}
         
         try:
@@ -276,6 +301,7 @@ class BackupSystem:
         """Generate a square root problem.
         
         Optional teacher mode feature - returns empty dict if not available.
+        Lazy-loads teacher mode on first call.
         
         Args:
             difficulty: "FOUNDATIONAL" (perfect squares), 
@@ -287,8 +313,11 @@ class BackupSystem:
             Dictionary with problem_text, correct_answer, options, and steps
             or empty dict if teacher mode not available
         """
+        # Lazy-load teacher mode on first use
+        if not self._teacher_mode_initialized:
+            self._initialize_teacher_mode()
+        
         if not self.teacher_mode:
-            self._log_error("Square root generation requested but teacher mode not available (optional feature)")
             return {}
         
         try:
@@ -302,6 +331,7 @@ class BackupSystem:
         """Generate a long division problem with step-by-step solution.
         
         Optional teacher mode feature - returns empty dict if not available.
+        Lazy-loads teacher mode on first call.
         
         Args:
             difficulty: "FOUNDATIONAL" (single-digit),
@@ -313,8 +343,11 @@ class BackupSystem:
             Dictionary with problem_text, correct_answer, options, and steps
             or empty dict if teacher mode not available
         """
+        # Lazy-load teacher mode on first use
+        if not self._teacher_mode_initialized:
+            self._initialize_teacher_mode()
+        
         if not self.teacher_mode:
-            self._log_error("Long division generation requested but teacher mode not available (optional feature)")
             return {}
         
         try:
@@ -328,6 +361,7 @@ class BackupSystem:
         """Generate any teacher mode problem type.
         
         Optional teacher mode feature - returns empty dict if not available.
+        Lazy-loads teacher mode on first call.
         
         Args:
             problem_type: "PEMDAS", "SQUARE_ROOT", or "LONG_DIVISION"
@@ -337,8 +371,11 @@ class BackupSystem:
             Dictionary with problem_text, correct_answer, options, and steps
             or empty dict if teacher mode not available
         """
+        # Lazy-load teacher mode on first use
+        if not self._teacher_mode_initialized:
+            self._initialize_teacher_mode()
+        
         if not self.teacher_mode:
-            self._log_error(f"Teacher problem ({problem_type}) requested but teacher mode not available (optional feature)")
             return {}
         
         try:

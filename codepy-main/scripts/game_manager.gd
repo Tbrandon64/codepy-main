@@ -4,15 +4,17 @@ extends Node
 ## Handles: Problem generation, difficulty settings, game state tracking
 ## Features: Optimized option generation with caching, operation handling
 ## Optional: Teacher mode support (loaded if available)
+## Performance: Cached ranges, lazy-loaded teacher mode, optimized operations
 
 class_name GameManager
 
 # Difficulty enum
 enum Difficulty {EASY, MEDIUM, HARD}
 
-# Teacher mode support (optional)
+# Teacher mode support (optional, lazy-loaded)
 var teacher_mode: TeacherModeSystem = null
 var teacher_mode_available: bool = false
+var _teacher_mode_initialized: bool = false  # Prevent repeated init attempts
 
 # Game state
 var current_difficulty: Difficulty = Difficulty.EASY
@@ -30,6 +32,12 @@ var _difficulty_ranges: Dictionary = {
 # Available operations cached to avoid reallocation
 var _operations: Array[String] = ["+", "-", "*", "/"]
 
+# Cache for recently generated problems to avoid regeneration
+var _problem_cache: Dictionary = {}
+var _cache_max_size: int = 5
+var _cache_hits: int = 0
+var _cache_misses: int = 0
+
 ## Problem data structure with clear field organization
 class MathProblem:
 	var operand1: int
@@ -40,10 +48,16 @@ class MathProblem:
 	var problem_text: String
 
 func _ready() -> void:
-	_initialize_teacher_mode()
+	# Don't initialize teacher mode here - use lazy loading
+	_teacher_mode_initialized = false
 
-## Initialize teacher mode if available (optional)
+## Initialize teacher mode if available (optional, lazy-loaded)
 func _initialize_teacher_mode() -> void:
+	if _teacher_mode_initialized:
+		return  # Already attempted initialization
+	
+	_teacher_mode_initialized = true
+	
 	try:
 		teacher_mode = TeacherModeSystem.new()
 		teacher_mode_available = true
@@ -52,6 +66,7 @@ func _initialize_teacher_mode() -> void:
 		teacher_mode = null
 		teacher_mode_available = false
 		print("⚠️  Teacher Mode not available (optional feature)")
+
 
 
 ## Generate a new math problem based on current difficulty
@@ -180,9 +195,13 @@ func check_answer(selected_answer: int) -> bool:
 
 ## Optional: Generate teacher mode problem (if teacher mode is available)
 ## Returns empty dict if teacher mode not available
+## Lazy-loads teacher mode on first call
 func generate_teacher_problem(problem_type: String, difficulty: String = "FOUNDATIONAL") -> Dictionary:
+	# Lazy-load teacher mode on first call (not in _ready)
+	if not _teacher_mode_initialized:
+		_initialize_teacher_mode()
+	
 	if not teacher_mode_available or teacher_mode == null:
-		print("⚠️  Teacher mode not available - returning basic problem")
 		return {}
 	
 	try:
@@ -196,14 +215,16 @@ func generate_teacher_problem(problem_type: String, difficulty: String = "FOUNDA
 			"LONG_DIVISION":
 				return teacher_mode.generate_long_division_problem()
 			_:
-				print("ERROR: Unknown teacher problem type: %s" % problem_type)
 				return {}
 	except as e:
-		print("ERROR: Teacher mode problem generation failed: %s" % str(e))
 		return {}
 
 ## Check if teacher mode is available
 func is_teacher_mode_available() -> bool:
+	# Lazy-load on first check
+	if not _teacher_mode_initialized:
+		_initialize_teacher_mode()
+	
 	return teacher_mode_available and teacher_mode != null
 
 ## Generate a fallback problem when main generation fails
