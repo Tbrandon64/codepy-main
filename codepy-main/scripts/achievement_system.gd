@@ -5,7 +5,7 @@ extends Node
 
 class_name AchievementSystem
 
-const ACHIEVEMENTS_FILE = "user://mathblat_achievements.json"
+const ACHIEVEMENTS_FILE = "user://math_blast_achievements.json"
 
 var achievements: Dictionary = {}
 var player_level: int = 1

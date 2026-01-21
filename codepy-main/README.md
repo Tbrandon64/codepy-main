@@ -1,4 +1,4 @@
-# MathBlat - Multiplayer Math Puzzle Game
+# Math Blast - Multiplayer Math Puzzle Game
 
 A fast-paced multiplayer math competition game built with Godot 4.5 GDScript. Test your arithmetic skills against AI or real players in a sleek space-themed interface.
 
@@ -180,9 +180,9 @@ MathBlat/
 High scores are automatically saved in:
 
 ```
-Windows: C:\Users\[User]\AppData\Roaming\Godot\app_userdata\mathblat_highscores.json
-Linux:   ~/.local/share/godot/app_userdata/mathblat_highscores.json
-macOS:   ~/Library/Application\ Support/Godot/app_userdata/mathblat_highscores.json
+Windows: C:\Users\[User]\AppData\Roaming\Godot\app_userdata\math_blast_highscores.json
+Linux:   ~/.local/share/godot/app_userdata/math_blast_highscores.json
+macOS:   ~/Library/Application\ Support/Godot/app_userdata/math_blast_highscores.json
 Web:     Browser localStorage/IndexedDB
 ```
 
@@ -228,7 +228,7 @@ Deploy `build/` folder to web server or [itch.io](https://itch.io).
 ### High Scores Not Saving
 - Verify `HighScoreManager` autoload in `project.godot`
 - Check user:// directory has write permissions
-- Inspect JSON in `user://mathblat_highscores.json`
+- Inspect JSON in `user://math_blast_highscores.json`
 
 ### Audio Issues
 - Ensure audio drivers installed (ALSA/PulseAudio on Linux)
@@ -357,6 +357,21 @@ For comprehensive implementation details, see:
 ## License
 
 This project is open source. Modify and distribute freely.
+
+## Support Math Blast ❤️
+
+Love the game? Consider supporting development:
+
+### 🎁 Donate
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/mathblast)
+
+Your support helps us:
+- Develop new features and levels
+- Improve accessibility and performance  
+- Expand to more platforms
+- Create amazing educational content
+
+*All donations are appreciated but never required to play!*
 
 ## Credits
 
