@@ -112,7 +112,102 @@ godot --path .
 
 ---
 
-## 📚 Documentation
+## � Project Structure
+
+```
+math-blast/
+├── 📂 .github/                          # GitHub configuration
+│   ├── 📂 ISSUE_TEMPLATE/
+│   │   ├── bug_report.yml              # Bug report form
+│   │   └── feature_request.yml         # Feature request form
+│   └── PULL_REQUEST_TEMPLATE.md        # PR guidelines
+│
+├── 📂 scenes/                           # Game scenes (Godot)
+│   ├── main_menu.tscn                  # Main menu with Host/Join
+│   ├── difficulty_menu.tscn            # Difficulty selection
+│   ├── game_scene.tscn                 # Core gameplay
+│   ├── victory_screen.tscn             # Victory screen
+│   ├── adventure_map.tscn              # Adventure mode
+│   ├── teacher_portal.tscn             # Teacher mode
+│   └── ...
+│
+├── 📂 scripts/                          # GDScript files
+│   ├── game_manager.gd                 # Problem generation & state
+│   ├── game_scene.gd                   # Core game loop
+│   ├── main_menu.gd                    # Network setup (ENet)
+│   ├── high_score_manager.gd           # High score storage
+│   ├── achievement_system.gd           # Achievements & leveling
+│   ├── badge_manager.gd                # Badge system
+│   ├── player_profile_manager.gd       # Player profiles
+│   ├── daily_challenge_manager.gd      # Daily challenges
+│   ├── accessibility_manager.gd        # Accessibility features
+│   ├── audio_manager.gd                # Audio & sound effects
+│   ├── localization_manager.gd         # Multi-language support
+│   ├── config_file_handler.gd          # Settings persistence
+│   ├── gameplay_enhancement_system.gd  # Combos & power-ups
+│   ├── victory_screen_enhanced.gd      # Victory features
+│   ├── main_menu_enhanced.gd           # Mute & hard mode
+│   ├── multiplayer_lobby_enhanced.gd   # Lobby features
+│   ├── thumbnail_generator.gd          # Promo image creator
+│   └── splash_screen.gd                # Intro logo
+│
+├── 📂 python_backup/                    # Python fallback system
+│   ├── __init__.py
+│   ├── score_manager.py
+│   ├── teacher_mode.py
+│   ├── problem_generator.py
+│   ├── backup_system.py
+│   └── config_manager.py
+│
+├── 📂 tools/                            # Utility scripts
+│   ├── PackageMathBlast.bat            # Windows packaging tool
+│   └── ...
+│
+├── 📂 docs/                             # Documentation (optional)
+│   ├── ACCESSIBILITY.md                # Accessibility guide
+│   ├── TEACHER_MODE.md                 # Teacher mode guide
+│   ├── MULTIPLAYER.md                  # Multiplayer setup
+│   ├── EXPORT.md                       # Export instructions
+│   └── ARCHIVE/                        # Archived documentation
+│
+├── 📄 README.md                         # ← YOU ARE HERE
+├── 📄 CONTRIBUTING.md                  # How to contribute
+├── 📄 CODE_OF_CONDUCT.md               # Community guidelines
+├── 📄 LICENSE                          # MIT License
+├── 📄 CODE_STYLE_GUIDE.md              # Coding standards
+├── 📄 GITHUB_SETUP.md                  # GitHub setup guide
+├── 📄 GITHUB_ORGANIZATION_CHECKLIST.md # Setup checklist
+├── 📄 EXPORT_CHECKLIST.md              # Export procedures
+│
+├── project.godot                       # Godot project file
+├── export_presets.cfg                  # Platform export config
+└── .gitignore                          # Git ignore rules
+```
+
+### Key Directories Explained
+
+| Directory | Purpose |
+|-----------|---------|
+| **scripts/** | All game logic (GDScript) - core gameplay, AI, multiplayer, accessibility |
+| **scenes/** | UI and game scenes (Godot scene files) - main menu, game, victory screen |
+| **python_backup/** | Fallback Python system for fail-safe architecture |
+| **tools/** | Utility scripts for packaging and deployment |
+| **.github/** | GitHub configuration - issue templates, PR templates |
+| **docs/** | Additional documentation - guides and archived files |
+
+### Important Files
+
+| File | Purpose |
+|------|---------|
+| `project.godot` | Godot engine configuration and autoloads |
+| `export_presets.cfg` | Build settings for all platforms (Windows, Linux, macOS, Android, iOS, Web) |
+| `CONTRIBUTING.md` | How to contribute to the project |
+| `CODE_OF_CONDUCT.md` | Community values and standards |
+| `LICENSE` | MIT License (free to use and modify) |
+
+---
+
+## �📚 Documentation
 
 - [**Accessibility Guide**](docs/ACCESSIBILITY.md) - Detailed accessibility features
 - [**Teacher Mode Guide**](docs/TEACHER_MODE.md) - Classroom setup & management
