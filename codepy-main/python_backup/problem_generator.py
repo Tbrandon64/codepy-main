@@ -23,20 +23,28 @@ class Difficulty(Enum):
 
 
 class ProblemGenerator:
-    """Generate math problems with consistent interface to Godot version"""
+    """Generate math problems with consistent interface to Godot version.
     
-    # Difficulty ranges (matching Godot)
+    Supports three difficulty levels (EASY, MEDIUM, HARD) with configurable
+    number ranges and point values. Generates 4 multiple choice options.
+    """
+    
+    # Number ranges for each difficulty level (matching Godot implementation)
     DIFFICULTY_RANGES = {
         Difficulty.EASY: {"min": 1, "max": 10, "points": 10},
         Difficulty.MEDIUM: {"min": 1, "max": 50, "points": 20},
         Difficulty.HARD: {"min": 1, "max": 100, "points": 30},
     }
     
-    # Available operations
+    # Basic arithmetic operations supported by problem generator
     OPERATIONS = ["+", "-", "*", "/"]
     
     def __init__(self, difficulty: str = "MEDIUM"):
-        """Initialize generator with difficulty level"""
+        """Initialize generator with difficulty level.
+        
+        Args:
+            difficulty: "EASY", "MEDIUM", or "HARD" (default: "MEDIUM")
+        """
         try:
             self.difficulty = Difficulty[difficulty]
         except KeyError:
@@ -98,26 +106,36 @@ class ProblemGenerator:
             return self._generate_fallback_problem()
     
     def _calculate_answer(self, op1: int, op2: int, operation: str) -> int:
-        """Calculate correct answer for given operands and operation"""
+        """Calculate correct answer for given operands and operation.
+        
+        Args:
+            op1: First operand (left side)
+            op2: Second operand (right side)
+            operation: Operator string ("+", "-", "*", "/")
+            
+        Returns:
+            Calculated integer result, or None if operation invalid/impossible
+        """
         try:
+            # Addition operation
             if operation == "+":
                 return op1 + op2
+            # Subtraction operation
             elif operation == "-":
                 return op1 - op2
+            # Multiplication operation
             elif operation == "*":
                 return op1 * op2
+            # Integer division with safety checks
             elif operation == "/":
-                # Ensure integer division
                 if op2 == 0:
-                    return None
-                if op1 % op2 != 0:
-                    # Adjust to make divisible
-                    return op1 // op2
+                    return None  # Prevent division by zero
+                # Use integer division to avoid remainders
                 return op1 // op2
             else:
-                return None
+                return None  # Unknown operation
         except Exception:
-            return None
+            return None  # Handle any calculation errors
     
     def _generate_options(self, correct_answer: int, max_attempts: int = 50) -> List[int]:
         """Generate 4 unique answer options"""

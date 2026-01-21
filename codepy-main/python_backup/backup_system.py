@@ -42,17 +42,29 @@ except ImportError:
 
 
 class BackupSystem:
-    """Unified backup system interface for MathBlat"""
+    """Unified backup system interface for MathBlat.
+    
+    Provides fallback implementations for core game systems (problem generation,
+    score management, configuration) if Godot systems fail completely.
+    Implements lazy-loading for optional features like teacher mode.
+    """
     
     def __init__(self):
-        """Initialize all backup systems"""
+        """Initialize all backup systems with error handling.
+        
+        Sets up core systems: problem generator, score manager, and config manager.
+        Teacher mode is lazy-loaded on first use for performance.
+        """
+        # Core backup systems
         self.problem_gen = None
         self.score_manager = None
         self.config_manager = None
         self.teacher_mode = None
+        
+        # Status tracking
         self.initialized = False
         self.errors = []
-        self._teacher_mode_initialized = False  # Track initialization attempt
+        self._teacher_mode_initialized = False
         
         self._initialize_systems()
     

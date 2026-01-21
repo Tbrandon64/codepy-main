@@ -18,23 +18,39 @@ from datetime import datetime
 
 
 class ScoreManager:
-    """Manage high scores with persistent JSON storage"""
+    """Manage high scores with persistent JSON storage.
     
+    Stores and retrieves player high scores with automatic ranking.
+    Persists scores to ~/.mathblat/high_scores.json by default.
+    Maintains a maximum of 10 high score entries.
+    """
+    
+    # Default storage directory (~/.mathblat/)
     DEFAULT_SCORES_DIR = Path.home() / ".mathblat"
+    # Default scores file location
     DEFAULT_SCORES_FILE = DEFAULT_SCORES_DIR / "high_scores.json"
+    # Maximum number of high scores to keep
     MAX_HIGH_SCORES = 10
     
     def __init__(self, scores_file: Optional[str] = None):
-        """Initialize score manager with optional custom file path"""
+        """Initialize score manager with optional custom file path.
+        
+        Creates ~/.mathblat directory if needed and loads existing scores.
+        
+        Args:
+            scores_file: Custom file path for scores. If None, uses default.
+        """
         try:
+            # Use custom path if provided, otherwise use default location
             if scores_file:
                 self.scores_file = Path(scores_file)
             else:
                 self.scores_file = self.DEFAULT_SCORES_FILE
             
-            # Create directory if needed
+            # Create directory structure if it doesn't exist
             self.scores_file.parent.mkdir(parents=True, exist_ok=True)
             
+            # Initialize scores list and load from file
             self.high_scores: List[Dict] = []
             self.load_scores()
         

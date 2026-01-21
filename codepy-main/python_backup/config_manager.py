@@ -17,12 +17,19 @@ from typing import Any, Dict, Optional
 
 
 class ConfigManager:
-    """Manage game configuration with persistent JSON storage"""
+    """Manage game configuration with persistent JSON storage.
     
+    Provides a centralized configuration system for all game settings including
+    audio, graphics, gameplay, and localization. Automatically merges loaded
+    configs with defaults to ensure all required keys exist.
+    """
+    
+    # Default storage directory (~/.mathblat/)
     DEFAULT_CONFIG_DIR = Path.home() / ".mathblat"
+    # Default configuration file location
     DEFAULT_CONFIG_FILE = DEFAULT_CONFIG_DIR / "config.json"
     
-    # Default configuration structure
+    # Default configuration structure (provides fallback values)
     DEFAULT_CONFIG = {
         "Game": {
             "Difficulty": "EASY",

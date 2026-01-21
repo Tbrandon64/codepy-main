@@ -31,16 +31,38 @@ class Difficulty(Enum):
 
 
 class TeacherMode:
-    """Advanced mathematics problem generator"""
+    """Advanced mathematics problem generator for teacher mode.
+    
+    Generates progressively complex math problems in three categories:
+    - PEMDAS (Order of Operations)
+    - SQUARE_ROOT (Radical expressions)
+    - LONG_DIVISION (Multi-step division)
+    
+    Supports four difficulty levels: FOUNDATIONAL, INTERMEDIATE, ADVANCED, MASTERY
+    """
     
     def __init__(self):
-        """Initialize teacher mode system"""
+        """Initialize teacher mode system with foundational difficulty.
+        
+        Sets up tracking for difficulty level and problem generation count.
+        """
+        # Current difficulty setting for problem generation
         self.current_difficulty = Difficulty.FOUNDATIONAL
+        # Counter for problems generated during session
         self.problems_generated = 0
     
     def set_difficulty(self, difficulty: str) -> bool:
-        """Set problem difficulty"""
+        """Set problem difficulty level.
+        
+        Args:
+            difficulty: Difficulty level name ("FOUNDATIONAL", "INTERMEDIATE", 
+                       "ADVANCED", or "MASTERY")
+        
+        Returns:
+            True if difficulty set successfully, False if invalid
+        """
         try:
+            # Convert string to Difficulty enum
             self.current_difficulty = Difficulty[difficulty]
             return True
         except KeyError:
