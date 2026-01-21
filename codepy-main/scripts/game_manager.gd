@@ -20,8 +20,6 @@ extends Node
 ##   - Operations stored in array to avoid repeated allocation
 ##   - Problem cache with LRU-like behavior
 
-class_name GameManager
-
 # Difficulty levels for problem generation
 enum Difficulty {EASY, MEDIUM, HARD}
 
@@ -35,6 +33,11 @@ var current_difficulty: Difficulty = Difficulty.EASY
 var current_problem: Dictionary = {}
 var score: int = 0
 var problems_answered: int = 0
+
+## Hard mode and difficulty multipliers for main menu
+var hard_mode: bool = false
+var multiplier_multiplier: float = 1.5
+var time_multiplier: float = 1.0
 
 ## Performance optimization: pre-cached difficulty ranges to avoid repeated lookups
 var _difficulty_ranges: Dictionary = {

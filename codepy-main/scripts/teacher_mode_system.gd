@@ -56,11 +56,10 @@ func set_teacher_mode(enabled: bool) -> void:
 
 ## Set problem type for generation
 func set_problem_type(problem_type: int) -> void:
-	try:
-		if problem_type >= 0 and problem_type < ProblemType.size():
-			current_problem_type = problem_type
-			problem_type_changed.emit(ProblemType.keys()[problem_type])
-	except:
+	if problem_type >= 0 and problem_type < ProblemType.size():
+		current_problem_type = problem_type
+		problem_type_changed.emit(ProblemType.keys()[problem_type])
+	else:
 		current_problem_type = ProblemType.BASIC
 
 ## Set advanced difficulty
@@ -81,599 +80,439 @@ func set_difficulty(difficulty: String) -> void:
 ## Generate PEMDAS problem
 ## Format: a OP b OP c with mixed operations
 func generate_pemdas_problem() -> Dictionary:
-	try:
-		var problem = {
-			"type": "PEMDAS",
-			"steps": [],
-			"problem_text": "",
-			"correct_answer": 0,
-			"options": []
-		}
-		
-		# Determine problem complexity based on difficulty
-		var complexity = _get_pemdas_complexity()
-		
-		if complexity == 1:
-			# Simple: 2 operations (a OP b OP c)
-			problem = _generate_simple_pemdas()
-		elif complexity == 2:
-			# Intermediate: 3 operations with parentheses
-			problem = _generate_intermediate_pemdas()
-		else:
-			# Advanced: 4+ operations, multiple parentheses
-			problem = _generate_advanced_pemdas()
-		
-		if show_work:
-			problem["steps"] = _generate_solution_steps(problem)
-		return problem
+	var problem = {
+		"type": "PEMDAS",
+		"steps": [],
+		"problem_text": "",
+		"correct_answer": 0,
+		"options": []
+	}
 	
-	except:
-		print("WARNING: Failed to generate PEMDAS problem")
-		return _generate_simple_pemdas()
+	# Determine problem complexity based on difficulty
+	var complexity = _get_pemdas_complexity()
+	
+	if complexity == 1:
+		# Simple: 2 operations (a OP b OP c)
+		problem = _generate_simple_pemdas()
+	elif complexity == 2:
+		# Intermediate: 3 operations with parentheses
+		problem = _generate_intermediate_pemdas()
+	else:
+		# Advanced: 4+ operations, multiple parentheses
+		problem = _generate_advanced_pemdas()
+	
+	if show_work:
+		problem["steps"] = _generate_solution_steps(problem)
+	return problem
 
 ## Generate square root problem
 func generate_square_root_problem() -> Dictionary:
-	try:
-		var problem = {
-			"type": "SQUARE_ROOT",
-			"steps": [],
-			"problem_text": "",
-			"correct_answer": 0,
-			"options": [],
-			"radicand": 0
-		}
-		
-		var difficulty = current_advanced_difficulty
-		
-		if difficulty == AdvancedDifficulty.FOUNDATIONAL:
-			# Perfect squares: 4, 9, 16, 25, 36, 49, 64, 81, 100
-			problem = _generate_perfect_square()
-		elif difficulty == AdvancedDifficulty.INTERMEDIATE:
-			# Perfect squares up to 400
-			problem = _generate_perfect_square_extended()
-		elif difficulty == AdvancedDifficulty.ADVANCED:
-			# Approximation problems
-			problem = _generate_square_root_approximation()
-		else:
-			# Mixed with operations
-			problem = _generate_square_root_mixed()
-		
-		if show_work:
-			problem["steps"] = _generate_square_root_steps(problem)
-		return problem
+	var problem = {
+		"type": "SQUARE_ROOT",
+		"steps": [],
+		"problem_text": "",
+		"correct_answer": 0,
+		"options": [],
+		"radicand": 0
+	}
 	
-	except:
-		print("WARNING: Failed to generate square root problem")
-		return _generate_perfect_square()
+	var difficulty = current_advanced_difficulty
+	
+	if difficulty == AdvancedDifficulty.FOUNDATIONAL:
+		# Perfect squares: 4, 9, 16, 25, 36, 49, 64, 81, 100
+		problem = _generate_perfect_square()
+	elif difficulty == AdvancedDifficulty.INTERMEDIATE:
+		# Perfect squares up to 400
+		problem = _generate_perfect_square_extended()
+	elif difficulty == AdvancedDifficulty.ADVANCED:
+		# Approximation problems
+		problem = _generate_square_root_approximation()
+	else:
+		# Mixed with operations
+		problem = _generate_square_root_mixed()
+	
+	if show_work:
+		problem["steps"] = _generate_square_root_steps(problem)
+	return problem
 
 ## Generate long division problem
 func generate_long_division_problem() -> Dictionary:
-	try:
-		var problem = {
-			"type": "LONG_DIVISION",
-			"steps": [],
-			"problem_text": "",
-			"correct_answer": 0,
-			"options": [],
-			"dividend": 0,
-			"divisor": 0,
-			"quotient": 0,
-			"remainder": 0
-		}
-		
-		var difficulty = current_advanced_difficulty
-		
-		if difficulty == AdvancedDifficulty.FOUNDATIONAL:
-			# 2-digit ÷ 1-digit
-			problem = _generate_simple_long_division()
-		elif difficulty == AdvancedDifficulty.INTERMEDIATE:
-			# 3-digit ÷ 1-digit or 3-digit ÷ 2-digit
-			problem = _generate_intermediate_long_division()
-		elif difficulty == AdvancedDifficulty.ADVANCED:
-			# 4-digit ÷ 2-digit
-			problem = _generate_advanced_long_division()
-		else:
-			# 4-digit ÷ 2-3 digit with remainder
-			problem = _generate_mastery_long_division()
-		
-		if show_work:
-			problem["steps"] = _generate_long_division_steps(problem)
-		return problem
+	var problem = {
+		"type": "LONG_DIVISION",
+		"steps": [],
+		"problem_text": "",
+		"correct_answer": 0,
+		"options": [],
+		"dividend": 0,
+		"divisor": 0,
+		"quotient": 0,
+		"remainder": 0
+	}
 	
-	except:
-		print("WARNING: Failed to generate long division problem")
-		return _generate_simple_long_division()
+	var difficulty = current_advanced_difficulty
+	
+	if difficulty == AdvancedDifficulty.FOUNDATIONAL:
+		# 2-digit ÷ 1-digit
+		problem = _generate_simple_long_division()
+	elif difficulty == AdvancedDifficulty.INTERMEDIATE:
+		# 3-digit ÷ 1-digit or 3-digit ÷ 2-digit
+		problem = _generate_intermediate_long_division()
+	elif difficulty == AdvancedDifficulty.ADVANCED:
+		# 4-digit ÷ 2-digit
+		problem = _generate_advanced_long_division()
+	else:
+		# 4-digit ÷ 2-3 digit with remainder
+		problem = _generate_mastery_long_division()
+	
+	if show_work:
+		problem["steps"] = _generate_long_division_steps(problem)
+	return problem
 
 ## Generate general advanced problem based on current type
 func generate_advanced_problem() -> Dictionary:
-	try:
-		if current_problem_type == ProblemType.PEMDAS:
+	if current_problem_type == ProblemType.PEMDAS:
+		return generate_pemdas_problem()
+	elif current_problem_type == ProblemType.SQUARE_ROOT:
+		return generate_square_root_problem()
+	elif current_problem_type == ProblemType.LONG_DIVISION:
+		return generate_long_division_problem()
+	elif current_problem_type == ProblemType.MIXED:
+		# Random type
+		var random_type = randi() % 3
+		if random_type == 0:
 			return generate_pemdas_problem()
-		elif current_problem_type == ProblemType.SQUARE_ROOT:
+		elif random_type == 1:
 			return generate_square_root_problem()
-		elif current_problem_type == ProblemType.LONG_DIVISION:
-			return generate_long_division_problem()
-		elif current_problem_type == ProblemType.MIXED:
-			# Random type
-			var random_type = randi() % 3
-			if random_type == 0:
-				return generate_pemdas_problem()
-			elif random_type == 1:
-				return generate_square_root_problem()
-			else:
-				return generate_long_division_problem()
 		else:
-			return {}
-	
-	except:
-		print("WARNING: Failed to generate advanced problem")
+			return generate_long_division_problem()
+	else:
 		return {}
 
 ## Track student progress
 func record_student_answer(student_name: String, problem: Dictionary, answer: int, time_taken: float, is_correct: bool) -> void:
-	try:
-		if not track_progress:
-			return
-		
-		if student_name not in student_progress:
-			student_progress[student_name] = {
-				"total_problems": 0,
-				"correct": 0,
-				"incorrect": 0,
-				"problems_by_type": {},
-				"total_time": 0.0,
-				"average_time": 0.0
-			}
-		
-		var stats = student_progress[student_name]
-		stats["total_problems"] += 1
-		stats["total_time"] += time_taken
-		stats["average_time"] = stats["total_time"] / stats["total_problems"]
-		
-		if is_correct:
-			stats["correct"] += 1
-		else:
-			stats["incorrect"] += 1
-		
-		# Track by problem type
-		var problem_type = problem.get("type", "UNKNOWN")
-		if problem_type not in stats["problems_by_type"]:
-			stats["problems_by_type"][problem_type] = {"correct": 0, "total": 0}
-		
-		stats["problems_by_type"][problem_type]["total"] += 1
-		if is_correct:
-			stats["problems_by_type"][problem_type]["correct"] += 1
-		
-		progress_updated.emit(student_name, stats)
+	if not track_progress:
+		return
 	
-	except:
-		print("WARNING: Failed to record student answer")
+	if student_name not in student_progress:
+		student_progress[student_name] = {
+			"total_problems": 0,
+			"correct": 0,
+			"incorrect": 0,
+			"problems_by_type": {},
+			"total_time": 0.0,
+			"average_time": 0.0
+		}
+	
+	var stats = student_progress[student_name]
+	stats["total_problems"] += 1
+	stats["total_time"] += time_taken
+	stats["average_time"] = stats["total_time"] / stats["total_problems"]
+	
+	if is_correct:
+		stats["correct"] += 1
+	else:
+		stats["incorrect"] += 1
+	
+	# Track by problem type
+	var problem_type = problem.get("type", "UNKNOWN")
+	if problem_type not in stats["problems_by_type"]:
+		stats["problems_by_type"][problem_type] = {"correct": 0, "total": 0}
+	
+	stats["problems_by_type"][problem_type]["total"] += 1
+	if is_correct:
+		stats["problems_by_type"][problem_type]["correct"] += 1
+	
+	progress_updated.emit(student_name, stats)
 
 ## Get student progress report
 func get_student_progress(student_name: String) -> Dictionary:
-	try:
-		if student_name in student_progress:
-			return student_progress[student_name]
-		return {}
-	except:
-		return {}
+	if student_name in student_progress:
+		return student_progress[student_name]
+	return {}
 
 ## Get overall class statistics
 func get_class_statistics() -> Dictionary:
-	try:
-		var stats = {
-			"total_students": student_progress.size(),
-			"total_problems_solved": 0,
-			"class_average_accuracy": 0.0,
-			"class_average_time": 0.0
-		}
-		
-		var total_correct = 0
-		var total_problems = 0
-		var total_time = 0.0
-		
-		for student_name in student_progress:
-			var student_stats = student_progress[student_name]
-			total_problems += student_stats["total_problems"]
-			total_correct += student_stats["correct"]
-			total_time += student_stats["total_time"]
-		
-		if total_problems > 0:
-			stats["total_problems_solved"] = total_problems
-			stats["class_average_accuracy"] = float(total_correct) / float(total_problems)
-			stats["class_average_time"] = total_time / float(total_problems)
-		
-		return stats
+	var stats = {
+		"total_students": student_progress.size(),
+		"total_problems_solved": 0,
+		"class_average_accuracy": 0.0,
+		"class_average_time": 0.0
+	}
 	
-	except:
-		return {}
+	var total_correct = 0
+	var total_problems = 0
+	var total_time = 0.0
+	
+	for student_name in student_progress:
+		var student_stats = student_progress[student_name]
+		total_problems += student_stats["total_problems"]
+		total_correct += student_stats["correct"]
+		total_time += student_stats["total_time"]
+	
+	if total_problems > 0:
+		stats["total_problems_solved"] = total_problems
+		stats["class_average_accuracy"] = float(total_correct) / float(total_problems)
+		stats["class_average_time"] = total_time / float(total_problems)
+	
+	return stats
 
 ## ============= PRIVATE HELPER FUNCTIONS =============
 
 func _get_pemdas_complexity() -> int:
-	try:
-		match current_advanced_difficulty:
-			AdvancedDifficulty.FOUNDATIONAL:
-				return 1
-			AdvancedDifficulty.INTERMEDIATE:
-				return 2
-			AdvancedDifficulty.ADVANCED:
-				return 3
-			AdvancedDifficulty.MASTERY:
-				return 4
-			_:
-				return 1
-	except:
-		print("ERROR: _get_pemdas_complexity failed")
-		return 1
+	match current_advanced_difficulty:
+		AdvancedDifficulty.FOUNDATIONAL:
+			return 1
+		AdvancedDifficulty.INTERMEDIATE:
+			return 2
+		AdvancedDifficulty.ADVANCED:
+			return 3
+		AdvancedDifficulty.MASTERY:
+			return 4
+		_:
+			return 1
 
 ## Generate simple PEMDAS (Order of Operations) problem
 ## Format: a + b * c (multiplication evaluated first)
 func _generate_simple_pemdas() -> Dictionary:
-		var a = randi_range(1, 10)
-		var b = randi_range(1, 10)
-		var c = randi_range(1, 10)
-		
-		var correct_answer = a + (b * c)
-		var wrong_answer1 = (a + b) * c
-		
-		return {
-			"type": "PEMDAS",
-			"problem_text": "%d + %d * %d = ?" % [a, b, c],
-			"correct_answer": correct_answer,
-			"options": [correct_answer, wrong_answer1, correct_answer + 5, correct_answer - 3],
-			"expression": "%d + %d * %d" % [a, b, c]
-		}
-	except:
-		print("ERROR: _generate_simple_pemdas failed")
-		return {
-			"type": "PEMDAS",
-			"problem_text": "1 + 2 * 3 = ?",
-			"correct_answer": 7,
-			"options": [7, 6, 8, 9],
-			"expression": "1 + 2 * 3"
-		}
+	var a = randi_range(1, 10)
+	var b = randi_range(1, 10)
+	var c = randi_range(1, 10)
+	
+	var correct_answer = a + (b * c)
+	var wrong_answer1 = (a + b) * c
+	
+	return {
+		"type": "PEMDAS",
+		"problem_text": "%d + %d * %d = ?" % [a, b, c],
+		"correct_answer": correct_answer,
+		"options": [correct_answer, wrong_answer1, correct_answer + 5, correct_answer - 3],
+		"expression": "%d + %d * %d" % [a, b, c]
+	}
 
 ## Generate intermediate PEMDAS problem
 ## Format: (a + b) * c - d (parentheses, multiplication, subtraction)
 func _generate_intermediate_pemdas() -> Dictionary:
-	try:
-		## Format: (a + b) * c - d
-		var a = randi_range(1, 8)
-		var b = randi_range(1, 8)
-		var c = randi_range(1, 5)
-		var d = randi_range(1, 5)
-		
-		var correct_answer = ((a + b) * c) - d
-		
-		return {
-			"type": "PEMDAS",
-			"problem_text": "(%d + %d) * %d - %d = ?" % [a, b, c, d],
-			"correct_answer": correct_answer,
-			"options": [correct_answer, (a + b) * c, correct_answer + 5, correct_answer - 5],
-			"expression": "(%d + %d) * %d - %d" % [a, b, c, d]
-		}
-	except:
-		print("ERROR: _generate_intermediate_pemdas failed")
-		return {
-			"type": "PEMDAS",
-			"problem_text": "(1 + 2) * 3 - 1 = ?",
-			"correct_answer": 8,
-			"options": [8, 9, 10, 11],
-			"expression": "(1 + 2) * 3 - 1"
-		}
+	## Format: (a + b) * c - d
+	var a = randi_range(1, 8)
+	var b = randi_range(1, 8)
+	var c = randi_range(1, 5)
+	var d = randi_range(1, 5)
+	
+	var correct_answer = ((a + b) * c) - d
+	
+	return {
+		"type": "PEMDAS",
+		"problem_text": "(%d + %d) * %d - %d = ?" % [a, b, c, d],
+		"correct_answer": correct_answer,
+		"options": [correct_answer, (a + b) * c, correct_answer + 5, correct_answer - 5],
+		"expression": "(%d + %d) * %d - %d" % [a, b, c, d]
+	}
 
 ## Generate advanced PEMDAS problem
 ## Format: a * b + c * d - e (multiple operations)
 func _generate_advanced_pemdas() -> Dictionary:
-	try:
-		## Format: a * b + c * d - e
-		var a = randi_range(2, 8)
-		var b = randi_range(2, 8)
-		var c = randi_range(2, 8)
-		var d = randi_range(2, 8)
-		var e = randi_range(1, 10)
-		
-		var correct_answer = (a * b) + (c * d) - e
-		
-		return {
-			"type": "PEMDAS",
-			"problem_text": "%d * %d + %d * %d - %d = ?" % [a, b, c, d, e],
-			"correct_answer": correct_answer,
-			"options": [correct_answer, a * b + c * d, correct_answer + 10, correct_answer - 10],
-			"expression": "%d * %d + %d * %d - %d" % [a, b, c, d, e]
-		}
-	except:
-		print("ERROR: _generate_advanced_pemdas failed")
-		return {
-			"type": "PEMDAS",
-			"problem_text": "2 * 3 + 4 * 5 - 6 = ?",
-			"correct_answer": 20,
-			"options": [20, 26, 30, 40],
-			"expression": "2 * 3 + 4 * 5 - 6"
-		}
+	## Format: a * b + c * d - e
+	var a = randi_range(2, 8)
+	var b = randi_range(2, 8)
+	var c = randi_range(2, 8)
+	var d = randi_range(2, 8)
+	var e = randi_range(1, 10)
+	
+	var correct_answer = (a * b) + (c * d) - e
+	
+	return {
+		"type": "PEMDAS",
+		"problem_text": "%d * %d + %d * %d - %d = ?" % [a, b, c, d, e],
+		"correct_answer": correct_answer,
+		"options": [correct_answer, a * b + c * d, correct_answer + 10, correct_answer - 10],
+		"expression": "%d * %d + %d * %d - %d" % [a, b, c, d, e]
+	}
 
 ## Generate perfect square (sqrt) problem
 ## Example: √4 = 2, √25 = 5
 func _generate_perfect_square() -> Dictionary:
-		
-		return {
-			"type": "SQUARE_ROOT",
-			"problem_text": "√%d = ?" % radicand,
-			"correct_answer": base,
-			"radicand": radicand,
-			"options": [base, base - 1, base + 1, base + 2]
-		}
-	except:
-		print("ERROR: _generate_perfect_square failed")
-		return {
-			"type": "SQUARE_ROOT",
-			"problem_text": "√4 = ?",
-			"correct_answer": 2,
-			"radicand": 4,
-			"options": [2, 1, 3, 4]
-		}
+	var base = randi_range(2, 10)
+	var radicand = base * base
+	
+	return {
+		"type": "SQUARE_ROOT",
+		"problem_text": "√%d = ?" % radicand,
+		"correct_answer": base,
+		"radicand": radicand,
+		"options": [base, base - 1, base + 1, base + 2]
+	}
 
 ## Generate extended perfect square (larger numbers)
 ## Range: 2-20 for more challenging problems
 func _generate_perfect_square_extended() -> Dictionary:
-		
-		return {
-			"type": "SQUARE_ROOT",
-			"problem_text": "√%d = ?" % radicand,
-			"correct_answer": base,
-			"radicand": radicand,
-			"options": [base, base - 2, base + 2, base - 1]
-		}
-	except:
-		print("ERROR: _generate_perfect_square_extended failed")
-		return {
-			"type": "SQUARE_ROOT",
-			"problem_text": "√9 = ?",
-			"correct_answer": 3,
-			"radicand": 9,
-			"options": [3, 1, 5, 2]
-		}
+	var base = randi_range(2, 20)
+	var radicand = base * base
+	
+	return {
+		"type": "SQUARE_ROOT",
+		"problem_text": "√%d = ?" % radicand,
+		"correct_answer": base,
+		"radicand": radicand,
+		"options": [base, base - 2, base + 2, base - 1]
+	}
 
 ## Generate square root approximation (non-perfect squares)
 ## Requires rounding to nearest integer
 func _generate_square_root_approximation() -> Dictionary:
-	try:
-		## Non-perfect square approximation
-		var radicand = randi_range(2, 100)
-		var answer = int(sqrt(float(radicand)))
-		
-		return {
-			"type": "SQUARE_ROOT",
-			"problem_text": "√%d ≈ ? (nearest integer)" % radicand,
-			"correct_answer": answer,
-			"radicand": radicand,
-			"options": [answer, answer - 1, answer + 1, answer - 2]
-		}
-	except:
-		print("ERROR: _generate_square_root_approximation failed")
-		return {
-			"type": "SQUARE_ROOT",
-			"problem_text": "√10 ≈ ? (nearest integer)",
-			"correct_answer": 3,
-			"radicand": 10,
-			"options": [3, 2, 4, 1]
-		}
+	## Non-perfect square approximation
+	var radicand = randi_range(2, 100)
+	var answer = int(sqrt(float(radicand)))
+	
+	return {
+		"type": "SQUARE_ROOT",
+		"problem_text": "√%d ≈ ? (nearest integer)" % radicand,
+		"correct_answer": answer,
+		"radicand": radicand,
+		"options": [answer, answer - 1, answer + 1, answer - 2]
+	}
 
 ## Generate mixed square root expression (a * √b + c)
 ## Example: 2 * √4 + 1 = 5
 func _generate_square_root_mixed() -> Dictionary:
-	try:
-		## Format: a * √b + c
-		var a = randi_range(1, 5)
-		var base = randi_range(2, 10)
-		var b = base * base
-		var c = randi_range(1, 10)
-		
-		var correct_answer = (a * base) + c
-		
-		return {
-			"type": "SQUARE_ROOT",
-			"problem_text": "%d * √%d + %d = ?" % [a, b, c],
-			"correct_answer": correct_answer,
-			"radicand": b,
-			"options": [correct_answer, a * base, correct_answer + 5, correct_answer - 5]
-		}
-	except:
-		print("ERROR: _generate_square_root_mixed failed")
-		return {
-			"type": "SQUARE_ROOT",
-			"problem_text": "2 * √4 + 1 = ?",
-			"correct_answer": 5,
-			"radicand": 4,
-			"options": [5, 4, 10, 0]
-		}
+	## Format: a * √b + c
+	var a = randi_range(1, 5)
+	var base = randi_range(2, 10)
+	var b = base * base
+	var c = randi_range(1, 10)
+	
+	var correct_answer = (a * base) + c
+	
+	return {
+		"type": "SQUARE_ROOT",
+		"problem_text": "%d * √%d + %d = ?" % [a, b, c],
+		"correct_answer": correct_answer,
+		"radicand": b,
+		"options": [correct_answer, a * base, correct_answer + 5, correct_answer - 5]
+	}
 
 ## Generate simple long division (2-digit ÷ 1-digit)
 ## Example: 12 ÷ 3 = 4
 func _generate_simple_long_division() -> Dictionary:
-	try:
-		## 2-digit ÷ 1-digit
-		var divisor = randi_range(2, 9)
-		var quotient = randi_range(2, 9)
-		var remainder = randi_range(0, divisor - 1)
-		var dividend = (quotient * divisor) + remainder
-		
-		return {
-			"type": "LONG_DIVISION",
-			"problem_text": "%d ÷ %d = ?" % [dividend, divisor],
-			"correct_answer": quotient if remainder == 0 else quotient,
-			"dividend": dividend,
-			"divisor": divisor,
-			"quotient": quotient,
-			"remainder": remainder,
-			"options": [quotient, quotient - 1, quotient + 1, quotient + 2]
-		}
-	except:
-		print("ERROR: _generate_simple_long_division failed")
-		return {
-			"type": "LONG_DIVISION",
-			"problem_text": "12 ÷ 3 = ?",
-			"correct_answer": 4,
-			"dividend": 12,
-			"divisor": 3,
-			"quotient": 4,
-			"remainder": 0,
-			"options": [4, 3, 5, 6]
-		}
+	## 2-digit ÷ 1-digit
+	var divisor = randi_range(2, 9)
+	var quotient = randi_range(2, 9)
+	var remainder = randi_range(0, divisor - 1)
+	var dividend = (quotient * divisor) + remainder
+	
+	return {
+		"type": "LONG_DIVISION",
+		"problem_text": "%d ÷ %d = ?" % [dividend, divisor],
+		"correct_answer": quotient if remainder == 0 else quotient,
+		"dividend": dividend,
+		"divisor": divisor,
+		"quotient": quotient,
+		"remainder": remainder,
+		"options": [quotient, quotient - 1, quotient + 1, quotient + 2]
+	}
 
 ## Generate intermediate long division (3-digit ÷ 1-digit)
 ## Example: 54 ÷ 6 = 9
 func _generate_intermediate_long_division() -> Dictionary:
-	try:
-		## 3-digit ÷ 1-digit
-		var divisor = randi_range(2, 9)
-		var quotient = randi_range(10, 99)
-		var remainder = randi_range(0, divisor - 1)
-		var dividend = (quotient * divisor) + remainder
-		
-		return {
-			"type": "LONG_DIVISION",
-			"problem_text": "%d ÷ %d = ?" % [dividend, divisor],
-			"correct_answer": quotient,
-			"dividend": dividend,
-			"divisor": divisor,
-			"quotient": quotient,
-			"remainder": remainder,
-			"options": [quotient, quotient - 5, quotient + 5, quotient - 1]
-		}
-	except:
-		print("ERROR: _generate_intermediate_long_division failed")
-		return {
-			"type": "LONG_DIVISION",
-			"problem_text": "54 ÷ 6 = ?",
-			"correct_answer": 9,
-			"dividend": 54,
-			"divisor": 6,
-			"quotient": 9,
-			"remainder": 0,
-			"options": [9, 4, 14, 8]
-		}
+	## 3-digit ÷ 1-digit
+	var divisor = randi_range(2, 9)
+	var quotient = randi_range(10, 99)
+	var remainder = randi_range(0, divisor - 1)
+	var dividend = (quotient * divisor) + remainder
+	
+	return {
+		"type": "LONG_DIVISION",
+		"problem_text": "%d ÷ %d = ?" % [dividend, divisor],
+		"correct_answer": quotient,
+		"dividend": dividend,
+		"divisor": divisor,
+		"quotient": quotient,
+		"remainder": remainder,
+		"options": [quotient, quotient - 5, quotient + 5, quotient - 1]
+	}
 
 ## Generate advanced long division (4-digit ÷ 2-digit)
 ## Example: 144 ÷ 12 = 12
 func _generate_advanced_long_division() -> Dictionary:
-	try:
-		## 4-digit ÷ 2-digit
-		var divisor = randi_range(10, 99)
-		var quotient = randi_range(10, 99)
-		var remainder = randi_range(0, divisor - 1)
-		var dividend = (quotient * divisor) + remainder
-		
-		return {
-			"type": "LONG_DIVISION",
-			"problem_text": "%d ÷ %d = ?" % [dividend, divisor],
-			"correct_answer": quotient,
-			"dividend": dividend,
-			"divisor": divisor,
-			"quotient": quotient,
-			"remainder": remainder,
-			"options": [quotient, quotient - 10, quotient + 10, quotient - 5]
-		}
-	except:
-		print("ERROR: _generate_advanced_long_division failed")
-		return {
-			"type": "LONG_DIVISION",
-			"problem_text": "144 ÷ 12 = ?",
-			"correct_answer": 12,
-			"dividend": 144,
-			"divisor": 12,
-			"quotient": 12,
-			"remainder": 0,
-			"options": [12, 2, 22, 7]
-		}
+	## 4-digit ÷ 2-digit
+	var divisor = randi_range(10, 99)
+	var quotient = randi_range(10, 99)
+	var remainder = randi_range(0, divisor - 1)
+	var dividend = (quotient * divisor) + remainder
+	
+	return {
+		"type": "LONG_DIVISION",
+		"problem_text": "%d ÷ %d = ?" % [dividend, divisor],
+		"correct_answer": quotient,
+		"dividend": dividend,
+		"divisor": divisor,
+		"quotient": quotient,
+		"remainder": remainder,
+		"options": [quotient, quotient - 10, quotient + 10, quotient - 5]
+	}
 
 ## Generate mastery long division (4-digit ÷ 2-3 digit with remainders)
 ## Most challenging: complex numbers with possible remainders
 func _generate_mastery_long_division() -> Dictionary:
-	try:
-		## 4-digit ÷ 2-3 digit with remainder
-		var divisor = randi_range(50, 999)
-		var quotient = randi_range(10, 99)
-		var remainder = randi_range(0, divisor - 1)
-		var dividend = (quotient * divisor) + remainder
-		
-		return {
-			"type": "LONG_DIVISION",
-			"problem_text": "%d ÷ %d = ?" % [dividend, divisor],
-			"correct_answer": quotient,
-			"dividend": dividend,
-			"divisor": divisor,
-			"quotient": quotient,
-			"remainder": remainder,
-			"options": [quotient, quotient - 10, quotient + 10, quotient - 5]
-		}
-	except:
-		print("ERROR: _generate_mastery_long_division failed")
-		return {
-			"type": "LONG_DIVISION",
-			"problem_text": "1234 ÷ 56 = ?",
-			"correct_answer": 22,
-			"dividend": 1234,
-			"divisor": 56,
-			"quotient": 22,
-			"remainder": 2,
-			"options": [22, 12, 32, 17]
-		}
+	## 4-digit ÷ 2-3 digit with remainder
+	var divisor = randi_range(50, 999)
+	var quotient = randi_range(10, 99)
+	var remainder = randi_range(0, divisor - 1)
+	var dividend = (quotient * divisor) + remainder
+	
+	return {
+		"type": "LONG_DIVISION",
+		"problem_text": "%d ÷ %d = ?" % [dividend, divisor],
+		"correct_answer": quotient,
+		"dividend": dividend,
+		"divisor": divisor,
+		"quotient": quotient,
+		"remainder": remainder,
+		"options": [quotient, quotient - 10, quotient + 10, quotient - 5]
+	}
 
 func _generate_solution_steps(problem: Dictionary) -> Array:
 	var steps = []
-	try:
-		if not problem or problem.is_empty():
-			print("WARNING: _generate_solution_steps received empty problem")
-			return ["Steps unavailable"]
-		
-		var expr = problem.get("expression", "")
-		if not expr or expr.is_empty():
-			return ["Unable to generate steps"]
-		
-		steps.append("Expression: " + expr)
-		steps.append("Identify operations: Parentheses, Exponents, Multiplication/Division, Addition/Subtraction")
-		steps.append("Apply PEMDAS order")
-		steps.append("Result: " + str(problem.get("correct_answer", 0)))
-	except:
-		print("ERROR: _generate_solution_steps failed")
-		return ["Steps unavailable due to error"]
+	if not problem or problem.is_empty():
+		print("WARNING: _generate_solution_steps received empty problem")
+		return ["Steps unavailable"]
+	
+	var expr = problem.get("expression", "")
+	if not expr or expr.is_empty():
+		return ["Unable to generate steps"]
+	
+	steps.append("Expression: " + expr)
+	steps.append("Identify operations: Parentheses, Exponents, Multiplication/Division, Addition/Subtraction")
+	steps.append("Apply PEMDAS order")
+	steps.append("Result: " + str(problem.get("correct_answer", 0)))
 	
 	return steps
 
 func _generate_square_root_steps(problem: Dictionary) -> Array:
 	var steps = []
-	try:
-		if not problem or problem.is_empty():
-			print("WARNING: _generate_square_root_steps received empty problem")
-			return ["Steps unavailable"]
-		
-		var radicand = problem.get("radicand", 0)
-		if radicand <= 0:
-			return ["Invalid radicand"]
-		
-		steps.append("Find what number times itself equals " + str(radicand))
-		steps.append("Test values: " + str(int(sqrt(float(radicand)))) + "² = " + str(radicand))
-		steps.append("Answer: " + str(problem.get("correct_answer", 0)))
-	except:
-		print("ERROR: _generate_square_root_steps failed")
-		return ["Steps unavailable due to error"]
+	if not problem or problem.is_empty():
+		print("WARNING: _generate_square_root_steps received empty problem")
+		return ["Steps unavailable"]
+	
+	var radicand = problem.get("radicand", 0)
+	if radicand <= 0:
+		return ["Invalid radicand"]
+	
+	steps.append("Find what number times itself equals " + str(radicand))
+	steps.append("Test values: " + str(int(sqrt(float(radicand)))) + "² = " + str(radicand))
+	steps.append("Answer: " + str(problem.get("correct_answer", 0)))
 	
 	return steps
 
 func _generate_long_division_steps(problem: Dictionary) -> Array:
 	var steps = []
-	try:
-		var dividend = problem.get("dividend", 0)
-		var divisor = problem.get("divisor", 0)
-		var quotient = problem.get("quotient", 0)
-		var remainder = problem.get("remainder", 0)
-		
-		steps.append("Divide: %d ÷ %d" % [dividend, divisor])
-		steps.append("How many times does %d go into %d?" % [divisor, dividend])
-		steps.append("Answer: %d times (with remainder %d)" % [quotient, remainder])
-		steps.append("Result: %d" % quotient)
-	except:
-		pass
+	var dividend = problem.get("dividend", 0)
+	var divisor = problem.get("divisor", 0)
+	var quotient = problem.get("quotient", 0)
+	var remainder = problem.get("remainder", 0)
+	
+	steps.append("Divide: %d ÷ %d" % [dividend, divisor])
+	steps.append("How many times does %d go into %d?" % [divisor, dividend])
+	steps.append("Answer: %d times (with remainder %d)" % [quotient, remainder])
+	steps.append("Result: %d" % quotient)
+	
 	return steps

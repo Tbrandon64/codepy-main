@@ -1,7 +1,5 @@
 extends Node
 
-class_name HighScoreManager
-
 const SCORES_FILE = "user://mathblat_highscores.json"
 const MAX_HIGH_SCORES = 10
 

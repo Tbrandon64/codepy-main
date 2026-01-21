@@ -1,0 +1,7 @@
+[gd_resource type="FontFile" format=3]
+
+[resource]
+fallbacks = []
+font_names = []
+antialiased = true
+generate_mipmaps = false

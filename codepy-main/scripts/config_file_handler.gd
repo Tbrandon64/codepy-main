@@ -15,36 +15,32 @@ var config_data: Dictionary = {
 }
 
 func _ready() -> void:
-	try:
-		load_config()
-	except:
+	if not load_config():
 		print("WARNING: ConfigFileHandler initialization failed, using defaults")
 		_initialize_default_config()
 
 ## Load configuration from file
-func load_config() -> void:
-	try:
-		if not FileAccess.file_exists(CONFIG_FILE):
-			_initialize_default_config()
-			save_config()
-			return
-		
-		var file = FileAccess.open(CONFIG_FILE, FileAccess.READ)
-		if file == null:
-			print("WARNING: Failed to load config: ", FileAccess.get_open_error())
-			_initialize_default_config()
-			return
-		
-		var json = JSON.new()
-		var error = json.parse(file.get_as_text())
-		if error == OK:
-			config_data = json.data
-		else:
-			print("WARNING: Failed to parse config JSON, using defaults")
-			_initialize_default_config()
-	except:
-		print("WARNING: Failed to load config, using defaults")
+func load_config() -> bool:
+	if not FileAccess.file_exists(CONFIG_FILE):
 		_initialize_default_config()
+		save_config()
+		return true
+	
+	var file = FileAccess.open(CONFIG_FILE, FileAccess.READ)
+	if file == null:
+		print("WARNING: Failed to load config: ", FileAccess.get_open_error())
+		_initialize_default_config()
+		return false
+	
+	var json = JSON.new()
+	var error = json.parse(file.get_as_text())
+	if error == OK:
+		config_data = json.data
+		return true
+	else:
+		print("WARNING: Failed to parse config JSON, using defaults")
+		_initialize_default_config()
+		return false
 
 ## Initialize default configuration
 func _initialize_default_config() -> void:
@@ -75,38 +71,26 @@ func _initialize_default_config() -> void:
 
 ## Save configuration to file
 func save_config() -> bool:
-	try:
-		var json_string = JSON.stringify(config_data)
-		var file = FileAccess.open(CONFIG_FILE, FileAccess.WRITE)
-		if file == null:
-			print("WARNING: Failed to save config: ", FileAccess.get_open_error())
-			return false
-		file.store_string(json_string)
-		return true
-	except:
-		print("WARNING: Failed to save config")
+	var json_string = JSON.stringify(config_data)
+	var file = FileAccess.open(CONFIG_FILE, FileAccess.WRITE)
+	if file == null:
+		print("WARNING: Failed to save config: ", FileAccess.get_open_error())
 		return false
+	file.store_string(json_string)
+	return true
 
 ## Load a specific setting
 func load_setting(category: String, key: String, default_value = null):
-	try:
-		if category in config_data and key in config_data[category]:
-			return config_data[category][key]
-		return default_value
-	except:
-		print("WARNING: Failed to load setting %s.%s" % [category, key])
-		return default_value
+	if category in config_data and key in config_data[category]:
+		return config_data[category][key]
+	return default_value
 
 ## Save a specific setting
 func save_setting(category: String, key: String, value) -> bool:
-	try:
-		if not category in config_data:
-			config_data[category] = {}
-		config_data[category][key] = value
-		return save_config()
-	except:
-		print("WARNING: Failed to save setting %s.%s" % [category, key])
-		return false
+	if not category in config_data:
+		config_data[category] = {}
+	config_data[category][key] = value
+	return save_config()
 
 ## Get entire category
 func get_category(category: String) -> Dictionary:
