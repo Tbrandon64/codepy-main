@@ -1,5 +1,5 @@
 e910c82af1378a97450e26817c58487e
-::res://::1769027332
+::res://::1769028156
 ADVENTURE_MODE_GUIDE.md::TextFile::-1::1768943976::0::1::::<><><>0<>0<><>::
 CODE_QUALITY_IMPROVEMENTS.md::TextFile::-1::1768963121::0::1::::<><><>0<>0<><>::
 CODE_QUALITY_IMPROVEMENT_SUMMARY.md::TextFile::-1::1768962372::0::1::::<><><>0<>0<><>::
@@ -11,7 +11,7 @@ COMPLETION_SUMMARY.md::TextFile::-1::1768859155::0::1::::<><><>0<>0<><>::
 DEVELOPMENT_REFERENCE.md::TextFile::-1::1768859155::0::1::::<><><>0<>0<><>::
 ENHANCEMENTS_SUMMARY.md::TextFile::-1::1768951407::0::1::::<><><>0<>0<><>::
 EXPORT_CHECKLIST.md::TextFile::-1::1768859155::0::1::::<><><>0<>0<><>::
-export_presets.cfg::TextFile::-1::1769026731::0::1::::<><><>0<>0<><>::
+export_presets.cfg::TextFile::-1::1769027988::0::1::::<><><>0<>0<><>::
 FAILSAFE_COMPLETE.md::TextFile::-1::1768957098::0::1::::<><><>0<>0<><>::
 FAILSAFE_COMPLETION_SUMMARY.md::TextFile::-1::1768961370::0::1::::<><><>0<>0<><>::
 FAILSAFE_DOCUMENTATION.md::TextFile::-1::1768961355::0::1::::<><><>0<>0<><>::
@@ -30,7 +30,7 @@ POLISH_FEATURES.md::TextFile::-1::1768859155::0::1::::<><><>0<>0<><>::
 PROJECT_COMPLETION_REPORT.md::TextFile::-1::1768951619::0::1::::<><><>0<>0<><>::
 PROJECT_STATUS.md::TextFile::-1::1768859155::0::1::::<><><>0<>0<><>::
 PROMO_SCRIPT.txt::TextFile::-1::1769015218::0::1::::<><><>0<>0<><>::
-PYTHON_BACKUP_SUMMARY.md::TextFile::-1::1768957430::0::1::::<><><>0<>0<><>::
+PYTHON_BACKUP_SUMMARY.md::TextFile::-1::1769028128::0::1::::<><><>0<>0<><>::
 QUICK_REFERENCE.md::TextFile::-1::1768944329::0::1::::<><><>0<>0<><>::
 QUICK_REFERENCE_V2.md::TextFile::-1::1768951596::0::1::::<><><>0<>0<><>::
 README.md::TextFile::-1::1769015586::0::1::::<><><>0<>0<><>::
@@ -44,8 +44,11 @@ TEACHER_MODE_OPTIONAL_SUMMARY.md::TextFile::-1::1768958465::0::1::::<><><>0<>0<>
 TEACHER_MODE_OVERVIEW.md::TextFile::-1::1768958465::0::1::::<><><>0<>0<><>::
 TEACHER_MODE_QUICK_REFERENCE.md::TextFile::-1::1768958465::0::1::::<><><>0<>0<><>::
 TEACHER_MODE_SUMMARY.md::TextFile::-1::1768958465::0::1::::<><><>0<>0<><>::
-::res://python_backup/::1768957597
-README.md::TextFile::-1::1768957430::0::1::::<><><>0<>0<><>::
+::res://assets/::1769027596
+::res://assets/fonts/::1769027598
+arial_bold.tres::FontFile::-1::1769027623::0::1::::<><><>0<>0<><>::
+::res://python_backup/::1769027873
+README.md::TextFile::-1::1769027873::0::1::::<><><>0<>0<><>::
 ::res://scenes/::1768943899
 adventure_level.tscn::PackedScene::8942783325424259788::1768943903::0::1::::<><><>0<>0<><>::res://scripts/adventure_level.gd
 adventure_map.tscn::PackedScene::2351728241645795216::1768943894::0::1::::<><><>0<>0<><>::res://scripts/adventure_map.gd
@@ -65,16 +68,16 @@ adventure_manager.gd::GDScript::2214029443027751046::1768943813::0::1::::<>Node<
 adventure_map.gd::GDScript::2228459998975171007::1768943837::0::1::::<>Control<><>0<>0<><>::
 audio_manager.gd::GDScript::7648618763651635649::1768962225::0::1::::AudioManager<>Node<><>0<>0<><>::
 badge_manager.gd::GDScript::7120910599477102215::1769015218::0::1::::BadgeManager<>Node<><>0<>0<><>::
-config_file_handler.gd::GDScript::744201397558876081::1768956844::0::1::::ConfigFileHandler<>Node<><>0<>0<><>::
+config_file_handler.gd::GDScript::744201397558876081::1769027625::0::1::::ConfigFileHandler<>Node<><>0<>0<><>::
 daily_challenge_manager.gd::GDScript::1348426474105155839::1769015218::0::1::::DailyChallengeManager<>Node<><>0<>0<><>::
 difficulty_menu.gd::GDScript::4510044237199098210::1768859155::0::1::::<>Control<><>0<>0<><>::
 energy_system.gd::GDScript::6559720027978896725::1768943783::0::1::::<>Node<><>0<>0<><>::
 feature_config.gd::GDScript::3912419431111267345::1769027207::0::1::::<>Node<><>0<>0<><>::
 game.gd::GDScript::3059909220204685268::1768943943::0::1::::<>Control<><>0<>0<><>::
 gameplay_enhancement_system.gd::GDScript::7064083134055811188::1768956844::0::1::::GameplayEnhancementSystem<>Node<><>0<>0<><>::
-game_manager.gd::GDScript::6516139189954942190::1769027205::0::1::::GameManager<>Node<><>0<>0<><>::
+game_manager.gd::GDScript::6516139189954942190::1769027625::0::1::::<>Node<><>0<>0<><>::
 game_scene.gd::GDScript::7840432663766396799::1768859155::0::1::::<>CanvasLayer<><>0<>0<><>::
-high_score_manager.gd::GDScript::7598300521204692235::1769027205::0::1::::HighScoreManager<>Node<><>0<>0<><>::
+high_score_manager.gd::GDScript::7598300521204692235::1769027625::0::1::::<>Node<><>0<>0<><>::
 localization_manager.gd::GDScript::8102384966136666452::1768962249::0::1::::LocalizationManager<>Node<><>0<>0<><>::
 main_menu.gd::GDScript::8180931509184117004::1768943894::0::1::::<>Control<><>0<>0<><>::
 main_menu_enhanced.gd::GDScript::2963226828076370022::1769015218::0::1::::<>Control<><>0<>0<><>::
@@ -83,7 +86,7 @@ player_profile_manager.gd::GDScript::3902731543920543151::1769015218::0::1::::Pl
 single_player.gd::GDScript::3424167624586010448::1768943943::0::1::::<>Control<><>0<>0<><>::
 splash_screen.gd::GDScript::9158396630125040509::1769015218::0::1::::<>CanvasLayer<><>0<>0<><>::
 system_manager.gd::GDScript::5630776696888754096::1768956844::0::1::::SystemManager<>Node<><>0<>0<><>::
-teacher_mode_system.gd::GDScript::7861404637760908862::1768962285::0::1::::TeacherModeSystem<>Node<><>0<>0<><>::
+teacher_mode_system.gd::GDScript::7861404637760908862::1769027625::0::1::::TeacherModeSystem<>Node<><>0<>0<><>::
 teacher_portal.gd::GDScript::8639144815111745615::1768943876::0::1::::<>Control<><>0<>0<><>::
 thumbnail_generator.gd::GDScript::3200244887006679870::1769015218::0::1::::<>Node<><>0<>0<><>::
 victory_screen.gd::GDScript::5251749566988539501::1768859155::0::1::::<>Control<><>0<>0<><>::

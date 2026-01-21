@@ -54,7 +54,7 @@ from python_backup import BackupSystem
 
 backup = BackupSystem()
 if backup.is_available():
-    problem = backup.generate_problem()
+	problem = backup.generate_problem()
 ```
 
 ### problem_generator.py
@@ -105,7 +105,7 @@ top_scores = manager.get_top_scores(5)
 
 # Check if score qualifies
 if manager.is_high_score(100):
-    print("New high score!")
+	print("New high score!")
 ```
 
 ### config_manager.py
@@ -165,7 +165,7 @@ backup = BackupSystem()
 
 # Check status
 if not backup.is_available():
-    print("Backup systems failed")
+	print("Backup systems failed")
 
 # Get status details
 status = backup.get_status()
@@ -174,7 +174,7 @@ print(f"Score Manager: {status['score_manager']}")
 
 # Review errors
 for error in backup.get_errors():
-    print(f"Error: {error}")
+	print(f"Error: {error}")
 
 # Get formatted report
 print(backup.report_status())
@@ -187,7 +187,7 @@ print(backup.report_status())
 ```gdscript
 # If Godot systems fail, call Python backup
 if not are_godot_systems_available():
-    problem = call_python_backup("generate_problem", ["MEDIUM"])
+	problem = call_python_backup("generate_problem", ["MEDIUM"])
 ```
 
 ### Command Line Integration
@@ -273,7 +273,7 @@ backup = BackupSystem()
 
 # Initialize
 if not backup.is_available():
-    print("WARNING: Using Python backup systems")
+	print("WARNING: Using Python backup systems")
 
 # Generate problem
 problem = backup.generate_problem("MEDIUM")
@@ -284,8 +284,8 @@ player_answer = problem['correct_answer']
 
 # Process score
 if player_answer == problem['correct_answer']:
-    backup.save_score("Player", problem['points'], "MEDIUM")
-    print("Correct! Score saved.")
+	backup.save_score("Player", problem['points'], "MEDIUM")
+	print("Correct! Score saved.")
 ```
 
 ### Configuration Fallback
@@ -317,7 +317,7 @@ top_scores = backup.get_top_scores(5)
 # Check if new high score
 new_score = 150
 if backup.is_high_score(new_score):
-    backup.save_score("Player", new_score, "MEDIUM")
+	backup.save_score("Player", new_score, "MEDIUM")
 ```
 
 ## Troubleshooting
@@ -363,9 +363,9 @@ WARNING: Config file corrupted, using defaults
 ```python
 # Test new system
 if __name__ == "__main__":
-    system = YourNewSystem()
-    result = system.some_operation()
-    print(f"Test: {result}")
+	system = YourNewSystem()
+	result = system.some_operation()
+	print(f"Test: {result}")
 ```
 
 ## Version History
