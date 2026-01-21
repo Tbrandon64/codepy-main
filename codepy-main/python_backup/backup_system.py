@@ -48,7 +48,15 @@ class BackupSystem:
             self.problem_gen = ProblemGenerator(difficulty="MEDIUM")
             self.score_manager = ScoreManager()
             self.config_manager = ConfigManager()
-            self.teacher_mode = TeacherMode()
+            
+            # Teacher mode is optional - load if available
+            try:
+                self.teacher_mode = TeacherMode()
+                print("✅ All systems initialized (including optional teacher mode)")
+            except Exception as te:
+                self.teacher_mode = None
+                print(f"⚠️  Teacher mode not available (optional): {te}")
+            
             self.initialized = True
             print("✅ Backup systems initialized successfully")
         
@@ -244,13 +252,17 @@ class BackupSystem:
     def generate_pemdas_problem(self, difficulty: str = "FOUNDATIONAL") -> Dict:
         """Generate a PEMDAS (Order of Operations) problem.
         
+        Optional teacher mode feature - returns empty dict if not available.
+        
         Args:
             difficulty: "FOUNDATIONAL", "INTERMEDIATE", "ADVANCED", or "MASTERY"
         
         Returns:
             Dictionary with problem_text, correct_answer, options, and steps
+            or empty dict if teacher mode not available
         """
         if not self.teacher_mode:
+            self._log_error("PEMDAS generation requested but teacher mode not available (optional feature)")
             return {}
         
         try:
@@ -263,6 +275,8 @@ class BackupSystem:
     def generate_square_root_problem(self, difficulty: str = "FOUNDATIONAL") -> Dict:
         """Generate a square root problem.
         
+        Optional teacher mode feature - returns empty dict if not available.
+        
         Args:
             difficulty: "FOUNDATIONAL" (perfect squares), 
                        "INTERMEDIATE" (perfect + approximation),
@@ -271,8 +285,10 @@ class BackupSystem:
         
         Returns:
             Dictionary with problem_text, correct_answer, options, and steps
+            or empty dict if teacher mode not available
         """
         if not self.teacher_mode:
+            self._log_error("Square root generation requested but teacher mode not available (optional feature)")
             return {}
         
         try:
@@ -285,6 +301,8 @@ class BackupSystem:
     def generate_long_division_problem(self, difficulty: str = "FOUNDATIONAL") -> Dict:
         """Generate a long division problem with step-by-step solution.
         
+        Optional teacher mode feature - returns empty dict if not available.
+        
         Args:
             difficulty: "FOUNDATIONAL" (single-digit),
                        "INTERMEDIATE" (2-digit divisor),
@@ -293,8 +311,10 @@ class BackupSystem:
         
         Returns:
             Dictionary with problem_text, correct_answer, options, and steps
+            or empty dict if teacher mode not available
         """
         if not self.teacher_mode:
+            self._log_error("Long division generation requested but teacher mode not available (optional feature)")
             return {}
         
         try:
@@ -307,14 +327,18 @@ class BackupSystem:
     def generate_teacher_problem(self, problem_type: str, difficulty: str = "FOUNDATIONAL") -> Dict:
         """Generate any teacher mode problem type.
         
+        Optional teacher mode feature - returns empty dict if not available.
+        
         Args:
             problem_type: "PEMDAS", "SQUARE_ROOT", or "LONG_DIVISION"
             difficulty: "FOUNDATIONAL", "INTERMEDIATE", "ADVANCED", or "MASTERY"
         
         Returns:
             Dictionary with problem_text, correct_answer, options, and steps
+            or empty dict if teacher mode not available
         """
         if not self.teacher_mode:
+            self._log_error(f"Teacher problem ({problem_type}) requested but teacher mode not available (optional feature)")
             return {}
         
         try:

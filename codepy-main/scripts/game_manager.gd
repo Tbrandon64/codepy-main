@@ -3,11 +3,16 @@ extends Node
 ## Game Manager - Global game state and problem generation
 ## Handles: Problem generation, difficulty settings, game state tracking
 ## Features: Optimized option generation with caching, operation handling
+## Optional: Teacher mode support (loaded if available)
 
 class_name GameManager
 
 # Difficulty enum
 enum Difficulty {EASY, MEDIUM, HARD}
+
+# Teacher mode support (optional)
+var teacher_mode: TeacherModeSystem = null
+var teacher_mode_available: bool = false
 
 # Game state
 var current_difficulty: Difficulty = Difficulty.EASY
@@ -35,7 +40,19 @@ class MathProblem:
 	var problem_text: String
 
 func _ready() -> void:
-	pass
+	_initialize_teacher_mode()
+
+## Initialize teacher mode if available (optional)
+func _initialize_teacher_mode() -> void:
+	try:
+		teacher_mode = TeacherModeSystem.new()
+		teacher_mode_available = true
+		print("✅ Teacher Mode initialized successfully")
+	except:
+		teacher_mode = null
+		teacher_mode_available = false
+		print("⚠️  Teacher Mode not available (optional feature)")
+
 
 ## Generate a new math problem based on current difficulty
 ## Optimized with cached difficulty ranges and operation array
@@ -160,6 +177,34 @@ func check_answer(selected_answer: int) -> bool:
 		score += 1
 	problems_answered += 1
 	return is_correct
+
+## Optional: Generate teacher mode problem (if teacher mode is available)
+## Returns empty dict if teacher mode not available
+func generate_teacher_problem(problem_type: String, difficulty: String = "FOUNDATIONAL") -> Dictionary:
+	if not teacher_mode_available or teacher_mode == null:
+		print("⚠️  Teacher mode not available - returning basic problem")
+		return {}
+	
+	try:
+		teacher_mode.set_difficulty(difficulty)
+		
+		match problem_type:
+			"PEMDAS":
+				return teacher_mode.generate_pemdas_problem()
+			"SQUARE_ROOT":
+				return teacher_mode.generate_square_root_problem()
+			"LONG_DIVISION":
+				return teacher_mode.generate_long_division_problem()
+			_:
+				print("ERROR: Unknown teacher problem type: %s" % problem_type)
+				return {}
+	except as e:
+		print("ERROR: Teacher mode problem generation failed: %s" % str(e))
+		return {}
+
+## Check if teacher mode is available
+func is_teacher_mode_available() -> bool:
+	return teacher_mode_available and teacher_mode != null
 
 ## Generate a fallback problem when main generation fails
 func _generate_fallback_problem() -> MathProblem:
