@@ -353,7 +353,7 @@ Free to use, modify, and distribute for personal and commercial projects.
 
 ## 👥 Credits
 
-**Development**: [Your Name]  
+**Development**: Thomas Brandon  
 **Engine**: [Godot 4.5](https://godotengine.org/)  
 **Community**: [Contributors](../../graphs/contributors)
 
