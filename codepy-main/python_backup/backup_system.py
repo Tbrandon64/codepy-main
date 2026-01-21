@@ -25,6 +25,7 @@ from typing import Dict, Optional
 from problem_generator import ProblemGenerator, Difficulty
 from score_manager import ScoreManager
 from config_manager import ConfigManager
+from teacher_mode import TeacherMode, ProblemType, Difficulty as TeacherDifficulty
 
 
 class BackupSystem:
@@ -35,6 +36,7 @@ class BackupSystem:
         self.problem_gen = None
         self.score_manager = None
         self.config_manager = None
+        self.teacher_mode = None
         self.initialized = False
         self.errors = []
         
@@ -46,6 +48,7 @@ class BackupSystem:
             self.problem_gen = ProblemGenerator(difficulty="MEDIUM")
             self.score_manager = ScoreManager()
             self.config_manager = ConfigManager()
+            self.teacher_mode = TeacherMode()
             self.initialized = True
             print("✅ Backup systems initialized successfully")
         
@@ -199,6 +202,7 @@ class BackupSystem:
             "problem_generator": self.problem_gen is not None,
             "score_manager": self.score_manager is not None,
             "config_manager": self.config_manager is not None,
+            "teacher_mode": self.teacher_mode is not None,
             "error_count": len(self.errors),
             "recent_errors": self.errors[-5:] if self.errors else []
         }
@@ -221,6 +225,7 @@ class BackupSystem:
             f"Problem Generator: {'✅ Ready' if status['problem_generator'] else '❌ Failed'}",
             f"Score Manager: {'✅ Ready' if status['score_manager'] else '❌ Failed'}",
             f"Config Manager: {'✅ Ready' if status['config_manager'] else '❌ Failed'}",
+            f"Teacher Mode: {'✅ Ready' if status['teacher_mode'] else '❌ Failed'}",
             f"Errors Recorded: {status['error_count']}",
         ]
         
@@ -230,6 +235,103 @@ class BackupSystem:
                 report.append(f"  • {error}")
         
         return "\n".join(report)
+    
+    # Teacher Mode Interface
+    def _log_error(self, message: str) -> None:
+        """Log error for teacher mode methods"""
+        self.errors.append(message)
+    
+    def generate_pemdas_problem(self, difficulty: str = "FOUNDATIONAL") -> Dict:
+        """Generate a PEMDAS (Order of Operations) problem.
+        
+        Args:
+            difficulty: "FOUNDATIONAL", "INTERMEDIATE", "ADVANCED", or "MASTERY"
+        
+        Returns:
+            Dictionary with problem_text, correct_answer, options, and steps
+        """
+        if not self.teacher_mode:
+            return {}
+        
+        try:
+            self.teacher_mode.set_difficulty(difficulty)
+            return self.teacher_mode.generate_pemdas_problem()
+        except Exception as e:
+            self._log_error(f"PEMDAS generation failed: {e}")
+            return {}
+    
+    def generate_square_root_problem(self, difficulty: str = "FOUNDATIONAL") -> Dict:
+        """Generate a square root problem.
+        
+        Args:
+            difficulty: "FOUNDATIONAL" (perfect squares), 
+                       "INTERMEDIATE" (perfect + approximation),
+                       "ADVANCED" (mixed operations),
+                       "MASTERY" (complex combinations)
+        
+        Returns:
+            Dictionary with problem_text, correct_answer, options, and steps
+        """
+        if not self.teacher_mode:
+            return {}
+        
+        try:
+            self.teacher_mode.set_difficulty(difficulty)
+            return self.teacher_mode.generate_square_root_problem()
+        except Exception as e:
+            self._log_error(f"Square root generation failed: {e}")
+            return {}
+    
+    def generate_long_division_problem(self, difficulty: str = "FOUNDATIONAL") -> Dict:
+        """Generate a long division problem with step-by-step solution.
+        
+        Args:
+            difficulty: "FOUNDATIONAL" (single-digit),
+                       "INTERMEDIATE" (2-digit divisor),
+                       "ADVANCED" (larger numbers),
+                       "MASTERY" (complex with remainders)
+        
+        Returns:
+            Dictionary with problem_text, correct_answer, options, and steps
+        """
+        if not self.teacher_mode:
+            return {}
+        
+        try:
+            self.teacher_mode.set_difficulty(difficulty)
+            return self.teacher_mode.generate_long_division_problem()
+        except Exception as e:
+            self._log_error(f"Long division generation failed: {e}")
+            return {}
+    
+    def generate_teacher_problem(self, problem_type: str, difficulty: str = "FOUNDATIONAL") -> Dict:
+        """Generate any teacher mode problem type.
+        
+        Args:
+            problem_type: "PEMDAS", "SQUARE_ROOT", or "LONG_DIVISION"
+            difficulty: "FOUNDATIONAL", "INTERMEDIATE", "ADVANCED", or "MASTERY"
+        
+        Returns:
+            Dictionary with problem_text, correct_answer, options, and steps
+        """
+        if not self.teacher_mode:
+            return {}
+        
+        try:
+            self.teacher_mode.set_difficulty(difficulty)
+            
+            if problem_type == "PEMDAS":
+                return self.teacher_mode.generate_pemdas_problem()
+            elif problem_type == "SQUARE_ROOT":
+                return self.teacher_mode.generate_square_root_problem()
+            elif problem_type == "LONG_DIVISION":
+                return self.teacher_mode.generate_long_division_problem()
+            else:
+                self._log_error(f"Unknown problem type: {problem_type}")
+                return {}
+        except Exception as e:
+            self._log_error(f"Teacher problem generation failed: {e}")
+            return {}
 
 
 # Global instance for easy access
@@ -257,6 +359,20 @@ if __name__ == "__main__":
             print(f"✅ {difficulty}: {problem['problem_text']}")
         else:
             print(f"❌ {difficulty}: Failed")
+    
+    print("\n=== Testing Teacher Mode ===")
+    if backup.teacher_mode:
+        for diff in ["FOUNDATIONAL", "INTERMEDIATE", "ADVANCED"]:
+            backup.teacher_mode.set_difficulty(diff)
+            
+            pemdas = backup.teacher_mode.generate_pemdas_problem()
+            sqrt = backup.teacher_mode.generate_square_root_problem()
+            division = backup.teacher_mode.generate_long_division_problem()
+            
+            print(f"\n{diff}:")
+            print(f"  PEMDAS: {pemdas['problem_text']}")
+            print(f"  Square Root: {sqrt['problem_text']}")
+            print(f"  Long Division: {division['problem_text']}")
     
     print("\n=== Testing Score Management ===")
     backup.save_score("Test Player", 150, "MEDIUM")
