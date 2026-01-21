@@ -20,6 +20,7 @@ config/features=PackedStringArray("4.5")
 
 GameManager="*res://scripts/game_manager.gd"
 HighScoreManager="*res://scripts/high_score_manager.gd"
+ConfigFileHandler="*res://scripts/config_file_handler.gd"
 EnergySystem="*res://scripts/energy_system.gd"
 AdventureManager="*res://scripts/adventure_manager.gd"
 FeatureConfig="*res://scripts/feature_config.gd"
