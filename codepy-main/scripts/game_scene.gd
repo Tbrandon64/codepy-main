@@ -232,7 +232,7 @@ func _ai_opponent_answer() -> void:
 	
 	# Check for opponent win
 	if opponent_score >= win_score:
-		_show_opponent_victory()
+		_on_opponent_victory()
 		return
 
 ## Update score display

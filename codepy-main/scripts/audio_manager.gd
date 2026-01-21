@@ -77,11 +77,11 @@ func apply_volume_settings() -> void:
 	
 	if master_bus_idx >= 0:
 		AudioServer.set_bus_mute(master_bus_idx, false)
-		AudioServer.set_bus_volume_db(master_bus_idx, linear2db(master_volume))
+		AudioServer.set_bus_volume_db(master_bus_idx, linear_to_db(master_volume))
 	if music_bus_idx >= 0:
-		AudioServer.set_bus_volume_db(music_bus_idx, linear2db(master_volume * music_volume))
+		AudioServer.set_bus_volume_db(music_bus_idx, linear_to_db(master_volume * music_volume))
 	if sfx_bus_idx >= 0:
-		AudioServer.set_bus_volume_db(sfx_bus_idx, linear2db(master_volume * sfx_volume))
+		AudioServer.set_bus_volume_db(sfx_bus_idx, linear_to_db(master_volume * sfx_volume))
 
 ## Set master volume (0.0 - 1.0)
 func set_master_volume(volume: float) -> void:
@@ -213,52 +213,32 @@ func _create_wav_stream(freq_start: float, freq_end: float, duration: float, vol
 	if not buffer.resize(sample_count * 2):
 		print("WARNING: Failed to resize buffer in _create_wav_stream")
 		return null
-		
-		for i in range(sample_count):
-			var t = float(i) / 44100.0
-			var sample = 0.0
-			
-			if is_buzz:
-				# Buzz logic: Fundamental + Overtone
-				var fundamental = freq_start
-				sample = (sin(2 * PI * fundamental * t) + 0.5 * sin(2 * PI * fundamental * 2 * t)) * volume
-				sample *= exp(-t * 2) # Decay
-			else:
-				# Ding logic: Frequency sweep + Decay
-				var freq = freq_start + (freq_end - freq_start) * (1 - exp(-t * 10))
-				var envelope = exp(-t * 3)
-				sample = sin(2 * PI * freq * t) * envelope * volume
-			
-			# Clamp and convert to 16-bit integer (-32768 to 32767)
-			var val = int(clamp(sample, -1.0, 1.0) * 32767.0)
-			buffer.encode_s16(i * 2, val)
-		
 	
-		for i in range(sample_count):
-			var t = float(i) / 44100.0
-			var sample = 0.0
-			
-			if is_buzz:
-				# Buzz logic: Fundamental + Overtone
-				var fundamental = freq_start
-				sample = (sin(2 * PI * fundamental * t) + 0.5 * sin(2 * PI * fundamental * 2 * t)) * volume
-				sample *= exp(-t * 2) # Decay
-			else:
-				# Ding logic: Frequency sweep + Decay
-				var freq = freq_start + (freq_end - freq_start) * (1 - exp(-t * 10))
-				var envelope = exp(-t * 3)
-				sample = sin(2 * PI * freq * t) * envelope * volume
-			
-			# Clamp and convert to 16-bit integer (-32768 to 32767)
-			var val = int(clamp(sample, -1.0, 1.0) * 32767.0)
-			buffer.encode_s16(i * 2, val)
+	for i in range(sample_count):
+		var t = float(i) / 44100.0
+		var sample = 0.0
 		
-		if buffer.is_empty():
-			print("WARNING: Buffer is empty after data generation")
-			return null
+		if is_buzz:
+			# Buzz logic: Fundamental + Overtone
+			var fundamental = freq_start
+			sample = (sin(2 * PI * fundamental * t) + 0.5 * sin(2 * PI * fundamental * 2 * t)) * volume
+			sample *= exp(-t * 2) # Decay
+		else:
+			# Ding logic: Frequency sweep + Decay
+			var freq = freq_start + (freq_end - freq_start) * (1 - exp(-t * 10))
+			var envelope = exp(-t * 3)
+			sample = sin(2 * PI * freq * t) * envelope * volume
 		
-		stream.data = buffer
-		return stream
+		# Clamp and convert to 16-bit integer (-32768 to 32767)
+		var val = int(clamp(sample, -1.0, 1.0) * 32767.0)
+		buffer.encode_s16(i * 2, val)
+	
+	if buffer.is_empty():
+		print("WARNING: Buffer is empty after data generation")
+		return null
+	
+	stream.data = buffer
+	return stream
 
 ## Get current master volume
 func get_master_volume() -> float:

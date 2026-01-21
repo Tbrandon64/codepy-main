@@ -24,6 +24,10 @@ ConfigFileHandler="*res://scripts/config_file_handler.gd"
 EnergySystem="*res://scripts/energy_system.gd"
 AdventureManager="*res://scripts/adventure_manager.gd"
 FeatureConfig="*res://scripts/feature_config.gd"
+AchievementSystem="*res://scripts/achievement_system.gd"
+LocalizationManager="*res://scripts/localization_manager.gd"
+AudioManager="*res://scripts/audio_manager.gd"
+GameplayEnhancementSystem="*res://scripts/gameplay_enhancement_system.gd"
 
 [debug]
 
