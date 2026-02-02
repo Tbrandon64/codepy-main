@@ -3,7 +3,7 @@ REM ============================================================================
 REM Math Blast - Complete Build & Package Script
 REM ============================================================================
 REM This script automates the complete build and packaging process for Math Blast
-REM Godot 4.5 project on Windows.
+REM Godot 4.6 project on Windows.
 REM
 REM Features:
 REM - Exports to Windows, Linux, and Web platforms
@@ -12,7 +12,7 @@ REM - Creates zip packages for distribution
 REM - Includes error checking and recovery
 REM
 REM Prerequisites:
-REM - Godot 4.5+ in PATH or specify path below
+REM - Godot 4.6+ in PATH or specify path below
 REM - rcedit.exe in ./tools/rcedit.exe
 REM - icon file at res://icons/math_blast.ico (in project)
 REM - PowerShell 5.0+ (for Compress-Archive)
@@ -39,7 +39,7 @@ for /f "delims=" %%A in ('where godot.exe 2^>nul') do (
 )
 
 REM If not in PATH, use default path
-set GODOT_EXE=C:\Godot\Godot_v4.5-stable_win64.exe
+set GODOT_EXE=C:\Users\tb586\Documents\Godot_v4.6-stable_win64.exe
 
 :godot_found
 echo.

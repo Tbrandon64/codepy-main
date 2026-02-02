@@ -40,11 +40,11 @@ If teacher mode is not installed:
 ```gdscript
 # Check if teacher mode is available
 if GameManager.is_teacher_mode_available():
-    # Teacher mode is available - can use advanced features
-    var problem = GameManager.generate_teacher_problem("PEMDAS", "INTERMEDIATE")
+	# Teacher mode is available - can use advanced features
+	var problem = GameManager.generate_teacher_problem("PEMDAS", "INTERMEDIATE")
 else:
-    # Teacher mode not available - use basic problems
-    var problem = GameManager.generate_problem()
+	# Teacher mode not available - use basic problems
+	var problem = GameManager.generate_problem()
 ```
 
 ### Safe Usage
@@ -54,11 +54,11 @@ else:
 var teacher_problem = GameManager.generate_teacher_problem("SQUARE_ROOT", "FOUNDATIONAL")
 
 if teacher_problem.is_empty():
-    # Teacher mode not available, use basic problem instead
-    teacher_problem = GameManager.generate_problem()
+	# Teacher mode not available, use basic problem instead
+	teacher_problem = GameManager.generate_problem()
 else:
-    # Teacher mode available, use advanced problem
-    display_problem(teacher_problem)
+	# Teacher mode available, use advanced problem
+	display_problem(teacher_problem)
 ```
 
 ---
@@ -74,10 +74,10 @@ backup = BackupSystem()
 
 # Check if teacher mode is available
 if backup.teacher_mode is not None:
-    problem = backup.generate_pemdas_problem("ADVANCED")
+	problem = backup.generate_pemdas_problem("ADVANCED")
 else:
-    # Teacher mode not available, use basic problem
-    problem = backup.generate_problem("HARD")
+	# Teacher mode not available, use basic problem
+	problem = backup.generate_problem("HARD")
 ```
 
 ### Error Messages

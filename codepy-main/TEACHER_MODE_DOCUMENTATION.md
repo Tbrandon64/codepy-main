@@ -89,18 +89,18 @@ Steps:
 class_name TeacherModeSystem
 
 enum ProblemType {
-    BASIC,           # Original problem types
-    PEMDAS,          # Order of operations
-    SQUARE_ROOT,     # Square root problems
-    LONG_DIVISION,   # Long division
-    MIXED            # Random mixed problems
+	BASIC,           # Original problem types
+	PEMDAS,          # Order of operations
+	SQUARE_ROOT,     # Square root problems
+	LONG_DIVISION,   # Long division
+	MIXED            # Random mixed problems
 }
 
 enum AdvancedDifficulty {
-    FOUNDATIONAL,    # Easiest
-    INTERMEDIATE,    # Medium
-    ADVANCED,        # Hard
-    MASTERY          # Expert
+	FOUNDATIONAL,    # Easiest
+	INTERMEDIATE,    # Medium
+	ADVANCED,        # Hard
+	MASTERY          # Expert
 }
 
 # Signals for UI updates
@@ -126,19 +126,19 @@ func get_class_statistics() -> Dictionary
 
 ```python
 class TeacherMode:
-    def __init__(self):
-        self.difficulty = "FOUNDATIONAL"
-        self.current_type = None
-    
-    # Main generation methods
-    def generate_pemdas_problem(self) -> Dict
-    def generate_square_root_problem(self) -> Dict
-    def generate_long_division_problem(self) -> Dict
-    
-    # Utility methods
-    def set_difficulty(self, difficulty: str) -> None
-    def generate_batch(self, count: int, problem_type: str) -> List[Dict]
-    def get_solution_steps(self, problem: Dict) -> List[str]
+	def __init__(self):
+		self.difficulty = "FOUNDATIONAL"
+		self.current_type = None
+	
+	# Main generation methods
+	def generate_pemdas_problem(self) -> Dict
+	def generate_square_root_problem(self) -> Dict
+	def generate_long_division_problem(self) -> Dict
+	
+	# Utility methods
+	def set_difficulty(self, difficulty: str) -> None
+	def generate_batch(self, count: int, problem_type: str) -> List[Dict]
+	def get_solution_steps(self, problem: Dict) -> List[str]
 ```
 
 ### Unified Interface (BackupSystem)
@@ -147,11 +147,11 @@ class TeacherMode:
 
 ```python
 class BackupSystem:
-    # Teacher mode methods
-    def generate_pemdas_problem(self, difficulty: str = "FOUNDATIONAL") -> Dict
-    def generate_square_root_problem(self, difficulty: str = "FOUNDATIONAL") -> Dict
-    def generate_long_division_problem(self, difficulty: str = "FOUNDATIONAL") -> Dict
-    def generate_teacher_problem(self, problem_type: str, difficulty: str) -> Dict
+	# Teacher mode methods
+	def generate_pemdas_problem(self, difficulty: str = "FOUNDATIONAL") -> Dict
+	def generate_square_root_problem(self, difficulty: str = "FOUNDATIONAL") -> Dict
+	def generate_long_division_problem(self, difficulty: str = "FOUNDATIONAL") -> Dict
+	def generate_teacher_problem(self, problem_type: str, difficulty: str) -> Dict
 ```
 
 ---
@@ -217,20 +217,20 @@ problems = backup.teacher_mode.generate_batch(10, "SQUARE_ROOT")
 var teacher_mode: TeacherModeSystem
 
 func _ready():
-    teacher_mode = TeacherModeSystem.new()
+	teacher_mode = TeacherModeSystem.new()
 
 func generate_problem(problem_type: String, difficulty: String) -> Dictionary:
-    if problem_type == "PEMDAS":
-        teacher_mode.set_difficulty(difficulty)
-        return teacher_mode.generate_pemdas_problem()
-    elif problem_type == "SQUARE_ROOT":
-        teacher_mode.set_difficulty(difficulty)
-        return teacher_mode.generate_square_root_problem()
-    elif problem_type == "LONG_DIVISION":
-        teacher_mode.set_difficulty(difficulty)
-        return teacher_mode.generate_long_division_problem()
-    else:
-        return {}
+	if problem_type == "PEMDAS":
+		teacher_mode.set_difficulty(difficulty)
+		return teacher_mode.generate_pemdas_problem()
+	elif problem_type == "SQUARE_ROOT":
+		teacher_mode.set_difficulty(difficulty)
+		return teacher_mode.generate_square_root_problem()
+	elif problem_type == "LONG_DIVISION":
+		teacher_mode.set_difficulty(difficulty)
+		return teacher_mode.generate_long_division_problem()
+	else:
+		return {}
 ```
 
 ### Adding to UI
@@ -240,20 +240,20 @@ func generate_problem(problem_type: String, difficulty: String) -> Dictionary:
 extends Control
 
 func _ready():
-    var problem_type_options = ["PEMDAS", "SQUARE_ROOT", "LONG_DIVISION"]
-    for problem_type in problem_type_options:
-        $ProblemTypeMenu.add_item(problem_type)
-    
-    var difficulty_options = ["FOUNDATIONAL", "INTERMEDIATE", "ADVANCED", "MASTERY"]
-    for difficulty in difficulty_options:
-        $DifficultyMenu.add_item(difficulty)
+	var problem_type_options = ["PEMDAS", "SQUARE_ROOT", "LONG_DIVISION"]
+	for problem_type in problem_type_options:
+		$ProblemTypeMenu.add_item(problem_type)
+	
+	var difficulty_options = ["FOUNDATIONAL", "INTERMEDIATE", "ADVANCED", "MASTERY"]
+	for difficulty in difficulty_options:
+		$DifficultyMenu.add_item(difficulty)
 
 func _on_generate_button_pressed():
-    var problem_type = $ProblemTypeMenu.get_item_text($ProblemTypeMenu.selected)
-    var difficulty = $DifficultyMenu.get_item_text($DifficultyMenu.selected)
-    
-    var problem = GameManager.generate_problem(problem_type, difficulty)
-    display_problem(problem)
+	var problem_type = $ProblemTypeMenu.get_item_text($ProblemTypeMenu.selected)
+	var difficulty = $DifficultyMenu.get_item_text($DifficultyMenu.selected)
+	
+	var problem = GameManager.generate_problem(problem_type, difficulty)
+	display_problem(problem)
 ```
 
 ---
@@ -266,18 +266,18 @@ All problem types return a consistent dictionary structure:
 
 ```python
 {
-    "id": "problem_uuid_12345",
-    "type": "PEMDAS",  # PEMDAS, SQUARE_ROOT, or LONG_DIVISION
-    "difficulty": "FOUNDATIONAL",  # FOUNDATIONAL, INTERMEDIATE, ADVANCED, MASTERY
-    "problem_text": "5 + 3 * 2 = ?",
-    "correct_answer": 11,
-    "options": [11, 16, 14, 10],
-    "steps": [
-        "1. Multiply first: 3 * 2 = 6",
+	"id": "problem_uuid_12345",
+	"type": "PEMDAS",  # PEMDAS, SQUARE_ROOT, or LONG_DIVISION
+	"difficulty": "FOUNDATIONAL",  # FOUNDATIONAL, INTERMEDIATE, ADVANCED, MASTERY
+	"problem_text": "5 + 3 * 2 = ?",
+	"correct_answer": 11,
+	"options": [11, 16, 14, 10],
+	"steps": [
+		"1. Multiply first: 3 * 2 = 6",
         "2. Then add: 5 + 6 = 11"
-    ],
-    "points": 100,
-    "time_limit": 60  # seconds
+	],
+	"points": 100,
+	"time_limit": 60  # seconds
 }
 ```
 
@@ -285,20 +285,20 @@ All problem types return a consistent dictionary structure:
 
 ```python
 {
-    "student_id": "student_123",
-    "total_attempted": 25,
-    "correct": 20,
-    "percentage": 80.0,
-    "by_type": {
-        "PEMDAS": {"attempted": 10, "correct": 8, "percentage": 80.0},
-        "SQUARE_ROOT": {"attempted": 8, "correct": 7, "percentage": 87.5},
-        "LONG_DIVISION": {"attempted": 7, "correct": 5, "percentage": 71.4}
-    },
-    "by_difficulty": {
-        "FOUNDATIONAL": {"attempted": 10, "correct": 10, "percentage": 100.0},
-        "INTERMEDIATE": {"attempted": 10, "correct": 8, "percentage": 80.0},
-        "ADVANCED": {"attempted": 5, "correct": 2, "percentage": 40.0}
-    }
+	"student_id": "student_123",
+	"total_attempted": 25,
+	"correct": 20,
+	"percentage": 80.0,
+	"by_type": {
+		"PEMDAS": {"attempted": 10, "correct": 8, "percentage": 80.0},
+		"SQUARE_ROOT": {"attempted": 8, "correct": 7, "percentage": 87.5},
+		"LONG_DIVISION": {"attempted": 7, "correct": 5, "percentage": 71.4}
+	},
+	"by_difficulty": {
+		"FOUNDATIONAL": {"attempted": 10, "correct": 10, "percentage": 100.0},
+		"INTERMEDIATE": {"attempted": 10, "correct": 8, "percentage": 80.0},
+		"ADVANCED": {"attempted": 5, "correct": 2, "percentage": 40.0}
+	}
 }
 ```
 
@@ -335,9 +335,9 @@ assert(problem["correct_answer"] in problem["options"])
 
 # Test difficulty levels
 for difficulty in ["FOUNDATIONAL", "INTERMEDIATE", "ADVANCED", "MASTERY"]:
-    teacher_mode.set_difficulty(difficulty)
-    problem = teacher_mode.generate_square_root_problem()
-    assert(problem["difficulty"] == difficulty)
+	teacher_mode.set_difficulty(difficulty)
+	problem = teacher_mode.generate_square_root_problem()
+	assert(problem["difficulty"] == difficulty)
 
 # Test student progress tracking
 teacher_mode.record_student_answer("student_1", "problem_1", 25)
@@ -355,10 +355,10 @@ backup = BackupSystem()
 assert backup.teacher_mode is not None
 
 for problem_type in ["PEMDAS", "SQUARE_ROOT", "LONG_DIVISION"]:
-    for difficulty in ["FOUNDATIONAL", "INTERMEDIATE", "ADVANCED", "MASTERY"]:
-        problem = backup.generate_teacher_problem(problem_type, difficulty)
-        assert problem != {}
-        assert problem["correct_answer"] in problem["options"]
+	for difficulty in ["FOUNDATIONAL", "INTERMEDIATE", "ADVANCED", "MASTERY"]:
+		problem = backup.generate_teacher_problem(problem_type, difficulty)
+		assert problem != {}
+		assert problem["correct_answer"] in problem["options"]
 ```
 
 ---

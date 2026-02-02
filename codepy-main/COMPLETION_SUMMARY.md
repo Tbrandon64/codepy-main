@@ -289,7 +289,7 @@ All targets achieved:
 │   ├── victory_screen.tscn
 │   └── [2 legacy files]
 └── Assets (if any)
-    └── [Future: textures, sounds, etc.]
+	└── [Future: textures, sounds, etc.]
 ```
 
 ---

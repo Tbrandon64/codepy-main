@@ -140,10 +140,10 @@ sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add $(which godot)
 **Network Setup**:
 ```
 Internet (Public IP: 203.0.113.45)
-         ↓
-    Router (192.168.1.1)
-    ├── Machine A (192.168.1.100) - Host
-    └── Machine B (External network) - Client
+		 ↓
+	Router (192.168.1.1)
+	├── Machine A (192.168.1.100) - Host
+	└── Machine B (External network) - Client
 ```
 
 **Prerequisites**:
@@ -376,9 +376,9 @@ netsh trace start capture=yes TracingForVeryverbose protocol=tcp,udp
 In game_scene.gd, add to `_process()`:
 ```gdscript
 func _process(delta: float) -> void:
-    if Engine.get_frames_drawn() % 60 == 0:
-        var fps = 1.0 / delta
-        print("FPS: %.1f" % fps)
+	if Engine.get_frames_drawn() % 60 == 0:
+		var fps = 1.0 / delta
+		print("FPS: %.1f" % fps)
 ```
 
 ### Network Latency
@@ -388,13 +388,13 @@ In game_scene.gd:
 var rpc_send_time: float = 0.0
 
 func _on_option_pressed(option_index: int) -> void:
-    rpc_send_time = Time.get_ticks_msec()
-    _sync_answer.rpc(option_index, player_score)
+	rpc_send_time = Time.get_ticks_msec()
+	_sync_answer.rpc(option_index, player_score)
 
 @rpc("any_peer", "call_remote_sync", "reliable")
 func _sync_answer(option_index: int, score: int) -> void:
-    var latency_ms = Time.get_ticks_msec() - rpc_send_time
-    print("RPC Latency: %d ms" % latency_ms)
+	var latency_ms = Time.get_ticks_msec() - rpc_send_time
+	print("RPC Latency: %d ms" % latency_ms)
 ```
 
 ### Packet Loss Simulation
@@ -425,27 +425,27 @@ import socket
 import threading
 
 class Relay:
-    def __init__(self, port=12345):
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.socket.bind(('0.0.0.0', port))
-        self.peers = {}
-    
-    def run(self):
-        while True:
-            data, addr = self.socket.recvfrom(4096)
-            if addr not in self.peers:
-                self.peers[addr] = len(self.peers) + 1
-                print(f"New peer: {addr} -> ID {self.peers[addr]}")
-            
-            # Relay to all other peers
-            for peer_addr in self.peers:
-                if peer_addr != addr:
-                    self.socket.sendto(data, peer_addr)
+	def __init__(self, port=12345):
+		self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+		self.socket.bind(('0.0.0.0', port))
+		self.peers = {}
+	
+	def run(self):
+		while True:
+			data, addr = self.socket.recvfrom(4096)
+			if addr not in self.peers:
+				self.peers[addr] = len(self.peers) + 1
+				print(f"New peer: {addr} -> ID {self.peers[addr]}")
+			
+			# Relay to all other peers
+			for peer_addr in self.peers:
+				if peer_addr != addr:
+					self.socket.sendto(data, peer_addr)
 
 if __name__ == "__main__":
-    relay = Relay(12345)
-    print("Relay server running on port 12345...")
-    relay.run()
+	relay = Relay(12345)
+	print("Relay server running on port 12345...")
+	relay.run()
 ```
 
 Run:

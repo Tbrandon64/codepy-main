@@ -112,8 +112,8 @@ The SystemManager acts as a central hub for detecting and managing all system av
 
 ```gdscript
 func _ready() -> void:
-    verify_all_systems()        # Check each system
-    report_system_status()       # Log results
+	verify_all_systems()        # Check each system
+	report_system_status()       # Log results
 ```
 
 ### System Verification
@@ -125,7 +125,7 @@ Each system is verified for:
 
 ```gdscript
 func verify_system(system_name: String) -> bool:
-    # Returns true if system is fully operational
+	# Returns true if system is fully operational
 ```
 
 ### System Status Reporting
@@ -155,15 +155,15 @@ All system calls go through safe wrappers that:
 **Example:**
 ```gdscript
 func safe_generate_problem():
-    if systems_available["GameManager"]:
-        try:
-            return GameManager.generate_problem()
-        except:
-            print("ERROR: Failed to generate problem")
-            return _fallback_problem()
-    else:
-        print("WARNING: GameManager unavailable, using fallback")
-        return _fallback_problem()
+	if systems_available["GameManager"]:
+		try:
+			return GameManager.generate_problem()
+		except:
+			print("ERROR: Failed to generate problem")
+			return _fallback_problem()
+	else:
+		print("WARNING: GameManager unavailable, using fallback")
+		return _fallback_problem()
 ```
 
 ### Safe Wrapper Reference
@@ -191,21 +191,21 @@ func safe_generate_problem():
 **Error Handling Strategy:**
 ```gdscript
 func generate_problem() -> MathProblem:
-    try:
-        # Main problem generation logic
-        return problem
-    except:
-        print("WARNING: Failed to generate problem, using fallback")
-        return _generate_fallback_problem()
+	try:
+		# Main problem generation logic
+		return problem
+	except:
+		print("WARNING: Failed to generate problem, using fallback")
+		return _generate_fallback_problem()
 
 func _generate_fallback_problem() -> MathProblem:
-    # Returns guaranteed solvable problem: 5 + 3 = ?
-    problem.operand1 = 5
-    problem.operand2 = 3
-    problem.operation = "+"
-    problem.correct_answer = 8
-    problem.options = [8, 7, 9, 6]
-    return problem
+	# Returns guaranteed solvable problem: 5 + 3 = ?
+	problem.operand1 = 5
+	problem.operand2 = 3
+	problem.operation = "+"
+	problem.correct_answer = 8
+	problem.options = [8, 7, 9, 6]
+	return problem
 ```
 
 **Failure Points & Handling:**
@@ -233,36 +233,36 @@ func _generate_fallback_problem() -> MathProblem:
 
 ```gdscript
 func _ready() -> void:
-    try:
-        load_high_scores()
-    except:
-        print("WARNING: HighScoreManager failed to initialize")
-        high_scores = []
+	try:
+		load_high_scores()
+	except:
+		print("WARNING: HighScoreManager failed to initialize")
+		high_scores = []
 
 func save_score(...) -> bool:
-    try:
-        # Validation and sorting
-        return _write_scores_to_file()
-    except:
-        print("WARNING: Failed to save high score")
-        return false
+	try:
+		# Validation and sorting
+		return _write_scores_to_file()
+	except:
+		print("WARNING: Failed to save high score")
+		return false
 
 func load_high_scores() -> Array[Dictionary]:
-    try:
-        # File operations
-        return high_scores
-    except:
-        print("WARNING: Exception loading high scores")
-        high_scores = []
-        return []
+	try:
+		# File operations
+		return high_scores
+	except:
+		print("WARNING: Exception loading high scores")
+		high_scores = []
+		return []
 
 func _write_scores_to_file() -> bool:
-    try:
-        # File I/O
-        return true
-    except:
-        print("WARNING: Exception writing scores to file")
-        return false
+	try:
+		# File I/O
+		return true
+	except:
+		print("WARNING: Exception writing scores to file")
+		return false
 ```
 
 **Failure Points & Handling:**
@@ -289,40 +289,40 @@ func _write_scores_to_file() -> bool:
 
 ```gdscript
 func _ready() -> void:
-    try:
-        # Initialize achievements
-    except:
-        print("WARNING: AchievementSystem initialization failed")
-        # Ensure basic structure exists
+	try:
+		# Initialize achievements
+	except:
+		print("WARNING: AchievementSystem initialization failed")
+		# Ensure basic structure exists
 
 func unlock_achievement(achievement_id: String) -> void:
-    try:
-        # Unlock logic
-        save_achievements()
-    except:
-        print("WARNING: Failed to unlock achievement '%s'" % achievement_id)
+	try:
+		# Unlock logic
+		save_achievements()
+	except:
+		print("WARNING: Failed to unlock achievement '%s'" % achievement_id)
 
 func add_experience(amount: int) -> void:
-    try:
-        # Leveling calculation
-    except:
-        print("WARNING: Failed to add experience")
+	try:
+		# Leveling calculation
+	except:
+		print("WARNING: Failed to add experience")
 
 func save_achievements() -> bool:
-    try:
-        # File I/O
-        return true
-    except:
-        print("WARNING: Exception saving achievements")
-        return false
+	try:
+		# File I/O
+		return true
+	except:
+		print("WARNING: Exception saving achievements")
+		return false
 
 func load_achievements() -> bool:
-    try:
-        # File I/O
-        return true
-    except:
-        print("WARNING: Exception loading achievements")
-        return false
+	try:
+		# File I/O
+		return true
+	except:
+		print("WARNING: Exception loading achievements")
+		return false
 ```
 
 **Failure Points & Handling:**
@@ -349,25 +349,25 @@ func load_achievements() -> bool:
 
 ```gdscript
 func _ready() -> void:
-    try:
-        # Load language configuration
-    except:
-        print("WARNING: LocalizationManager failed initialization")
-        # Fallback to English only
+	try:
+		# Load language configuration
+	except:
+		print("WARNING: LocalizationManager failed initialization")
+		# Fallback to English only
 
 func set_language(language: String) -> void:
-    try:
-        # Language switching
-        # Save to config if available
-    except:
-        print("WARNING: Failed to set language '%s'" % language)
-        # Fall back to English
+	try:
+		# Language switching
+		# Save to config if available
+	except:
+		print("WARNING: Failed to set language '%s'" % language)
+		# Fall back to English
 
 func get_text(key: String, default: String = "") -> String:
-    try:
-        # Retrieve translated text
-    except:
-        return default  # Returns key or default
+	try:
+		# Retrieve translated text
+	except:
+		return default  # Returns key or default
 ```
 
 **Failure Points & Handling:**
@@ -393,34 +393,34 @@ func get_text(key: String, default: String = "") -> String:
 
 ```gdscript
 func _ready() -> void:
-    try:
-        # Initialize audio buses
-    except:
-        print("WARNING: AudioManager failed to initialize")
-        # Use default values, buses unavailable
+	try:
+		# Initialize audio buses
+	except:
+		print("WARNING: AudioManager failed to initialize")
+		# Use default values, buses unavailable
 
 func load_audio_settings() -> void:
-    try:
-        # Load volume settings
-    except:
-        print("WARNING: Failed to load audio settings")
-        # Use defaults
+	try:
+		# Load volume settings
+	except:
+		print("WARNING: Failed to load audio settings")
+		# Use defaults
 
 func apply_volume_settings() -> void:
-    try:
-        # Validate bus indices before operations
-        if master_bus_idx < 0:
-            return  # Buses not available
-        # Set volumes
-    except:
-        print("WARNING: Failed to apply volume settings")
+	try:
+		# Validate bus indices before operations
+		if master_bus_idx < 0:
+			return  # Buses not available
+		# Set volumes
+	except:
+		print("WARNING: Failed to apply volume settings")
 
 func play_correct_sound() -> void:
-    try:
-        # Play audio
-    except:
-        print("WARNING: Failed to play correct sound")
-        # Continue silently
+	try:
+		# Play audio
+	except:
+		print("WARNING: Failed to play correct sound")
+		# Continue silently
 ```
 
 **Failure Points & Handling:**
@@ -435,7 +435,7 @@ func play_correct_sound() -> void:
 **Bus Index Validation:**
 ```gdscript
 if master_bus_idx >= 0:
-    AudioServer.set_bus_volume_db(master_bus_idx, db)
+	AudioServer.set_bus_volume_db(master_bus_idx, db)
 # Otherwise: silent mode (game continues without audio)
 ```
 
@@ -454,43 +454,43 @@ if master_bus_idx >= 0:
 
 ```gdscript
 func _ready() -> void:
-    try:
-        load_config()
-    except:
-        print("WARNING: ConfigFileHandler failed initialization")
-        _initialize_default_config()
+	try:
+		load_config()
+	except:
+		print("WARNING: ConfigFileHandler failed initialization")
+		_initialize_default_config()
 
 func load_config() -> bool:
-    try:
-        # Load from file
-        return true
-    except:
-        print("WARNING: Failed to load config")
-        _initialize_default_config()
-        return false
+	try:
+		# Load from file
+		return true
+	except:
+		print("WARNING: Failed to load config")
+		_initialize_default_config()
+		return false
 
 func save_config() -> bool:
-    try:
-        # Write to file
-        return true
-    except:
-        print("WARNING: Failed to save config")
-        return false
+	try:
+		# Write to file
+		return true
+	except:
+		print("WARNING: Failed to save config")
+		return false
 
 func load_setting(category: String, key: String, default = null):
-    try:
-        # Retrieve setting
-    except:
-        print("WARNING: Failed to load setting")
-        return default
+	try:
+		# Retrieve setting
+	except:
+		print("WARNING: Failed to load setting")
+		return default
 
 func save_setting(category: String, key: String, value) -> bool:
-    try:
-        # Store setting
-        return true
-    except:
-        print("WARNING: Failed to save setting")
-        return false
+	try:
+		# Store setting
+		return true
+	except:
+		print("WARNING: Failed to save setting")
+		return false
 ```
 
 **Failure Points & Handling:**

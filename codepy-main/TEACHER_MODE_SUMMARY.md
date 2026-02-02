@@ -115,11 +115,11 @@ def _log_error(message: str) -> None  # Helper method
 
 ```
 Layer 1: Godot TeacherModeSystem (Primary)
-         ↓
-         (On critical failure)
+		 ↓
+		 (On critical failure)
 Layer 2: Python TeacherMode (Secondary)
-         ↓
-         (On Python failure)
+		 ↓
+		 (On Python failure)
 Layer 3: Hardcoded fallback problems (Emergency)
 ```
 
@@ -127,12 +127,12 @@ Layer 3: Hardcoded fallback problems (Emergency)
 
 ```
 GameManager.generate_problem(type, difficulty)
-        ↓
-    TeacherModeSystem
-        ↓
-    Problem generated with steps
-        ↓
-    Displayed in UI
+		↓
+	TeacherModeSystem
+		↓
+	Problem generated with steps
+		↓
+	Displayed in UI
 ```
 
 ### Error Handling
@@ -154,12 +154,12 @@ GameManager.generate_problem(type, difficulty)
 var teacher_mode: TeacherModeSystem
 
 func generate_problem(type: String, difficulty: String) -> Dictionary:
-    if type == "PEMDAS":
-        return teacher_mode.generate_pemdas_problem()
-    elif type == "SQUARE_ROOT":
-        return teacher_mode.generate_square_root_problem()
-    elif type == "LONG_DIVISION":
-        return teacher_mode.generate_long_division_problem()
+	if type == "PEMDAS":
+		return teacher_mode.generate_pemdas_problem()
+	elif type == "SQUARE_ROOT":
+		return teacher_mode.generate_square_root_problem()
+	elif type == "LONG_DIVISION":
+		return teacher_mode.generate_long_division_problem()
 ```
 
 ### With TeacherPortal UI
@@ -167,11 +167,11 @@ func generate_problem(type: String, difficulty: String) -> Dictionary:
 ```gdscript
 # In teacher_portal.gd
 func _on_generate_button_pressed():
-    var type = $ProblemTypeMenu.get_selected()
-    var difficulty = $DifficultyMenu.get_selected()
-    
-    var problem = GameManager.generate_problem(type, difficulty)
-    display_problem(problem)
+	var type = $ProblemTypeMenu.get_selected()
+	var difficulty = $DifficultyMenu.get_selected()
+	
+	var problem = GameManager.generate_problem(type, difficulty)
+	display_problem(problem)
 ```
 
 ---

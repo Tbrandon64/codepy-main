@@ -92,12 +92,12 @@ print(problem["steps"])  # Get solution steps
 ### With GameManager
 ```gdscript
 func generate_problem(type: String, difficulty: String):
-    if type == "PEMDAS":
-        return teacher_mode.generate_pemdas_problem()
-    elif type == "SQUARE_ROOT":
-        return teacher_mode.generate_square_root_problem()
-    elif type == "LONG_DIVISION":
-        return teacher_mode.generate_long_division_problem()
+	if type == "PEMDAS":
+		return teacher_mode.generate_pemdas_problem()
+	elif type == "SQUARE_ROOT":
+		return teacher_mode.generate_square_root_problem()
+	elif type == "LONG_DIVISION":
+		return teacher_mode.generate_long_division_problem()
 ```
 
 ---
@@ -106,18 +106,18 @@ func generate_problem(type: String, difficulty: String):
 
 ```python
 {
-    "id": "problem_uuid_12345",
-    "type": "PEMDAS",
-    "difficulty": "FOUNDATIONAL",
-    "problem_text": "5 + 3 * 2 = ?",
-    "correct_answer": 11,
-    "options": [11, 16, 14, 10],
-    "steps": [
-        "1. Multiply first: 3 * 2 = 6",
+	"id": "problem_uuid_12345",
+	"type": "PEMDAS",
+	"difficulty": "FOUNDATIONAL",
+	"problem_text": "5 + 3 * 2 = ?",
+	"correct_answer": 11,
+	"options": [11, 16, 14, 10],
+	"steps": [
+		"1. Multiply first: 3 * 2 = 6",
         "2. Then add: 5 + 6 = 11"
-    ],
-    "points": 100,
-    "time_limit": 60
+	],
+	"points": 100,
+	"time_limit": 60
 }
 ```
 

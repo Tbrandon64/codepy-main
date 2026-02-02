@@ -92,16 +92,16 @@ const MAX_CACHE_SIZE: int = 100
 
 ```gdscript
 func _ready() -> void:
-    # Initialization
+	# Initialization
 
 func generate_problem() -> Dictionary:
-    # Public API
+	# Public API
 
 func _calculate_answer() -> void:
-    # Private implementation
+	# Private implementation
 
 func _validate_input(value: String) -> bool:
-    # Helper
+	# Helper
 ```
 
 ---
@@ -165,7 +165,7 @@ func chk_ans() -> b:  # Unnecessarily abbreviated
 const MAX_CACHE_SIZE: int = 100
 const DEFAULT_VOLUME: float = 1.0
 const DIFFICULTY_RANGES: Dictionary = {
-    Difficulty.EASY: {"min": 1, "max": 10}
+	Difficulty.EASY: {"min": 1, "max": 10}
 }
 ```
 
@@ -201,7 +201,7 @@ func _calculate_correct_answer(problem: MathProblem) -> void:
 ```gdscript
 # Ensure divisor is not zero
 if problem.operand2 == 0:
-    problem.operand2 = 1
+	problem.operand2 = 1
 
 # Set dividend as multiple of divisor for clean division
 problem.operand1 = problem.correct_answer * problem.operand2
@@ -327,7 +327,7 @@ func method_name(param: String) -> ReturnType:
         var result = do_something(param)
         return result
     except:
-        print("ERROR: method_name failed for '%s'" % param)
+		print("ERROR: method_name failed for '%s'" % param)
         return FALLBACK_VALUE
 ```
 

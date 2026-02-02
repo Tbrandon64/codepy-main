@@ -18,10 +18,10 @@
 
 NEW SYSTEMS (1):
   ✅ SystemManager (scripts/system_manager.gd)
-     • Centralized system verification
-     • 30+ safe wrapper methods
-     • Real-time health monitoring
-     • Graceful fallback patterns
+	 • Centralized system verification
+	 • 30+ safe wrapper methods
+	 • Real-time health monitoring
+	 • Graceful fallback patterns
 
 UPDATED SYSTEMS (7):
   ✅ GameManager - Error handling on problem generation

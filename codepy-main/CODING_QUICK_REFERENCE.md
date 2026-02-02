@@ -43,7 +43,7 @@ MIN_VALUE = 1
 ### Python Function
 ```python
 def function_name(param1: str, param2: int) -> bool:
-    """Short one-line description.
+	"""Short one-line description.
     
     Longer explanation if needed with more details
     about what the function does and why.
@@ -57,25 +57,25 @@ def function_name(param1: str, param2: int) -> bool:
     
     Raises:
         ValueError: When something is invalid
-    """
-    pass
+	"""
+	pass
 ```
 
 ### Python Class
 ```python
 class ClassName:
-    """Short description of class.
+	"""Short description of class.
     
     Longer description explaining purpose, key features,
     and typical usage patterns.
-    """
-    
-    # Constants
-    MAX_ITEMS = 10
-    
-    def __init__(self):
-        """Initialize the class."""
-        pass
+	"""
+	
+	# Constants
+	MAX_ITEMS = 10
+	
+	def __init__(self):
+		"""Initialize the class."""
+		pass
 ```
 
 ### GDScript Function
@@ -91,7 +91,7 @@ class ClassName:
 ## Returns:
 ##   Description of return value
 func function_name(param_name: Type) -> ReturnType:
-    pass
+	pass
 ```
 
 ### GDScript Class
@@ -115,7 +115,7 @@ var member_var = ""  ## What this variable tracks
 ```python
 # Prevent division by zero
 if divisor == 0:
-    return None
+	return None
 
 # Cache difficulty ranges to avoid repeated lookups during gameplay
 _difficulty_ranges = {...}
@@ -303,8 +303,8 @@ self._cache_size = 5
 Is it obvious from reading the code?
 ├─ YES → Don't comment
 └─ NO → Is it complex logic or non-obvious decision?
-    ├─ YES → Add comment explaining WHY
-    └─ NO → Maybe improve variable/function names instead
+	├─ YES → Add comment explaining WHY
+	└─ NO → Maybe improve variable/function names instead
 ```
 
 **What should I name this?**
@@ -313,8 +313,8 @@ Is it obvious from reading the code?
 Is it a function/method?
 ├─ YES → Use action verb (generate, save, load, check)
 └─ NO → Is it a boolean?
-    ├─ YES → Use is_/has_/can_/should_ prefix
-    └─ NO → Use descriptive noun phrase (3-4 words)
+	├─ YES → Use is_/has_/can_/should_ prefix
+	└─ NO → Use descriptive noun phrase (3-4 words)
 ```
 
 **Should this be private or public?**
@@ -323,7 +323,7 @@ Is it a function/method?
 Is this part of the public API?
 ├─ YES → public (no prefix)
 └─ NO → Should it be hidden from users?
-    └─ YES → private (_prefix)
+	└─ YES → private (_prefix)
 ```
 
 ---

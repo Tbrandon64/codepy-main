@@ -98,13 +98,13 @@ signal progress_updated(student_name: String, stats: Dictionary)
 
 ```python
 class TeacherMode:
-    def __init__(self)
-    def set_difficulty(self, difficulty: str) -> None
-    def generate_pemdas_problem(self) -> Dict
-    def generate_square_root_problem(self) -> Dict
-    def generate_long_division_problem(self) -> Dict
-    def generate_batch(self, count: int, problem_type: str) -> List[Dict]
-    def get_solution_steps(self, problem: Dict) -> List[str]
+	def __init__(self)
+	def set_difficulty(self, difficulty: str) -> None
+	def generate_pemdas_problem(self) -> Dict
+	def generate_square_root_problem(self) -> Dict
+	def generate_long_division_problem(self) -> Dict
+	def generate_batch(self, count: int, problem_type: str) -> List[Dict]
+	def get_solution_steps(self, problem: Dict) -> List[str]
 ```
 
 **Features**:
@@ -171,14 +171,14 @@ def generate_teacher_problem(problem_type, difficulty="FOUNDATIONAL") -> Dict
 │  - Full features, fast performance      │
 │  - 505 lines of code                    │
 └─────────────────────────────────────────┘
-           ↓ (on critical failure)
+		   ↓ (on critical failure)
 ┌─────────────────────────────────────────┐
 │  Layer 2: Python teacher_mode.py         │
 │  - Emergency fallback                   │
 │  - Identical interface                  │
 │  - 300+ lines of code                   │
 └─────────────────────────────────────────┘
-           ↓ (on Python failure)
+		   ↓ (on Python failure)
 ┌─────────────────────────────────────────┐
 │  Layer 3: Hardcoded fallback problems    │
 │  - Instant availability                 │
@@ -191,22 +191,22 @@ def generate_teacher_problem(problem_type, difficulty="FOUNDATIONAL") -> Dict
 
 ```
 Teacher Portal UI
-     ↓
+	 ↓
 GameManager.generate_problem(type, difficulty)
-     ↓
+	 ↓
 TeacherModeSystem.generate_*_problem()
-     ↓
+	 ↓
 Problem Dictionary {
   problem_text: "5 + 3 * 2 = ?",
   correct_answer: 11,
   options: [11, 16, 14, 10],
   steps: ["Multiply: 3 * 2 = 6", "Add: 5 + 6 = 11"]
 }
-     ↓
+	 ↓
 Display in UI
-     ↓
+	 ↓
 Student answer recorded
-     ↓
+	 ↓
 Progress tracked
 ```
 
@@ -219,12 +219,12 @@ Progress tracked
 ```gdscript
 # In game_manager.gd
 func generate_problem(type: String, difficulty: String) -> Dictionary:
-    if type == "PEMDAS":
-        return teacher_mode.generate_pemdas_problem()
-    elif type == "SQUARE_ROOT":
-        return teacher_mode.generate_square_root_problem()
-    elif type == "LONG_DIVISION":
-        return teacher_mode.generate_long_division_problem()
+	if type == "PEMDAS":
+		return teacher_mode.generate_pemdas_problem()
+	elif type == "SQUARE_ROOT":
+		return teacher_mode.generate_square_root_problem()
+	elif type == "LONG_DIVISION":
+		return teacher_mode.generate_long_division_problem()
 ```
 
 ### With TeacherPortal UI
@@ -232,10 +232,10 @@ func generate_problem(type: String, difficulty: String) -> Dictionary:
 ```gdscript
 # In teacher_portal.gd
 func _on_generate_button_pressed():
-    var problem_type = $ProblemTypeMenu.get_selected()
-    var difficulty = $DifficultyMenu.get_selected()
-    var problem = GameManager.generate_problem(problem_type, difficulty)
-    display_problem_to_class(problem)
+	var problem_type = $ProblemTypeMenu.get_selected()
+	var difficulty = $DifficultyMenu.get_selected()
+	var problem = GameManager.generate_problem(problem_type, difficulty)
+	display_problem_to_class(problem)
 ```
 
 ### With Python Backup
@@ -420,8 +420,8 @@ show_problem(problem["problem_text"], problem["options"])
 
 # Record answer
 if user_answer == problem["correct_answer"]:
-    teacher_mode.record_student_answer(student_id, problem["id"], user_answer)
-    show_message("Correct! " + problem["steps"][0])
+	teacher_mode.record_student_answer(student_id, problem["id"], user_answer)
+	show_message("Correct! " + problem["steps"][0])
 ```
 
 **In Teacher Portal**:

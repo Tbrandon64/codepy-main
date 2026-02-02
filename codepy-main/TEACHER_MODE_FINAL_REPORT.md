@@ -158,15 +158,15 @@ EMERGENCY LAYER (Hardcoded)
 
 ```
 GameManager
-    ↓
+	↓
 TeacherModeSystem.generate_*_problem()
-    ↓
+	↓
 Problem Dictionary
-    ↓
+	↓
 TeacherPortal UI Display
-    ↓
+	↓
 Student Interaction
-    ↓
+	↓
 Progress Tracking & Statistics
 ```
 

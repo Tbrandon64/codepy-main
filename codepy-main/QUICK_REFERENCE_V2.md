@@ -223,7 +223,7 @@ player_score += bonus
 ### Pattern: Show Achievement
 ```gdscript
 AchievementSystem.achievement_unlocked.connect(func(id, name):
-    print("Unlocked: " + name)
+	print("Unlocked: " + name)
 )
 ```
 

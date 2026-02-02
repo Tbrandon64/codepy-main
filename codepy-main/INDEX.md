@@ -380,17 +380,17 @@ Want to modify the game?
 
 ```
 project.godot (configuration)
-    ↓
-    ├→ scripts/game_manager.gd (global state)
-    ├→ scripts/high_score_manager.gd (persistence)
-    ├→ scripts/main_menu.gd → scenes/main_menu.tscn
-    ├→ scripts/difficulty_menu.gd → scenes/difficulty_menu.tscn
-    ├→ scripts/game_scene.gd → scenes/game_scene.tscn
-    └→ scripts/victory_screen.gd → scenes/victory_screen.tscn
+	↓
+	├→ scripts/game_manager.gd (global state)
+	├→ scripts/high_score_manager.gd (persistence)
+	├→ scripts/main_menu.gd → scenes/main_menu.tscn
+	├→ scripts/difficulty_menu.gd → scenes/difficulty_menu.tscn
+	├→ scripts/game_scene.gd → scenes/game_scene.tscn
+	└→ scripts/victory_screen.gd → scenes/victory_screen.tscn
 
 export_presets.cfg (export configuration)
-    ↓
-    Build process for all 6 platforms
+	↓
+	Build process for all 6 platforms
 ```
 
 ---

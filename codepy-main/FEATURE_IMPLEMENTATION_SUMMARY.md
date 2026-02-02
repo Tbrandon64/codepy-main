@@ -136,7 +136,7 @@ FeatureConfig (Master Configuration)
 ├── EnergySystem (Energy tracking & regeneration)
 ├── AdventureManager (Dungeon progression)
 └── Game Scenes (Adventure Map → Adventure Level)
-    └── Teacher Portal (Optional dashboard)
+	└── Teacher Portal (Optional dashboard)
 ```
 
 ### Data Persistence
@@ -181,7 +181,7 @@ AdventureManager.complete_dungeon(dungeon_id, score, time_taken)
 ### Check Configuration
 ```gdscript
 if FeatureConfig.teacher_portal_enabled:
-    # Show teacher portal button
+	# Show teacher portal button
 ```
 
 ---
@@ -286,9 +286,9 @@ FeatureConfig.set_teacher_portal_enabled(true)
 
 # Set class restrictions
 FeatureConfig.update_teacher_settings({
-    "difficulty_restrictions": ["hard"],  # Lock hard mode
-    "time_limit_multiplier": 2.0,  # Double time limits
-    "energy_cost_multiplier": 0.5  # Half energy cost
+	"difficulty_restrictions": ["hard"],  # Lock hard mode
+	"time_limit_multiplier": 2.0,  # Double time limits
+	"energy_cost_multiplier": 0.5  # Half energy cost
 })
 ```
 
