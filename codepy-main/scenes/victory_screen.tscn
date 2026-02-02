@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://u3hy7v24b92xl"]
+[gd_scene load_steps=1 format=3 uid="uid://u3hy7v24b92xl"]
 
 [ext_resource type="Script" path="res://scripts/victory_screen.gd" id="1_klyp5"]
 
@@ -24,10 +24,10 @@ anchors_left = 0.5
 anchors_top = 0.5
 anchors_right = 0.5
 anchors_bottom = 0.5
-offset_left = -150.0
-offset_top = -150.0
-offset_right = 150.0
-offset_bottom = 150.0
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
 alignment = 1
 
 [node name="Title" type="Label" parent="VBoxContainer"]
@@ -35,7 +35,9 @@ layout_mode = 2
 text = "VICTORY!"
 horizontal_alignment = 1
 add_theme_font_size_override("font_size", 64)
-add_theme_color_override("font_color", Color.YELLOW)
+add_theme_color_override("font_color", Color(1, 1, 1, 1))
+add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
+add_theme_constant_override("outline_size", 3)
 
 [node name="Spacer1" type="Control" parent="VBoxContainer"]
 layout_mode = 2
@@ -46,14 +48,18 @@ layout_mode = 2
 text = "Your Score: 100"
 horizontal_alignment = 1
 add_theme_font_size_override("font_size", 32)
-add_theme_color_override("font_color", Color.GREEN)
+add_theme_color_override("font_color", Color(1, 1, 1, 1))
+add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
+add_theme_constant_override("outline_size", 2)
 
 [node name="OpponentLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 text = "Opponent Score: 95"
 horizontal_alignment = 1
 add_theme_font_size_override("font_size", 32)
-add_theme_color_override("font_color", Color.RED)
+add_theme_color_override("font_color", Color(1, 1, 1, 1))
+add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
+add_theme_constant_override("outline_size", 2)
 
 [node name="Spacer2" type="Control" parent="VBoxContainer"]
 layout_mode = 2
@@ -64,7 +70,9 @@ layout_mode = 2
 text = "🏆 New High Score! Rank #1"
 horizontal_alignment = 1
 add_theme_font_size_override("font_size", 24)
-add_theme_color_override("font_color", Color.YELLOW)
+add_theme_color_override("font_color", Color(1, 1, 1, 1))
+add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
+add_theme_constant_override("outline_size", 1)
 
 [node name="Spacer3" type="Control" parent="VBoxContainer"]
 layout_mode = 2
@@ -72,15 +80,17 @@ custom_minimum_size = Vector2(0, 20)
 
 [node name="RestartBtn" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-custom_minimum_size = Vector2(300, 70)
+custom_minimum_size = Vector2(400, 70)
 text = "Play Again"
+text_alignment = 1
 modulate = Color(0, 1, 0, 1)
 add_theme_font_size_override("font_size", 28)
 
 [node name="MenuBtn" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-custom_minimum_size = Vector2(300, 70)
+custom_minimum_size = Vector2(400, 70)
 text = "Main Menu"
+text_alignment = 1
 modulate = Color(1, 0.5, 0, 1)
 add_theme_font_size_override("font_size", 28)
 

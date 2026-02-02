@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://c4ux7mrlk5sxnk"]
+[gd_scene load_steps=1 format=3 uid="uid://c4ux7mrlk5sxnk"]
 
 [ext_resource type="Script" path="res://scripts/adventure_map.gd" id="1_m9c3h"]
 

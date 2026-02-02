@@ -2,6 +2,24 @@
 
 [resource]
 fallbacks = []
-font_names = []
+font_names = ["Arial"]
 antialiased = true
 generate_mipmaps = false
+hinting = 1
+subpixel_positioning = 1
+msdf_pixel_range = 14
+msdf_size = 128
+force_autohinter = false
+opentype_features = {}
+multichannel_signed_distance_field = false
+preload = PackedStringArray()
+cache = {
+"0/16/0/ascent": 0.0,
+"0/16/0/descent": 0.0,
+"0/16/0/underline_position": 0.0,
+"0/16/0/underline_thickness": 0.0,
+"0/16/0/scale": 1.0,
+"0/16/0/kerning_overrides": {},
+"0/16/0/advance_overrides": {}
+}
+data = PackedByteArray()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://d2y8q3h5mw9jk"]
+[gd_scene load_steps=5 format=3 uid="uid://d2y8q3h5mw9jk"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_2kp8l"]
 
@@ -20,10 +20,15 @@ color = Color(0, 0, 0, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_left = 0.1
-anchors_top = 0.1
-anchors_right = 0.9
-anchors_bottom = 0.9
+anchors_left = 0.0
+anchors_top = 0.0
+anchors_right = 1.0
+anchors_bottom = 1.0
+offset_left = 50.0
+offset_top = 50.0
+offset_right = -50.0
+offset_bottom = -50.0
+alignment = 1
 
 [node name="Header" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -32,19 +37,34 @@ custom_minimum_size = Vector2(0, 60)
 [node name="DifficultyLabel" type="Label" parent="VBoxContainer/Header"]
 layout_mode = 2
 text = "Difficulty: Easy"
-add_theme_font_size_override("font_size", 20)
-add_theme_color_override("font_color", Color.CYAN)
+add_theme_font_size_override("font_size", 24)
+add_theme_color_override("font_color", Color(1, 1, 1, 1))
+add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
+add_theme_constant_override("outline_size", 1)
 
 [node name="ScoreLabel" type="Label" parent="VBoxContainer/Header"]
 layout_mode = 2
 text = "Score: 0/0"
 horizontal_alignment = 2
-add_theme_font_size_override("font_size", 20)
-add_theme_color_override("font_color", Color.CYAN)
+add_theme_font_size_override("font_size", 24)
+add_theme_color_override("font_color", Color(1, 1, 1, 1))
+add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
+add_theme_constant_override("outline_size", 1)
+
+[node name="TimerLabel" type="Label" parent="VBoxContainer/Header"]
+layout_mode = 2
+text = "Time: 60"
+horizontal_alignment = 2
+add_theme_font_size_override("font_size", 24)
+add_theme_color_override("font_color", Color(1, 1, 0, 1))
+add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
+add_theme_constant_override("outline_size", 1)
 
 [node name="ProblemContainer" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 custom_minimum_size = Vector2(0, 150)
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
 [node name="ProblemLabel" type="Label" parent="VBoxContainer/ProblemContainer"]
 layout_mode = 2
@@ -52,7 +72,47 @@ text = "0 + 0 = ?"
 horizontal_alignment = 1
 vertical_alignment = 1
 add_theme_font_size_override("font_size", 48)
-add_theme_color_override("font_color", Color.WHITE)
+add_theme_color_override("font_color", Color(0, 0, 0, 1))
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 0.5, 0.5, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_input"]
+bg_color = Color(0.9, 0.9, 0.9, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 0.5, 0.5, 1)
+
+[node name="AnswerInput" type="LineEdit" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 60)
+placeholder_text = "Type your answer here..."
+alignment = 1
+add_theme_font_size_override("font_size", 24)
+add_theme_color_override("font_color", Color(0, 0, 0, 1))
+add_theme_stylebox_override("normal", SubResource("StyleBoxFlat_input"))
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_submit"]
+bg_color = Color(0, 0.6, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.8, 0, 1)
+
+[node name="SubmitBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(150, 50)
+text = "Submit Answer"
+add_theme_color_override("font_color", Color(1, 1, 1, 1))
+add_theme_stylebox_override("normal", SubResource("StyleBoxFlat_submit"))
 
 [node name="Spacer" type="Control" parent="VBoxContainer"]
 layout_mode = 2
@@ -63,34 +123,60 @@ layout_mode = 2
 columns = 2
 custom_minimum_size = Vector2(0, 300)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_option"]
+bg_color = Color(0.3, 0.3, 0.8, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 0.5, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_back"]
+bg_color = Color(0.8, 0.8, 0.8, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 0.5, 0.5, 1)
+
 [node name="Option1Btn" type="Button" parent="VBoxContainer/OptionsGrid"]
 layout_mode = 2
 custom_minimum_size = Vector2(200, 70)
 text = "0"
 add_theme_font_size_override("font_size", 24)
+add_theme_color_override("font_color", Color(1, 1, 1, 1))
+add_theme_stylebox_override("normal", SubResource("StyleBoxFlat_option"))
 
 [node name="Option2Btn" type="Button" parent="VBoxContainer/OptionsGrid"]
 layout_mode = 2
 custom_minimum_size = Vector2(200, 70)
 text = "0"
 add_theme_font_size_override("font_size", 24)
+add_theme_color_override("font_color", Color(1, 1, 1, 1))
+add_theme_stylebox_override("normal", SubResource("StyleBoxFlat_option"))
 
 [node name="Option3Btn" type="Button" parent="VBoxContainer/OptionsGrid"]
 layout_mode = 2
 custom_minimum_size = Vector2(200, 70)
 text = "0"
 add_theme_font_size_override("font_size", 24)
+add_theme_color_override("font_color", Color(1, 1, 1, 1))
+add_theme_stylebox_override("normal", SubResource("StyleBoxFlat_option"))
 
 [node name="Option4Btn" type="Button" parent="VBoxContainer/OptionsGrid"]
 layout_mode = 2
 custom_minimum_size = Vector2(200, 70)
 text = "0"
 add_theme_font_size_override("font_size", 24)
+add_theme_color_override("font_color", Color(1, 1, 1, 1))
+add_theme_stylebox_override("normal", SubResource("StyleBoxFlat_option"))
 
 [node name="BackBtn" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 custom_minimum_size = Vector2(100, 50)
 text = "Back to Menu"
+add_theme_color_override("font_color", Color(0, 0, 0, 1))
+add_theme_stylebox_override("normal", SubResource("StyleBoxFlat_back"))
 
 [node name="ResultDialog" type="AcceptDialog" parent="."]
 title = "Result"
@@ -108,9 +194,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 add_theme_font_size_override("font_size", 28)
 
+[node name="GameTimer" type="Timer" parent="."]
+wait_time = 60.0
+one_shot = true
+autostart = true
+
 [connection signal="pressed" from="VBoxContainer/OptionsGrid/Option1Btn" to="." method="_on_option_selected" binds=[0]]
 [connection signal="pressed" from="VBoxContainer/OptionsGrid/Option2Btn" to="." method="_on_option_selected" binds=[1]]
 [connection signal="pressed" from="VBoxContainer/OptionsGrid/Option3Btn" to="." method="_on_option_selected" binds=[2]]
 [connection signal="pressed" from="VBoxContainer/OptionsGrid/Option4Btn" to="." method="_on_option_selected" binds=[3]]
+[connection signal="pressed" from="VBoxContainer/SubmitBtn" to="." method="_on_submit_pressed"]
 [connection signal="pressed" from="VBoxContainer/BackBtn" to="." method="_on_back_pressed"]
 [connection signal="confirmed" from="ResultDialog" to="." method="_on_result_confirmed"]
+[connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]

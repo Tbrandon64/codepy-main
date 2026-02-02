@@ -210,9 +210,7 @@ func _create_wav_stream(freq_start: float, freq_end: float, duration: float, vol
 		return null
 	
 	var buffer = PackedByteArray()
-	if not buffer.resize(sample_count * 2):
-		print("WARNING: Failed to resize buffer in _create_wav_stream")
-		return null
+	buffer.resize(sample_count * 2)
 	
 	for i in range(sample_count):
 		var t = float(i) / 44100.0

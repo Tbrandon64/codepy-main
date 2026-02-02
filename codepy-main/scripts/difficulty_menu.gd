@@ -12,10 +12,35 @@ func _ready() -> void:
 func _setup_button_styles() -> void:
 	var font_size = 28
 	
-	for button in [$VBoxContainer/EasyBtn, $VBoxContainer/MediumBtn, 
-				   $VBoxContainer/HardBtn, $VBoxContainer/BackBtn]:
-		button.add_theme_font_size_override("font_size", font_size)
-		button.add_theme_color_override("font_color", Color.WHITE)
+	# Easy - Green
+	_style_button($VBoxContainer/EasyBtn, Color(0, 1, 0, 1), font_size)
+	
+	# Medium - Yellow
+	_style_button($VBoxContainer/MediumBtn, Color(1, 1, 0, 1), font_size)
+	
+	# Hard - Red
+	_style_button($VBoxContainer/HardBtn, Color(1, 0, 0, 1), font_size)
+	
+	# Back - Gray
+	_style_button($VBoxContainer/BackBtn, Color(0.5, 0.5, 0.5, 1), font_size)
+
+func _style_button(button: Button, color: Color, font_size: int) -> void:
+	var style = StyleBoxFlat.new()
+	style.bg_color = color
+	style.border_width_left = 2
+	style.border_width_top = 2
+	style.border_width_right = 2
+	style.border_width_bottom = 2
+	style.border_color = color.lightened(0.3)
+	style.corner_radius_top_left = 4
+	style.corner_radius_top_right = 4
+	style.corner_radius_bottom_right = 4
+	style.corner_radius_bottom_left = 4
+	
+	button.add_theme_stylebox_override("normal", style)
+	button.add_theme_stylebox_override("hover", style.duplicate())
+	button.add_theme_font_size_override("font_size", font_size)
+	button.add_theme_color_override("font_color", Color.WHITE)
 
 func _on_easy_pressed() -> void:
 	_start_game(GameManager.Difficulty.EASY)
@@ -38,4 +63,4 @@ func _start_game(difficulty: GameManager.Difficulty) -> void:
 	var problem = GameManager.generate_problem()
 	
 	# Load game scene
-	get_tree().change_scene_to_file("res://scenes/game_scene.tscn")
+	get_tree().change_scene_to_file("res://scenes/game.tscn")

@@ -111,8 +111,8 @@ func _update_dungeon_button_appearance(button: Button, dungeon) -> void:
 func _draw_path(dungeons) -> void:
 	var path_drawer = ColorRect.new()
 	path_drawer.name = "PathDrawer"
-	path_drawer.queue_redraw.connect(func(): _on_path_redraw(dungeons))
 	canvas.add_child(path_drawer)
+	_on_path_redraw(dungeons)
 
 ## Draw the actual path connections
 func _on_path_redraw(dungeons) -> void:

@@ -6,9 +6,7 @@ const MAX_HIGH_SCORES = 10
 var high_scores: Array[Dictionary] = []
 
 func _ready() -> void:
-	if not load_high_scores():
-		print("WARNING: HighScoreManager failed to initialize, using empty scores")
-		high_scores = []
+	load_high_scores()
 
 func save_score(player_name: String, score: int, difficulty: String) -> bool:
 	"""Save a new high score entry with error handling"""
@@ -31,16 +29,17 @@ func save_score(player_name: String, score: int, difficulty: String) -> bool:
 		print("WARNING: Failed to save high score for '%s'" % player_name)
 		return false
 
-func load_high_scores() -> Array[Dictionary]:
+func load_high_scores() -> bool:
 	"""Load high scores from persistent storage with error handling"""
 	if not FileAccess.file_exists(SCORES_FILE):
 		high_scores = []
-		return high_scores
+		return true  # No file is not an error, just empty
 	
 	var file = FileAccess.open(SCORES_FILE, FileAccess.READ)
 	if file == null:
 		print("WARNING: Could not open scores file, using empty scores")
-		return []
+		high_scores = []
+		return false
 	
 	var content = file.get_as_text()
 	var json = JSON.new()
@@ -48,7 +47,8 @@ func load_high_scores() -> Array[Dictionary]:
 	
 	if error != OK:
 		print("WARNING: Failed to parse high scores JSON, using empty scores")
-		return []
+		high_scores = []
+		return false
 	
 	var data = json.data
 	if data is Array:
@@ -56,8 +56,11 @@ func load_high_scores() -> Array[Dictionary]:
 		for entry in data:
 			if entry is Dictionary:
 				high_scores.append(entry)
-	
-	return high_scores
+		return true
+	else:
+		print("WARNING: High scores data is not an array, using empty scores")
+		high_scores = []
+		return false
 
 func get_high_scores() -> Array[Dictionary]:
 	"""Get sorted high scores"""

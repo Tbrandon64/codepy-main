@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://cdxqh87hqv5j7k"]
+[gd_scene load_steps=1 format=3 uid="uid://cdxqh87hqv5j7k"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_abc12"]
 
@@ -42,14 +42,18 @@ alignment = 0
 layout_mode = 2
 text = "Your Score: 0"
 add_theme_font_size_override("font_size", 24)
-add_theme_color_override("font_color", Color.GREEN)
+add_theme_color_override("font_color", Color(1, 1, 1, 1))
+add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
+add_theme_constant_override("outline_size", 1)
 
 [node name="OpponentScoreLabel" type="Label" parent="UI/VBoxContainer/ScoreBox"]
 layout_mode = 2
 margin_left = 100.0
 text = "Opponent Score: 0"
 add_theme_font_size_override("font_size", 24)
-add_theme_color_override("font_color", Color.RED)
+add_theme_color_override("font_color", Color(1, 1, 1, 1))
+add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
+add_theme_constant_override("outline_size", 1)
 
 [node name="Spacer1" type="Control" parent="UI/VBoxContainer"]
 layout_mode = 2
@@ -143,7 +147,7 @@ volume_db = 0.0
 [node name="WrongSound" type="AudioStreamPlayer" parent="."]
 volume_db = 0.0
 
-[node name="CorrectParticles" type="Particle2D" parent="."]
+[node name="CorrectParticles" type="GPUParticles2D" parent="."]
 position = Vector2(512, 300)
 emitting = false
 
@@ -184,7 +188,9 @@ layout_mode = 2
 text = "PAUSED"
 horizontal_alignment = 1
 add_theme_font_size_override("font_size", 48)
-add_theme_color_override("font_color", Color.CYAN)
+add_theme_color_override("font_color", Color(1, 1, 1, 1))
+add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
+add_theme_constant_override("outline_size", 2)
 
 [node name="Spacer" type="Control" parent="PauseMenu/PauseVBox"]
 layout_mode = 2

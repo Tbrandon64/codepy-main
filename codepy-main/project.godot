@@ -14,7 +14,7 @@ config/name="MathBlat"
 config/description="Multiplayer math puzzle game with timed challenges"
 config/version="1.0"
 run/main_scene="res://scenes/main_menu.tscn"
-config/features=PackedStringArray("4.5")
+config/features=PackedStringArray("4.6")
 
 [autoload]
 
@@ -37,8 +37,11 @@ gdscript/warnings/unused_argument=1
 
 window/size/viewport_width=800
 window/size/viewport_height=600
-window/size/mode=1
+window/size/always_on_top=true
+window/size/window_width_override=800
+window/size/window_height_override=600
 window/stretch/mode="canvas_levels"
+window/size/position=Vector2i(200, 200)
 
 [input]
 
@@ -66,7 +69,6 @@ physics_engine="GodotPhysics2D"
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_s3tc_bptc=true
 textures/vram_compression/import_etc2_astc=true

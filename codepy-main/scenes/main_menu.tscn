@@ -1,10 +1,78 @@
-[gd_scene load_steps=4 format=3 uid="uid://b4j4xyb5kd8yp"]
+[gd_scene load_steps=7 format=3 uid="uid://b4j4xyb5kd8yp"]
 
-[ext_resource type="Script" uid="uid://dos50ngtyybg3" path="res://scripts/main_menu.gd" id="1_7k9gb"]
-[ext_resource type="FontFile" path="res://arial_bold.tres" id="2_h5j6w"]
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_7k9gb"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dark"]
-bg_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_blue"]
+bg_color = Color(0, 0.4, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.5, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_purple"]
+bg_color = Color(0.8, 0, 0.8, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9, 0.3, 0.9, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_green"]
+bg_color = Color(0, 1, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 1, 0.3, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_orange"]
+bg_color = Color(1, 0.65, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.8, 0.3, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_red"]
+bg_color = Color(0.7, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9, 0.3, 0.3, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_quit"]
+bg_color = Color(1, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.3, 0.3, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -12,6 +80,10 @@ anchors_left = 0.0
 anchors_top = 0.0
 anchors_right = 1.0
 anchors_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
 script = ExtResource("1_7k9gb")
 
 [node name="Background" type="ColorRect" parent="."]
@@ -28,76 +100,101 @@ anchors_left = 0.5
 anchors_top = 0.5
 anchors_right = 0.5
 anchors_bottom = 0.5
-offset_left = -150.0
-offset_top = -150.0
-offset_right = 150.0
-offset_bottom = 150.0
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 alignment = 1
 
 [node name="Title" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 text = "MATHBLAT"
-label_settings = SubResource("LabelSettings_bm7ch")
 horizontal_alignment = 1
-vertical_alignment = 1
-
-[sub_resource type="LabelSettings" id="LabelSettings_bm7ch"]
-font = ExtResource("2_h5j6w")
-font_size = 48
-font_color = Color(0, 1, 1, 1)
-outline_size = 2
-outline_color = Color(0, 0, 0, 1)
-
-[node name="Spacer1" type="Control" parent="VBoxContainer"]
-layout_mode = 2
-custom_minimum_size = Vector2(0, 20)
+add_theme_font_size_override("font_size", 36)
+add_theme_color_override("font_color", Color(1, 1, 1, 1))
 
 [node name="SinglePlayerBtn" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-custom_minimum_size = Vector2(300, 60)
+custom_minimum_size = Vector2(400, 70)
 text = "Single Player"
-button_settings = SubResource("StyleBoxFlat_blue")
+text_alignment = 1
+add_theme_font_size_override("font_size", 28)
+add_theme_color_override("font_color", Color(1, 1, 1, 1))
+add_theme_stylebox_override("normal", SubResource("StyleBoxFlat_blue"))
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_blue"]
-bg_color = Color(0, 0.4, 1, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0.6, 1, 1)
+[node name="AdventureBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(400, 70)
+text = "Adventure Mode"
+text_alignment = 1
+add_theme_font_size_override("font_size", 28)
+add_theme_color_override("font_color", Color(1, 1, 1, 1))
+add_theme_stylebox_override("normal", SubResource("StyleBoxFlat_purple"))
 
 [node name="HostBtn" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-custom_minimum_size = Vector2(300, 60)
-text = "Host Multiplayer"
-modulate = Color(0, 1, 0, 1)
+custom_minimum_size = Vector2(400, 70)
+text = "Host Game"
+text_alignment = 1
+add_theme_font_size_override("font_size", 28)
+add_theme_color_override("font_color", Color(1, 1, 1, 1))
+add_theme_stylebox_override("normal", SubResource("StyleBoxFlat_green"))
 
 [node name="JoinBtn" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-custom_minimum_size = Vector2(300, 60)
-text = "Join Multiplayer"
-modulate = Color(1, 0.65, 0, 1)
+custom_minimum_size = Vector2(400, 70)
+text = "Join Game"
+text_alignment = 1
+add_theme_font_size_override("font_size", 28)
+add_theme_color_override("font_color", Color(1, 1, 1, 1))
+add_theme_stylebox_override("normal", SubResource("StyleBoxFlat_orange"))
+
+[node name="TeacherPortalBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(400, 70)
+text = "Teacher Portal"
+text_alignment = 1
+add_theme_font_size_override("font_size", 28)
+add_theme_color_override("font_color", Color(1, 1, 1, 1))
+add_theme_stylebox_override("normal", SubResource("StyleBoxFlat_red"))
 
 [node name="QuitBtn" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-custom_minimum_size = Vector2(300, 60)
+custom_minimum_size = Vector2(400, 70)
 text = "Quit"
-modulate = Color(1, 0, 0, 1)
+text_alignment = 1
+add_theme_font_size_override("font_size", 28)
+add_theme_color_override("font_color", Color(1, 1, 1, 1))
+add_theme_stylebox_override("normal", SubResource("StyleBoxFlat_quit"))
 
 [node name="PortDialog" type="ConfirmationDialog" parent="."]
-title = "Enter Port"
+title = "Host Game"
 initial_position = 2
 size = Vector2i(400, 200)
-ok_button_text = "Connect"
+ok_button_text = "Host"
 cancel_button_text = "Cancel"
+
+[node name="PortLabel" type="Label" parent="PortDialog"]
+layout_mode = 2
+anchor_left = 0.1
+anchor_top = 0.05
+anchor_right = 0.9
+anchor_bottom = 0.25
+text = "Port to host on:"
+horizontal_alignment = 1
 
 [node name="PortInput" type="LineEdit" parent="PortDialog"]
 layout_mode = 2
 anchor_left = 0.1
 anchor_top = 0.2
 anchor_right = 0.9
-anchor_bottom = 0.4
+anchor_bottom = 0.5
 text = "12345"
+placeholder_text = "Port (default: 12345)"
 
 [node name="IPPortDialog" type="ConfirmationDialog" parent="."]
 title = "Connect to Server"
@@ -106,6 +203,15 @@ size = Vector2i(400, 250)
 ok_button_text = "Connect"
 cancel_button_text = "Cancel"
 
+[node name="IPLabel" type="Label" parent="IPPortDialog"]
+layout_mode = 2
+anchor_left = 0.1
+anchor_top = 0.05
+anchor_right = 0.9
+anchor_bottom = 0.15
+text = "Server IP Address:"
+horizontal_alignment = 1
+
 [node name="IPInput" type="LineEdit" parent="IPPortDialog"]
 layout_mode = 2
 anchor_left = 0.1
@@ -113,6 +219,15 @@ anchor_top = 0.15
 anchor_right = 0.9
 anchor_bottom = 0.35
 placeholder_text = "Server IP (e.g., 192.168.1.100)"
+
+[node name="PortLabel" type="Label" parent="IPPortDialog"]
+layout_mode = 2
+anchor_left = 0.1
+anchor_top = 0.35
+anchor_right = 0.9
+anchor_bottom = 0.45
+text = "Port:"
+horizontal_alignment = 1
 
 [node name="PortInput2" type="LineEdit" parent="IPPortDialog"]
 layout_mode = 2
@@ -137,10 +252,3 @@ anchor_bottom = 0.8
 text = "Server running at:\nIP:Port"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[connection signal="pressed" from="VBoxContainer/SinglePlayerBtn" to="." method="_on_single_player_pressed"]
-[connection signal="pressed" from="VBoxContainer/HostBtn" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="VBoxContainer/JoinBtn" to="." method="_on_join_pressed"]
-[connection signal="pressed" from="VBoxContainer/QuitBtn" to="." method="_on_quit_pressed"]
-[connection signal="confirmed" from="PortDialog" to="." method="_on_port_dialog_confirmed"]
-[connection signal="confirmed" from="IPPortDialog" to="." method="_on_ip_port_dialog_confirmed"]

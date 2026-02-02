@@ -1,6 +1,14 @@
-[gd_scene format=3 uid="uid://dh9fac3tnmo2l"]
+[gd_scene load_steps=1 format=3 uid="uid://dh9fac3tnmo2l"]
 
 [ext_resource type="Script" path="res://scripts/single_player.gd" id="1_5kq7m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_back"]
+bg_color = Color(0.8, 0.8, 0.8, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 0.5, 0.5, 1)
 
 [node name="SinglePlayer" type="Control"]
 layout_mode = 3
@@ -9,34 +17,5 @@ anchors_top = 0.0
 anchors_right = 1.0
 anchors_bottom = 1.0
 script = ExtResource("1_5kq7m")
-
-[node name="Background" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_left = 0.0
-anchors_top = 0.0
-anchors_right = 1.0
-anchors_bottom = 1.0
-color = Color(0, 0, 0, 1)
-
-[node name="Label" type="Label" parent="."]
-layout_mode = 1
-anchors_left = 0.5
-anchors_top = 0.5
-anchors_right = 0.5
-anchors_bottom = 0.5
-offset_left = -150.0
-offset_top = -25.0
-offset_right = 150.0
-offset_bottom = 25.0
-text = "Single Player Mode
-(Scene placeholder)"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BackButton" type="Button" parent="."]
-layout_mode = 1
-anchors_left = 0.1
-anchors_top = 0.9
-anchors_right = 0.2
-anchors_bottom = 0.95
-text = "Back"
+add_theme_color_override("font_color", Color(0, 0, 0, 1))
+add_theme_stylebox_override("normal", SubResource("StyleBoxFlat_back"))

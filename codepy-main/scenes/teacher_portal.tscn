@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://btl1m8xqk5uvw"]
+[gd_scene load_steps=1 format=3 uid="uid://btl1m8xqk5uvw"]
 
 [ext_resource type="Script" path="res://scripts/teacher_portal.gd" id="1_t4c5e"]
 

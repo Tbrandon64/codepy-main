@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://d0n7lnbqk5uqm"]
+[gd_scene load_steps=1 format=3 uid="uid://d0n7lnbqk5uqm"]
 
 [ext_resource type="Script" path="res://scripts/adventure_level.gd" id="1_a2b3c"]
 

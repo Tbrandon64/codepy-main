@@ -4,7 +4,7 @@ extends Node
 ## All features are configurable and can be disabled/enabled
 
 # Feature toggles
-var teacher_portal_enabled: bool = false
+var teacher_portal_enabled: bool = true
 var energy_system_enabled: bool = true
 var adventure_mode_enabled: bool = true
 var multiplayer_enabled: bool = true
