@@ -1,15 +1,30 @@
 # 🚀 Math Blast
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Godot 4.5](https://img.shields.io/badge/Godot-4.5-blue.svg)](https://godotengine.org)
-[![GitHub Stars](https://img.shields.io/github/stars/yourusername/math-blast)](../../stargazers)
+[![Godot 4.6](https://img.shields.io/badge/Godot-4.6-blue.svg)](https://godotengine.org)
+[![GitHub Stars](https://img.shields.io/github/stars/Tbrandon64/codepy-main)](../../stargazers)
 [![Download on itch.io](https://img.shields.io/badge/Download-itch.io-blue.svg)](https://itch.io/mathblast)
+[![Release Ready](https://img.shields.io/badge/Status-Release%20Ready-green.svg)]()
 
 > **Fast-paced multiplayer math puzzle game** • Solo, local co-op, or network play • No ads • 100% free
 
-A competitive math competition game built with Godot 4.5. Test your arithmetic skills, build combos, climb leaderboards, and compete with friends—locally or over the network.
+A competitive math competition game built with Godot 4.6. Test your arithmetic skills, build combos, climb leaderboards, and compete with friends—locally or over the network.
 
 **[📥 Download](#installation) • [🎮 Play Online](https://itch.io/mathblast) • [📖 Documentation](#documentation) • [☕ Support](#support-math-blast) • [🐛 Issues](../../issues)**
+
+---
+
+## 🎉 Release Status
+
+✅ **MathBlat is now RELEASE READY!**
+
+- **UI Fixed**: All buttons and text are now visible with proper styling
+- **Cross-Platform**: Configured for Windows, Linux, and Web exports
+- **Build System**: Automated build script (`build_mathblast.bat`) ready
+- **Python Backup**: Fallback systems ensure reliability
+- **Testing**: All scenes compile and run without errors
+
+**Latest Release**: [View on GitHub](../../releases)
 
 ---
 
@@ -61,7 +76,7 @@ A competitive math competition game built with Godot 4.5. Test your arithmetic s
 ## 🚀 Quick Start
 
 ### Prerequisites
-- **Godot 4.5+** (free, open-source)
+- **Godot 4.6+** (free, open-source)
 - **Download**: [godotengine.org](https://godotengine.org)
 
 ### Installation
@@ -80,11 +95,11 @@ A competitive math competition game built with Godot 4.5. Test your arithmetic s
 **Option 2: Clone & Run from Source**
 ```bash
 # Clone repo
-git clone https://github.com/yourusername/math-blast.git
-cd math-blast
+git clone https://github.com/Tbrandon64/codepy-main.git
+cd codepy-main
 
-# Open in Godot 4.5+
-godot --path .
+# Open in Godot 4.6+
+godot --path codepy-main
 
 # Press F5 to play
 ```
