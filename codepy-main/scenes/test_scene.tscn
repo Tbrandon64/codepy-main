@@ -1,0 +1,31 @@
+[gd_scene load_steps=1 format=3 uid="uid://test_scene"]
+
+[node name="TestScene" type="Control"]
+layout_mode = 3
+anchors_left = 0.0
+anchors_top = 0.0
+anchors_right = 1.0
+anchors_bottom = 1.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_left = 0.0
+anchors_top = 0.0
+anchors_right = 1.0
+anchors_bottom = 1.0
+color = Color(1, 0, 0, 1)  # Bright red background
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_left = 0.5
+anchors_top = 0.5
+anchors_right = 0.5
+anchors_bottom = 0.5
+offset_left = -100.0
+offset_top = -25.0
+offset_right = 100.0
+offset_bottom = 25.0
+text = "TEST SCENE - If you see this, rendering works!"
+horizontal_alignment = 1
+add_theme_font_size_override("font_size", 24)
+add_theme_color_override("font_color", Color(1, 1, 1, 1))

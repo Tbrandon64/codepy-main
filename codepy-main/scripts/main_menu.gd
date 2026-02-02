@@ -9,18 +9,35 @@ var is_connecting: bool = false
 
 func _ready() -> void:
 	print("Main menu _ready() called - UI should be visible")
+	print("Window size: ", get_viewport().size)
+	print("Main menu rect: ", get_rect())
+	
+	# Force window to be visible and focused
+	get_viewport().set_transparent_background(false)
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+	DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_RESIZE_DISABLED, false)
+	
 	# Connect button signals
 	var single_player_btn = get_node_or_null("VBoxContainer/SinglePlayerBtn")
 	if single_player_btn:
+		print("Single player button found: ", single_player_btn.text, " visible: ", single_player_btn.visible)
 		single_player_btn.pressed.connect(_on_single_player_pressed)
+	else:
+		print("Single player button NOT found!")
 	
 	var host_btn = get_node_or_null("VBoxContainer/HostBtn")
 	if host_btn:
+		print("Host button found: ", host_btn.text, " visible: ", host_btn.visible)
 		host_btn.pressed.connect(_on_host_pressed)
+	else:
+		print("Host button NOT found!")
 	
 	var join_btn = get_node_or_null("VBoxContainer/JoinBtn")
 	if join_btn:
+		print("Join button found: ", join_btn.text, " visible: ", join_btn.visible)
 		join_btn.pressed.connect(_on_join_pressed)
+	else:
+		print("Join button NOT found!")
 	
 	if has_node("VBoxContainer/AdventureBtn") and FeatureConfig.adventure_mode_enabled:
 		get_node("VBoxContainer/AdventureBtn").pressed.connect(_on_adventure_pressed)

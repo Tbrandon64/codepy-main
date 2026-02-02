@@ -35,13 +35,14 @@ gdscript/warnings/unused_argument=1
 
 [display]
 
-window/size/viewport_width=800
-window/size/viewport_height=600
-window/size/always_on_top=true
-window/size/window_width_override=800
-window/size/window_height_override=600
+window/size/viewport_width=1024
+window/size/viewport_height=768
+window/size/mode=0
+window/size/window_width_override=1024
+window/size/window_height_override=768
 window/stretch/mode="canvas_levels"
-window/size/position=Vector2i(200, 200)
+window/size/position=Vector2i(50, 50)
+window/size/always_on_top=false
 
 [input]
 
