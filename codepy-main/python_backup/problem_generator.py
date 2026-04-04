@@ -144,22 +144,26 @@ class ProblemGenerator:
             attempts = 0
             
             while len(options) < 4 and attempts < max_attempts:
-                offset = random.randint(1, max(5, abs(correct_answer)))
+                offset = random.randint(1, max(5, abs(correct_answer) * 2 + 1))
                 
                 if random.random() < 0.5:
                     wrong_answer = correct_answer + offset
                 else:
                     wrong_answer = correct_answer - offset
                 
-                if wrong_answer > 0 and wrong_answer not in options:
+                if wrong_answer not in options:
                     options.append(wrong_answer)
                 
                 attempts += 1
             
             # Fallback if we couldn't generate enough
             while len(options) < 4:
-                fallback = correct_answer + random.randint(-correct_answer + 1, correct_answer * 2)
-                if fallback > 0 and fallback not in options:
+                offset = random.randint(1, max(5, abs(correct_answer) * 3 + 1))
+                if random.random() < 0.5:
+                    fallback = correct_answer + offset
+                else:
+                    fallback = correct_answer - offset
+                if fallback not in options:
                     options.append(fallback)
             
             random.shuffle(options)

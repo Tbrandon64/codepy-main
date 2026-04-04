@@ -1,16 +1,17 @@
-[gd_scene load_steps=1 format=3 uid="uid://c35xkq9bflv3n"]
+[gd_scene format=3 uid="uid://c35xkrabflv3n"]
 
-[ext_resource type="Script" path="res://scripts/difficulty_menu.gd" id="1_8jk4p"]
+[ext_resource type="Script" uid="uid://b5ix1fy0wbjbu" path="res://scripts/difficulty_menu.gd" id="1_8jk4p"]
 
-[node name="DifficultyMenu" type="Control"]
+[node name="DifficultyMenu" type="Control" unique_id=1339172935]
 layout_mode = 3
+anchors_preset = 8
 anchors_left = 0.0
 anchors_top = 0.0
 anchors_right = 1.0
 anchors_bottom = 1.0
 script = ExtResource("1_8jk4p")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=37379359]
 layout_mode = 1
 anchors_left = 0.0
 anchors_top = 0.0
@@ -18,7 +19,7 @@ anchors_right = 1.0
 anchors_bottom = 1.0
 color = Color(0, 0, 0, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=507464299]
 layout_mode = 1
 anchors_left = 0.5
 anchors_top = 0.5
@@ -30,45 +31,28 @@ offset_right = 200.0
 offset_bottom = 200.0
 alignment = 1
 
-[node name="Title" type="Label" parent="VBoxContainer"]
+[node name="Title" type="Label" parent="VBoxContainer" unique_id=1785920031]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 text = "Select Difficulty"
 horizontal_alignment = 1
-add_theme_font_size_override("font_size", 48)
-add_theme_color_override("font_color", Color(1, 1, 1, 1))
-add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
-add_theme_constant_override("outline_size", 2)
 
-[node name="Spacer1" type="Control" parent="VBoxContainer"]
-layout_mode = 2
-custom_minimum_size = Vector2(0, 20)
-
-[node name="EasyBtn" type="Button" parent="VBoxContainer"]
-layout_mode = 2
+[node name="EasyBtn" type="Button" parent="VBoxContainer" unique_id=319308090]
 custom_minimum_size = Vector2(400, 60)
+layout_mode = 2
 text = "Easy"
-text_alignment = 1
 
-[node name="MediumBtn" type="Button" parent="VBoxContainer"]
-layout_mode = 2
+[node name="MediumBtn" type="Button" parent="VBoxContainer" unique_id=683039160]
 custom_minimum_size = Vector2(400, 60)
+layout_mode = 2
 text = "Medium"
-text_alignment = 1
 
-[node name="HardBtn" type="Button" parent="VBoxContainer"]
-layout_mode = 2
+[node name="HardBtn" type="Button" parent="VBoxContainer" unique_id=1943822121]
 custom_minimum_size = Vector2(400, 60)
+layout_mode = 2
 text = "Hard"
-text_alignment = 1
 
-[node name="BackBtn" type="Button" parent="VBoxContainer"]
-layout_mode = 2
+[node name="BackBtn" type="Button" parent="VBoxContainer" unique_id=1529710557]
 custom_minimum_size = Vector2(400, 60)
+layout_mode = 2
 text = "Back"
-text_alignment = 1
-add_theme_color_override("font_color", Color(0, 0, 0, 1))
-
-[connection signal="pressed" from="VBoxContainer/EasyBtn" to="." method="_on_easy_pressed"]
-[connection signal="pressed" from="VBoxContainer/MediumBtn" to="." method="_on_medium_pressed"]
-[connection signal="pressed" from="VBoxContainer/HardBtn" to="." method="_on_hard_pressed"]
-[connection signal="pressed" from="VBoxContainer/BackBtn" to="." method="_on_back_pressed"]

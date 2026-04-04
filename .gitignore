@@ -1,0 +1,31 @@
+# IDE Configuration
+.venv
+.vs
+.vscode
+
+# Build outputs
+build/
+dist/
+node_modules/
+
+# Godot specific
+.godot/
+*.import
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Large binaries - use Godot installer instead
+godot apps/
+*.exe
+*.app
+*.dmg
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Git artifacts
+.git/refs/backup

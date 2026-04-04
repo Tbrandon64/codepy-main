@@ -76,12 +76,12 @@ class BackupSystem:
             self.config_manager = ConfigManager()
             
             self.initialized = True
-            print("✅ Backup systems initialized successfully")
+            print("Backup systems initialized successfully")
         
         except Exception as e:
             self.initialized = False
             self.errors.append(f"Backup system initialization failed: {e}")
-            print(f"❌ {self.errors[-1]}")
+            print(f"ERROR: {self.errors[-1]}")
     
     def _initialize_teacher_mode(self) -> None:
         """Lazy-load teacher mode on first use (optional)"""
@@ -92,7 +92,7 @@ class BackupSystem:
         
         try:
             self.teacher_mode = TeacherMode()
-            print("✅ Teacher mode initialized successfully")
+            print("Teacher mode initialized successfully")
         except Exception as te:
             self.teacher_mode = None
             self._log_error(f"Teacher mode initialization failed: {te}")
@@ -262,11 +262,11 @@ class BackupSystem:
         
         report = [
             "=== Python Backup System Status ===",
-            f"Initialized: {'✅ Yes' if status['available'] else '❌ No'}",
-            f"Problem Generator: {'✅ Ready' if status['problem_generator'] else '❌ Failed'}",
-            f"Score Manager: {'✅ Ready' if status['score_manager'] else '❌ Failed'}",
-            f"Config Manager: {'✅ Ready' if status['config_manager'] else '❌ Failed'}",
-            f"Teacher Mode: {'✅ Ready' if status['teacher_mode'] else '❌ Failed'}",
+            f"Initialized: {'Yes' if status['available'] else 'No'}",
+            f"Problem Generator: {'Ready' if status['problem_generator'] else 'Failed'}",
+            f"Score Manager: {'Ready' if status['score_manager'] else 'Failed'}",
+            f"Config Manager: {'Ready' if status['config_manager'] else 'Failed'}",
+            f"Teacher Mode: {'Ready' if status['teacher_mode'] else 'Failed'}",
             f"Errors Recorded: {status['error_count']}",
         ]
         
@@ -429,9 +429,9 @@ if __name__ == "__main__":
     for difficulty in ["EASY", "MEDIUM", "HARD"]:
         problem = backup.generate_problem(difficulty)
         if problem:
-            print(f"✅ {difficulty}: {problem['problem_text']}")
+            print(f"{difficulty}: {problem['problem_text']}")
         else:
-            print(f"❌ {difficulty}: Failed")
+            print(f"{difficulty}: Failed")
     
     print("\n=== Testing Teacher Mode ===")
     if backup.teacher_mode:
@@ -450,9 +450,9 @@ if __name__ == "__main__":
     print("\n=== Testing Score Management ===")
     backup.save_score("Test Player", 150, "MEDIUM")
     scores = backup.load_scores()
-    print(f"✅ Saved and loaded {len(scores)} scores")
+    print(f"Saved and loaded {len(scores)} scores")
     
-    print("\n=== Testing Configuration ===")
+    print("=== Testing Configuration ===")
     backup.save_setting("Game", "TestKey", "TestValue")
     value = backup.load_setting("Game", "TestKey")
-    print(f"✅ Config test: {value}")
+    print(f"Config test: {value}")
