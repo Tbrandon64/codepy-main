@@ -6,20 +6,44 @@ var game_start_time: float = 0.0
 var game_duration: float = 60.0  # 60 seconds
 
 func _ready() -> void:
-	# Connect buttons
-	$VBoxContainer/OptionsGrid/Option1Btn.pressed.connect(_on_option_selected.bindv([0]))
-	$VBoxContainer/OptionsGrid/Option2Btn.pressed.connect(_on_option_selected.bindv([1]))
-	$VBoxContainer/OptionsGrid/Option3Btn.pressed.connect(_on_option_selected.bindv([2]))
-	$VBoxContainer/OptionsGrid/Option4Btn.pressed.connect(_on_option_selected.bindv([3]))
-	$VBoxContainer/SubmitBtn.pressed.connect(_on_submit_pressed)
-	$VBoxContainer/BackBtn.pressed.connect(_on_back_pressed)
-	$ResultDialog.confirmed.connect(_on_result_confirmed)
+	# Connect buttons safely
+	for i in range(4):
+		var option_path = "VBoxContainer/OptionsGrid/Option%dBtn" % (i + 1)
+		var option_button = get_node_or_null(option_path)
+		if option_button:
+			option_button.pressed.connect(_on_option_selected.bindv([i]))
+		else:
+			print("WARNING: Missing option button: ", option_path)
+
+	var submit_button = get_node_or_null("VBoxContainer/SubmitBtn")
+	if submit_button:
+		submit_button.pressed.connect(_on_submit_pressed)
+	else:
+		print("WARNING: Missing SubmitBtn")
+
+	var back_button = get_node_or_null("VBoxContainer/BackBtn")
+	if back_button:
+		back_button.pressed.connect(_on_back_pressed)
+	else:
+		print("WARNING: Missing BackBtn")
+
+	var result_dialog = get_node_or_null("ResultDialog")
+	if result_dialog:
+		result_dialog.confirmed.connect(_on_result_confirmed)
+	else:
+		print("WARNING: Missing ResultDialog")
 	
-	# Connect timer
-	$GameTimer.timeout.connect(_on_game_timer_timeout)
+	var game_timer = get_node_or_null("GameTimer")
+	if game_timer:
+		game_timer.timeout.connect(_on_game_timer_timeout)
+	else:
+		print("WARNING: Missing GameTimer")
 	
-	# Connect text input
-	$VBoxContainer/AnswerInput.text_submitted.connect(_on_text_submitted)
+	var answer_input = get_node_or_null("VBoxContainer/AnswerInput")
+	if answer_input:
+		answer_input.text_submitted.connect(_on_text_submitted)
+	else:
+		print("WARNING: Missing AnswerInput")
 	
 	# Consume energy if enabled
 	if FeatureConfig.energy_system_enabled:

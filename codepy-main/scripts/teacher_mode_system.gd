@@ -31,11 +31,6 @@ var show_work: bool = false          # Show step-by-step solution
 var track_progress: bool = false     # Track student progress
 var student_progress: Dictionary = {}
 
-# Performance caches
-var _problem_cache: Dictionary = {}  # Cache generated problems
-var _solution_cache: Dictionary = {} # Cache solution steps
-var _cache_max_size: int = 20
-
 # Signals for teacher mode
 signal problem_type_changed(type: String)
 signal mode_enabled(enabled: bool)
@@ -57,7 +52,7 @@ func set_teacher_mode(enabled: bool) -> void:
 ## Set problem type for generation
 func set_problem_type(problem_type: int) -> void:
 	if problem_type >= 0 and problem_type < ProblemType.size():
-		current_problem_type = problem_type
+		current_problem_type = problem_type as ProblemType
 		problem_type_changed.emit(ProblemType.keys()[problem_type])
 	else:
 		current_problem_type = ProblemType.BASIC
@@ -189,7 +184,7 @@ func generate_advanced_problem() -> Dictionary:
 		return {}
 
 ## Track student progress
-func record_student_answer(student_name: String, problem: Dictionary, answer: int, time_taken: float, is_correct: bool) -> void:
+func record_student_answer(student_name: String, problem: Dictionary, _answer: int, time_taken: float, is_correct: bool) -> void:
 	if not track_progress:
 		return
 	

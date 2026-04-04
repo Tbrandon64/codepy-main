@@ -1,10 +1,26 @@
 extends Control
 
 func _ready() -> void:
-	$VBoxContainer/EasyBtn.pressed.connect(_on_easy_pressed)
-	$VBoxContainer/MediumBtn.pressed.connect(_on_medium_pressed)
-	$VBoxContainer/HardBtn.pressed.connect(_on_hard_pressed)
-	$VBoxContainer/BackBtn.pressed.connect(_on_back_pressed)
+	print("DifficultyMenu._ready() called")
+	
+	var easy_btn = get_node_or_null("VBoxContainer/EasyBtn")
+	var medium_btn = get_node_or_null("VBoxContainer/MediumBtn")
+	var hard_btn = get_node_or_null("VBoxContainer/HardBtn")
+	var back_btn = get_node_or_null("VBoxContainer/BackBtn")
+	
+	print("Easy button found: ", easy_btn != null)
+	print("Medium button found: ", medium_btn != null)
+	print("Hard button found: ", hard_btn != null)
+	print("Back button found: ", back_btn != null)
+	
+	if easy_btn:
+		easy_btn.pressed.connect(_on_easy_pressed)
+	if medium_btn:
+		medium_btn.pressed.connect(_on_medium_pressed)
+	if hard_btn:
+		hard_btn.pressed.connect(_on_hard_pressed)
+	if back_btn:
+		back_btn.pressed.connect(_on_back_pressed)
 	
 	# Style buttons with fonts
 	_setup_button_styles()
@@ -12,17 +28,26 @@ func _ready() -> void:
 func _setup_button_styles() -> void:
 	var font_size = 28
 	
+	var easy_btn = get_node_or_null("VBoxContainer/EasyBtn")
+	var medium_btn = get_node_or_null("VBoxContainer/MediumBtn")
+	var hard_btn = get_node_or_null("VBoxContainer/HardBtn")
+	var back_btn = get_node_or_null("VBoxContainer/BackBtn")
+	
 	# Easy - Green
-	_style_button($VBoxContainer/EasyBtn, Color(0, 1, 0, 1), font_size)
+	if easy_btn:
+		_style_button(easy_btn, Color(0, 1, 0, 1), font_size)
 	
 	# Medium - Yellow
-	_style_button($VBoxContainer/MediumBtn, Color(1, 1, 0, 1), font_size)
+	if medium_btn:
+		_style_button(medium_btn, Color(1, 1, 0, 1), font_size)
 	
 	# Hard - Red
-	_style_button($VBoxContainer/HardBtn, Color(1, 0, 0, 1), font_size)
+	if hard_btn:
+		_style_button(hard_btn, Color(1, 0, 0, 1), font_size)
 	
 	# Back - Gray
-	_style_button($VBoxContainer/BackBtn, Color(0.5, 0.5, 0.5, 1), font_size)
+	if back_btn:
+		_style_button(back_btn, Color(0.5, 0.5, 0.5, 1), font_size)
 
 func _style_button(button: Button, color: Color, font_size: int) -> void:
 	var style = StyleBoxFlat.new()
@@ -43,24 +68,35 @@ func _style_button(button: Button, color: Color, font_size: int) -> void:
 	button.add_theme_color_override("font_color", Color.WHITE)
 
 func _on_easy_pressed() -> void:
+	print("EASY button pressed - starting game with EASY difficulty")
 	_start_game(GameManager.Difficulty.EASY)
 
 func _on_medium_pressed() -> void:
+	print("MEDIUM button pressed - starting game with MEDIUM difficulty")
 	_start_game(GameManager.Difficulty.MEDIUM)
 
 func _on_hard_pressed() -> void:
+	print("HARD button pressed - starting game with HARD difficulty")
 	_start_game(GameManager.Difficulty.HARD)
 
 func _on_back_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	print("BACK button pressed - returning to main menu")
+	var error = get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	if error != OK:
+		print("ERROR loading main menu: ", error)
 
 func _start_game(difficulty: GameManager.Difficulty) -> void:
+	print("_start_game() called with difficulty: ", difficulty)
 	# Set difficulty in GameManager
 	GameManager.set_difficulty(difficulty)
 	GameManager.reset()
 	
 	# Generate first problem
 	var problem = GameManager.generate_problem()
+	print("Generated problem: ", problem.problem_text if problem else "NULL")
 	
 	# Load game scene
-	get_tree().change_scene_to_file("res://scenes/game.tscn")
+	print("Loading game_new.tscn...")
+	var error = get_tree().change_scene_to_file("res://scenes/game_new.tscn")
+	if error != OK:
+		print("ERROR loading game_new.tscn: ", error)

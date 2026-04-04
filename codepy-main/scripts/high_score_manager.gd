@@ -98,6 +98,4 @@ func _write_scores_to_file() -> bool:
 
 func get_formatted_date() -> String:
 	"""Get current date and time as formatted string"""
-	var time = Time.get_ticks_msec()
-	var dict = Time.get_datetime_dict_from_system()
-	return "%04d-%02d-%02d %02d:%02d" % [dict.year, dict.month, dict.day, dict.hour, dict.minute]
+

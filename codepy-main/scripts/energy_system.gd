@@ -70,7 +70,7 @@ func calculate_energy_cost(game_mode: String, difficulty: String) -> int:
 	return int(base_cost * multiplier)
 
 ## Consume energy for playing a game
-func consume_energy(amount: int, reason: String = "") -> bool:
+func consume_energy(amount: int, _reason: String = "") -> bool:
 	if current_energy < amount:
 		emit_signal("energy_depleted")
 		return false
@@ -86,7 +86,7 @@ func consume_energy(amount: int, reason: String = "") -> bool:
 	return true
 
 ## Gain energy from completing challenges
-func gain_energy(amount: int, reason: String = "") -> void:
+func gain_energy(amount: int, _reason: String = "") -> void:
 	current_energy = min(current_energy + amount, MAX_ENERGY)
 	total_energy_earned += amount
 	emit_signal("energy_changed", current_energy)

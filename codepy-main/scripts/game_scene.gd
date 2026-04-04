@@ -22,20 +22,42 @@ func _ready() -> void:
 		multiplayer.server_disconnected.connect(_on_server_disconnected)
 		multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 	
-	# Connect button signals
-	$UI/VBoxContainer/OptionsGrid/Option1Btn.pressed.connect(_on_option_pressed.bindv([0]))
-	$UI/VBoxContainer/OptionsGrid/Option2Btn.pressed.connect(_on_option_pressed.bindv([1]))
-	$UI/VBoxContainer/OptionsGrid/Option3Btn.pressed.connect(_on_option_pressed.bindv([2]))
-	$UI/VBoxContainer/OptionsGrid/Option4Btn.pressed.connect(_on_option_pressed.bindv([3]))
-	
+# Connect button signals safely
+	for i in range(4):
+		var option_button = get_node_or_null("UI/VBoxContainer/OptionsGrid/Option%dBtn" % (i + 1))
+		if option_button:
+			option_button.pressed.connect(_on_option_pressed.bindv([i]))
+		else:
+			print("WARNING: Missing game_scene option button: Option%dBtn" % (i + 1))
+
 	# Connect timers
-	$GameTimer.timeout.connect(_on_game_timer_timeout)
-	$ResultTimer.timeout.connect(_on_result_timer_timeout)
-	$WrongShake.timeout.connect(_on_wrong_shake_timeout)
-	
-	# Connect pause menu
-	$PauseMenu/PauseVBox/ResumeBtn.pressed.connect(_on_resume_pressed)
-	$PauseMenu/PauseVBox/QuitBtn.pressed.connect(_on_quit_pressed)
+	if get_node_or_null("GameTimer"):
+		$GameTimer.timeout.connect(_on_game_timer_timeout)
+	else:
+		print("WARNING: Missing GameTimer")
+
+	if get_node_or_null("ResultTimer"):
+		$ResultTimer.timeout.connect(_on_result_timer_timeout)
+	else:
+		print("WARNING: Missing ResultTimer")
+
+	if get_node_or_null("WrongShake"):
+		$WrongShake.timeout.connect(_on_wrong_shake_timeout)
+	else:
+		print("WARNING: Missing WrongShake")
+
+	# Connect pause menu safely
+	var resume_button = get_node_or_null("PauseMenu/PauseVBox/ResumeBtn")
+	if resume_button:
+		resume_button.pressed.connect(_on_resume_pressed)
+	else:
+		print("WARNING: Missing PauseMenu/PauseVBox/ResumeBtn")
+
+	var quit_button = get_node_or_null("PauseMenu/PauseVBox/QuitBtn")
+	if quit_button:
+		quit_button.pressed.connect(_on_quit_pressed)
+	else:
+		print("WARNING: Missing PauseMenu/PauseVBox/QuitBtn")
 	
 	# Setup button hover animations
 	_setup_button_animations()

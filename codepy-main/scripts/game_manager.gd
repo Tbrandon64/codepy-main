@@ -50,9 +50,6 @@ var _difficulty_ranges: Dictionary = {
 var _operations: Array[String] = ["+", "-", "*", "/"]
 
 ## Problem cache to avoid regenerating duplicate problems
-var _problem_cache: Dictionary = {}
-var _cache_max_size: int = 5
-var _cache_hits: int = 0
 var _cache_misses: int = 0
 
 ## Problem data structure with clearly organized fields
@@ -187,7 +184,7 @@ func _calculate_correct_answer(problem: MathProblem, max_num: int) -> void:
 			
 			# Generate quotient, then set dividend as clean multiple
 			problem.correct_answer = randi_range(1, max_quotient)
-			problem.operand1 = problem.correct_answer * problem.operand2
+			problem.operand1 = int(problem.correct_answer * problem.operand2)
 		_:
 			# Unknown operation - default to addition
 			print("WARNING: Unknown operation '%s', defaulting to '+'" % problem.operation)

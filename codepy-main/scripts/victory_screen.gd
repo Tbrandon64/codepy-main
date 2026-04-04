@@ -32,9 +32,18 @@ func _ready() -> void:
 	# Display high score info
 	_show_high_score_info()
 	
-	# Connect buttons
-	$VBoxContainer/RestartBtn.pressed.connect(_on_restart_pressed)
-	$VBoxContainer/MenuBtn.pressed.connect(_on_menu_pressed)
+	# Connect buttons safely
+	var restart_btn = get_node_or_null("VBoxContainer/RestartBtn")
+	if restart_btn:
+		restart_btn.pressed.connect(_on_restart_pressed)
+	else:
+		print("WARNING: Missing RestartBtn")
+
+	var menu_btn = get_node_or_null("VBoxContainer/MenuBtn")
+	if menu_btn:
+		menu_btn.pressed.connect(_on_menu_pressed)
+	else:
+		print("WARNING: Missing MenuBtn")
 	
 	# Animate title
 	var tween = create_tween()
