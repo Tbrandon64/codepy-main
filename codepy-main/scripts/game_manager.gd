@@ -49,9 +49,6 @@ var _difficulty_ranges: Dictionary = {
 ## Pre-allocated operations array to avoid repeated instantiation
 var _operations: Array[String] = ["+", "-", "*", "/"]
 
-## Problem cache to avoid regenerating duplicate problems
-var _cache_misses: int = 0
-
 ## Problem data structure with clearly organized fields
 class MathProblem:
 	## First number in the problem
@@ -178,7 +175,7 @@ func _calculate_correct_answer(problem: MathProblem, max_num: int) -> void:
 				problem.operand2 = 1
 			
 			# Calculate maximum possible quotient within difficulty bounds
-			var max_quotient = max_num / problem.operand2
+			var max_quotient = int(max_num / problem.operand2)
 			if max_quotient < 1: 
 				max_quotient = 1
 			

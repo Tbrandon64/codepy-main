@@ -1,5 +1,5 @@
 e910c82af1378a97450e26817c58487e
-::res://::1775337119
+::res://::1775338520
 ADVENTURE_MODE_GUIDE.md::TextFile::-1::1768943978::0::1::::<><><>0<>0<><>::
 arial_bold.tres::FontFile::2434202288962064838::1775319848::0::1::::<><><>0<>0<><>::
 CODE_QUALITY_IMPROVEMENTS.md::TextFile::-1::1769029682::0::1::::<><><>0<>0<><>::
@@ -66,7 +66,7 @@ adventure_level.tscn::PackedScene::8942783325424259788::1775321071::0::1::::<><>
 adventure_map.tscn::PackedScene::2351728241645795216::1775321071::0::1::::<><><>0<>0<><>::uid://60qn7wi7mwtb::::res://scripts/adventure_map.gd
 difficulty_menu.tscn::PackedScene::6801475563595106913::1775321071::0::1::::<><><>0<>0<><>::uid://b5ix1fy0wbjbu::::res://scripts/difficulty_menu.gd
 game.tscn::PackedScene::9105939611714821812::1775253117::0::1::::<><><>0<>0<><>::res://scripts/game.gd
-game_new.tscn::PackedScene::7278745542350590844::1775321961::0::1::::<><><>0<>0<><>::res://scripts/game.gd
+game_new.tscn::PackedScene::7278745542350590844::1775338380::0::1::::<><><>0<>0<><>::res://scripts/game.gd
 game_scene.tscn::PackedScene::5063030969029194478::1775321071::0::1::::<><><>0<>0<><>::uid://djx71shvcp4at::::res://scripts/game_scene.gd
 main_menu.tscn::PackedScene::4442279678514409083::1775320884::0::1::::<><><>0<>0<><>::uid://dos50ngtyybg3::::res://scripts/main_menu.gd
 single_player.tscn::PackedScene::7721076534329752681::1775321071::0::1::::<><><>0<>0<><>::uid://bo1xsm22kya3y::::res://scripts/single_player.gd
@@ -85,13 +85,13 @@ badge_manager.gd::GDScript::7120910599477102215::1769015220::0::1::::BadgeManage
 config_file_handler.gd::GDScript::744201397558876081::1769029608::0::1::::<>Node<><>0<>0<><>::
 daily_challenge_manager.gd::GDScript::1348426474105155839::1769015220::0::1::::DailyChallengeManager<>Node<><>0<>0<><>::
 difficulty_menu.gd::GDScript::4510044237199098210::1775336457::0::1::::<>Control<><>0<>0<><>::
-energy_system.gd::GDScript::6559720027978896725::1768943784::0::1::::<>Node<><>0<>0<><>::
+energy_system.gd::GDScript::6559720027978896725::1775338380::0::1::::<>Node<><>0<>0<><>::
 feature_config.gd::GDScript::3912419431111267345::1775247170::0::1::::<>Node<><>0<>0<><>::
-game.gd::GDScript::3059909220204685268::1775337086::0::1::::<>Control<><>0<>0<><>::
+game.gd::GDScript::3059909220204685268::1775337508::0::1::::<>Control<><>0<>0<><>::
 gameplay_enhancement_system.gd::GDScript::7064083134055811188::1769029608::0::1::::<>Node<><>0<>0<><>::
-game_manager.gd::GDScript::6516139189954942190::1775336855::0::1::::<>Node<><>0<>0<><>::
-game_scene.gd::GDScript::7840432663766396799::1775337086::0::1::::<>CanvasLayer<><>0<>0<><>::
-high_score_manager.gd::GDScript::7598300521204692235::1775247170::0::1::::<>Node<><>0<>0<><>::
+game_manager.gd::GDScript::6516139189954942190::1775338380::0::1::::<>Node<><>0<>0<><>::
+game_scene.gd::GDScript::7840432663766396799::1775338498::0::1::::<>CanvasLayer<><>0<>0<><>::
+high_score_manager.gd::GDScript::7598300521204692235::1775338380::0::1::::<>Node<><>0<>0<><>::
 localization_manager.gd::GDScript::8102384966136666452::1769029608::0::1::::<>Node<><>0<>0<><>::
 main_menu.gd::GDScript::8180931509184117004::1775247170::0::1::::<>Control<><>0<>0<><>::
 main_menu_enhanced.gd::GDScript::2963226828076370022::1769015220::0::1::::<>Control<><>0<>0<><>::
