@@ -326,8 +326,8 @@ func _shake_screen() -> void:
 	tween.set_trans(Tween.TRANS_SINE)
 	
 	for i in range(4):
-		var offset = Vector2(randf_range(-10, 10), randf_range(-10, 10))
-		tween.tween_property($UI, "position", original_pos + offset, 0.05)
+		var shake_offset = Vector2(randf_range(-10, 10), randf_range(-10, 10))
+		tween.tween_property($UI, "position", original_pos + shake_offset, 0.05)
 	
 	tween.tween_property($UI, "position", original_pos, 0.05)
 
@@ -403,7 +403,6 @@ func _sync_problem(problem_text: String, options_array: Array, correct_answer: i
 func _sync_answer(is_correct: bool, player_pts: int) -> void:
 	# Update opponent score based on their answer
 	if is_correct:
-		var points = 10 * (GameManager.current_difficulty + 1)
 		opponent_score = player_pts
 	
 	_update_scores()
@@ -421,7 +420,7 @@ func _on_server_disconnected() -> void:
 	
 	_show_connection_lost()
 
-func _on_peer_disconnected(peer_id: int) -> void:
+func _on_peer_disconnected(_peer_id: int) -> void:
 	# Host detected client disconnect
 	if connection_lost:
 		return
