@@ -10,7 +10,7 @@ The main menu offers Single Player, Host, Join, Adventure Mode, and Teacher Port
 
 ## Run the project
 
-1. Open this folder, the one containing `project.godot`, in Godot 4.7.2 or newer.
+1. In Godot 4.7.2 or newer, open the nested `codepy-main/` project folder (the one containing `project.godot`).
 2. Run the project from the editor.
 
 ## Before release
