@@ -22,7 +22,7 @@ func _initialize_translations() -> void:
 	translations = {
 		"en": {
 			# Menu strings
-			"main_menu_title": "MathBlat",
+			"main_menu_title": "Math Blast",
 			"single_player": "Single-Player",
 			"host": "Host Game",
 			"join": "Join Game",
@@ -68,7 +68,7 @@ func _initialize_translations() -> void:
 		},
 		"es": {
 			# Menu strings
-			"main_menu_title": "MathBlat",
+			"main_menu_title": "Math Blast",
 			"single_player": "Un Jugador",
 			"host": "Crear Partida",
 			"join": "Unirse a Partida",
@@ -114,7 +114,7 @@ func _initialize_translations() -> void:
 		},
 		"fr": {
 			# Menu strings
-			"main_menu_title": "MathBlat",
+			"main_menu_title": "Math Blast",
 			"single_player": "Un Joueur",
 			"host": "Créer une Partie",
 			"join": "Rejoindre une Partie",
