@@ -40,7 +40,13 @@ horizontal_alignment = 1
 [node name="ScoreLabel" type="Label" parent="VBoxContainer" unique_id=695882775]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-text = "Opponent Score: 95"
+text = "Your Score: 0"
+horizontal_alignment = 1
+
+[node name="OpponentLabel" type="Label" parent="VBoxContainer" unique_id=1845625430]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Opponent Score: 0"
 horizontal_alignment = 1
 
 [node name="HighScoreLabel" type="Label" parent="VBoxContainer" unique_id=1668346617]
@@ -51,6 +57,11 @@ horizontal_alignment = 1
 
 [node name="RestartBtn" type="Button" parent="VBoxContainer" unique_id=1704880808]
 modulate = Color(1, 0.5, 0, 1)
+custom_minimum_size = Vector2(400, 70)
+layout_mode = 2
+text = "Play Again"
+
+[node name="MenuBtn" type="Button" parent="VBoxContainer" unique_id=1845625431]
 custom_minimum_size = Vector2(400, 70)
 layout_mode = 2
 text = "Main Menu"
