@@ -1,30 +1,22 @@
 # 🚀 Math Blast
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Godot 4.6](https://img.shields.io/badge/Godot-4.6-blue.svg)](https://godotengine.org)
+[![Godot 4.7](https://img.shields.io/badge/Godot-4.7-blue.svg)](https://godotengine.org)
 [![GitHub Stars](https://img.shields.io/github/stars/Tbrandon64/codepy-main)](../../stargazers)
-[![Download on itch.io](https://img.shields.io/badge/Download-itch.io-blue.svg)](https://itch.io/mathblast)
-[![Release Ready](https://img.shields.io/badge/Status-Release%20Ready-green.svg)]()
 
 > **Fast-paced multiplayer math puzzle game** • Solo, local co-op, or network play • No ads • 100% free
 
-A competitive math competition game built with Godot 4.6. Test your arithmetic skills, build combos, climb leaderboards, and compete with friends—locally or over the network.
+A competitive math competition game built with Godot 4.7. Test your arithmetic skills, build combos, climb leaderboards, and compete with friends—locally or over the network.
 
-**[📥 Download](#installation) • [🎮 Play Online](https://itch.io/mathblast) • [📖 Documentation](#documentation) • [☕ Support](#support-math-blast) • [🐛 Issues](../../issues)**
+**[📖 Documentation](#documentation) • [🐛 Issues](../../issues)**
 
 ---
 
-## 🎉 Release Status
+## Release Status
 
-✅ **MathBlat is now RELEASE READY!**
+MathBlast is in development. This source folder has no verified downloadable build or published GitHub release. The old itch.io URL currently returns a not-found page. A download link will be added after a packaged build is created and checked.
 
-- **UI Fixed**: All buttons and text are now visible with proper styling
-- **Cross-Platform**: Configured for Windows, Linux, and Web exports
-- **Build System**: Automated build script (`build_mathblast.bat`) ready
-- **Python Backup**: Fallback systems ensure reliability
-- **Testing**: All scenes compile and run without errors
-
-**Latest Release**: [View on GitHub](../../releases)
+The Godot project opens in Godot 4.7.2 and its main menu has been launched in the editor. This does not verify the full game flow or a distributable build. Export presets are still empty, and the Python backup modules are not verified as an integrated runtime fallback.
 
 ---
 
@@ -67,43 +59,29 @@ A competitive math competition game built with Godot 4.6. Test your arithmetic s
 - **Adventure Levels**: 15-level campaign with progressive difficulty
 
 ### 🎯 Reliability
-- **Zero-Crash Policy**: Graceful error handling
 - **Offline Support**: Core game works without internet
-- **Cross-Platform**: Windows, Linux, macOS, Android, iOS
+- **Target exports**: Windows, Linux, macOS, and Web; none has a verified release build yet
 
 ---
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- **Godot 4.6+** (free, open-source)
+- **Godot 4.7+** (free, open-source)
 - **Download**: [godotengine.org](https://godotengine.org)
 
 ### Installation
 
-**Option 1: Download Pre-Built (Easiest)**
-```bash
-# Download from itch.io
-# https://itch.io/mathblast
+A packaged public build is not currently available. To run from source:
 
-# Extract and run
-./MathBlast.exe  # Windows
-./MathBlast.x86_64  # Linux
-./MathBlast.app  # macOS
-```
-
-**Option 2: Clone & Run from Source**
 ```bash
-# Clone repo
 git clone https://github.com/Tbrandon64/codepy-main.git
 cd codepy-main
 
-# Open in Godot 4.6+
-godot --path codepy-main
-
-# Press F5 to play
+# Open the nested codepy-main/ folder in Godot 4.7.
 ```
 
+Export presets and a verified downloadable build are still pending.
 ---
 
 ## 🎮 How to Play
@@ -215,7 +193,7 @@ math-blast/
 | File | Purpose |
 |------|---------|
 | `project.godot` | Godot engine configuration and autoloads |
-| `export_presets.cfg` | Build settings for all platforms (Windows, Linux, macOS, Android, iOS, Web) |
+| `export_presets.cfg` | Export settings; currently empty |
 | `CONTRIBUTING.md` | How to contribute to the project |
 | `CODE_OF_CONDUCT.md` | Community values and standards |
 | `LICENSE` | MIT License (free to use and modify) |
@@ -260,28 +238,7 @@ See [Troubleshooting Wiki](../../wiki/Troubleshooting) for more.
 
 ## 🏗️ Building from Source
 
-### Export Windows
-```bash
-godot --headless --export-release "Windows Desktop" build/MathBlast.exe
-```
-
-### Export Linux
-```bash
-godot --headless --export-release "Linux/X11" build/MathBlast.x86_64
-```
-
-### Export macOS
-```bash
-godot --headless --export-release "macOS" build/MathBlast.dmg
-```
-
-### Export Web (Itch.io)
-```bash
-godot --headless --export-release "Web" build/
-```
-
-See [EXPORT_CHECKLIST.md](EXPORT_CHECKLIST.md) for full instructions.
-
+Open the nested Godot project folder in Godot 4.7 or newer. Command-line export instructions are not available yet because `codepy-main/export_presets.cfg` is empty. Add and verify a platform export preset before following export commands.
 ---
 
 ## 🌟 New in v1.0
@@ -300,7 +257,7 @@ See [EXPORT_CHECKLIST.md](EXPORT_CHECKLIST.md) for full instructions.
 
 ## 📦 Tech Stack
 
-- **Engine**: [Godot 4.5](https://godotengine.org/) (MIT License)
+- **Engine**: [Godot 4.7](https://godotengine.org/) (MIT License)
 - **Language**: GDScript 2.0
 - **Audio**: Procedurally generated in GDScript
 - **Networking**: ENet (built into Godot)
@@ -362,14 +319,13 @@ Free to use, modify, and distribute for personal and commercial projects.
 - **GitHub Issues**: [Report bugs & request features](../../issues)
 - **GitHub Discussions**: [Ask questions & share ideas](../../discussions)
 - **Ko-fi**: [Support development & chat](https://ko-fi.com/mathblast)
-- **Itch.io**: [Download & leave review](https://itch.io/mathblast)
 
 ---
 
 ## 👥 Credits
 
 **Development**: Thomas Brandon  
-**Engine**: [Godot 4.5](https://godotengine.org/)  
+**Engine**: [Godot 4.7](https://godotengine.org/)  
 **Community**: [Contributors](../../graphs/contributors)
 
 ---
@@ -378,7 +334,6 @@ Free to use, modify, and distribute for personal and commercial projects.
 
 | Link | URL |
 |------|-----|
-| Download | https://itch.io/mathblast |
 | Website | https://mathblast.dev |
 | Discord | https://discord.gg/mathblast |
 | Twitter | https://twitter.com/mathblastgame |
@@ -388,4 +343,4 @@ Free to use, modify, and distribute for personal and commercial projects.
 
 **Enjoy Math Blast! 🚀✨**
 
-*Made with ❤️ in Godot 4.5*
+*Made with ❤️ in Godot 4.7*

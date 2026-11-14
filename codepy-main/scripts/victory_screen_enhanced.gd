@@ -61,7 +61,7 @@ func _on_share_pressed() -> void:
 	_show_share_options()
 
 func _show_share_options() -> void:
-	var score_text = "I just scored %d points in Math Blast! 🚀 Can you beat me? Download free on itch.io!" % current_score
+	var score_text = "I just scored %d points in Math Blast! 🚀 Can you beat me?" % current_score
 	
 	# Copy to clipboard
 	DisplayServer.clipboard_set(score_text)

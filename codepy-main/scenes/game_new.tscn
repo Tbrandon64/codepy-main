@@ -1,16 +1,16 @@
-[gd_scene format=3 uid="uid://dbx441ilij70c"]
+[gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/game.gd" id="1_2kp8l"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_2tcgm"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uscos"]
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.5, 0.5, 0.5, 1)
+border_color = Color(0.74509805, 0.74509805, 0.74509805, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_input"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g62ys"]
 bg_color = Color(0.9, 0.9, 0.9, 1)
 border_width_left = 2
 border_width_top = 2
@@ -18,7 +18,7 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.5, 0.5, 0.5, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_submit"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_36jye"]
 bg_color = Color(0, 0.6, 0, 1)
 border_width_left = 2
 border_width_top = 2
@@ -26,7 +26,7 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0.8, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_option"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8iagg"]
 bg_color = Color(0.3, 0.3, 0.8, 1)
 border_width_left = 2
 border_width_top = 2
@@ -34,7 +34,31 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.5, 0.5, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_back"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxgtc"]
+bg_color = Color(0.3, 0.3, 0.8, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 0.5, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ute48"]
+bg_color = Color(0.3, 0.3, 0.8, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 0.5, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_de2d8"]
+bg_color = Color(0.3, 0.3, 0.8, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 0.5, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xmfbl"]
 bg_color = Color(0.8, 0.8, 0.8, 1)
 border_width_left = 2
 border_width_top = 2
@@ -42,161 +66,147 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.5, 0.5, 0.5, 1)
 
-[node name="Game" type="Control"]
+[node name="Game" type="Control" unique_id=763599901]
 layout_mode = 3
-anchors_left = 0.0
-anchors_top = 0.0
-anchors_right = 1.0
-anchors_bottom = 1.0
-script = ExtResource("1_2kp8l")
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_2tcgm")
 
-[node name="Background" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_left = 0.0
-anchors_top = 0.0
-anchors_right = 1.0
-anchors_bottom = 1.0
+[node name="Background" type="ColorRect" parent="." unique_id=1424503681]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
 color = Color(0, 0, 0, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_left = 0.0
-anchors_top = 0.0
-anchors_right = 1.0
-anchors_bottom = 1.0
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=669192997]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 50.0
 offset_top = 50.0
 offset_right = -50.0
 offset_bottom = -50.0
 alignment = 1
 
-[node name="Header" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
+[node name="Header" type="HBoxContainer" parent="VBoxContainer" unique_id=449625156]
 custom_minimum_size = Vector2(0, 60)
-
-[node name="DifficultyLabel" type="Label" parent="VBoxContainer/Header"]
 layout_mode = 2
-text = "Difficulty: Easy"
-add_theme_font_size_override("font_size", 24)
-add_theme_color_override("font_color", Color(1, 1, 1, 1))
-add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
-add_theme_constant_override("outline_size", 1)
 
-[node name="ScoreLabel" type="Label" parent="VBoxContainer/Header"]
-layout_mode = 2
-text = "Score: 0/0"
-horizontal_alignment = 2
-add_theme_font_size_override("font_size", 24)
-add_theme_color_override("font_color", Color(1, 1, 1, 1))
-add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
-add_theme_constant_override("outline_size", 1)
-
-[node name="TimerLabel" type="Label" parent="VBoxContainer/Header"]
-layout_mode = 2
-text = "Time: 60"
-horizontal_alignment = 2
-add_theme_font_size_override("font_size", 24)
-add_theme_color_override("font_color", Color(1, 1, 0, 1))
-add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
-add_theme_constant_override("outline_size", 1)
-
-[node name="ProblemContainer" type="PanelContainer" parent="VBoxContainer"]
+[node name="DifficultyLabel" type="Label" parent="VBoxContainer/Header" unique_id=410801217]
 layout_mode = 2
 size_flags_horizontal = 3
-custom_minimum_size = Vector2(0, 150)
-theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Difficulty: Easy"
 
-[node name="ProblemLabel" type="Label" parent="VBoxContainer/ProblemContainer"]
+[node name="ScoreLabel" type="Label" parent="VBoxContainer/Header" unique_id=217093357]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Score: 0/0"
+
+[node name="TimerLabel" type="Label" parent="VBoxContainer/Header" unique_id=1262082798]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+text = "Time: 60"
+
+[node name="ProblemContainer" type="PanelContainer" parent="VBoxContainer" unique_id=380577751]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_uscos")
+
+[node name="ProblemLabel" type="Label" parent="VBoxContainer/ProblemContainer" unique_id=674097010]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 48
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "0 + 0 = ?"
 horizontal_alignment = 1
 vertical_alignment = 1
-add_theme_font_size_override("font_size", 48)
-add_theme_color_override("font_color", Color(0, 0, 0, 1))
 
-[node name="AnswerInput" type="LineEdit" parent="VBoxContainer"]
-layout_mode = 2
+[node name="AnswerInput" type="LineEdit" parent="VBoxContainer" unique_id=918489103]
 custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_g62ys")
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 placeholder_text = "Type your answer here..."
 alignment = 1
-add_theme_font_size_override("font_size", 24)
-add_theme_color_override("font_color", Color(0, 0, 0, 1))
-add_theme_stylebox_override("normal", SubResource("StyleBoxFlat_input"))
 
-[node name="SubmitBtn" type="Button" parent="VBoxContainer"]
-layout_mode = 2
+[node name="SubmitBtn" type="Button" parent="VBoxContainer" unique_id=2122083773]
 custom_minimum_size = Vector2(150, 50)
-text = "Submit Answer"
-add_theme_color_override("font_color", Color(1, 1, 1, 1))
-add_theme_stylebox_override("normal", SubResource("StyleBoxFlat_submit"))
-
-[node name="Spacer" type="Control" parent="VBoxContainer"]
 layout_mode = 2
-custom_minimum_size = Vector2(0, 30)
+theme_override_styles/normal = SubResource("StyleBoxFlat_36jye")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Submit Answer"
 
-[node name="OptionsGrid" type="GridContainer" parent="VBoxContainer"]
+[node name="Spacer" type="Control" parent="VBoxContainer" unique_id=1806682173]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="OptionsGrid" type="GridContainer" parent="VBoxContainer" unique_id=1682462691]
+custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 columns = 2
-custom_minimum_size = Vector2(0, 300)
 
-[node name="Option1Btn" type="Button" parent="VBoxContainer/OptionsGrid"]
-layout_mode = 2
+[node name="Option1Btn" type="Button" parent="VBoxContainer/OptionsGrid" unique_id=438155501]
 custom_minimum_size = Vector2(200, 70)
-text = "0"
-add_theme_font_size_override("font_size", 24)
-add_theme_color_override("font_color", Color(1, 1, 1, 1))
-add_theme_stylebox_override("normal", SubResource("StyleBoxFlat_option"))
-
-[node name="Option2Btn" type="Button" parent="VBoxContainer/OptionsGrid"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_8iagg")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "0"
+
+[node name="Option2Btn" type="Button" parent="VBoxContainer/OptionsGrid" unique_id=1255255381]
 custom_minimum_size = Vector2(200, 70)
-text = "0"
-add_theme_font_size_override("font_size", 24)
-add_theme_color_override("font_color", Color(1, 1, 1, 1))
-add_theme_stylebox_override("normal", SubResource("StyleBoxFlat_option"))
-
-[node name="Option3Btn" type="Button" parent="VBoxContainer/OptionsGrid"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_lxgtc")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "0"
+
+[node name="Option3Btn" type="Button" parent="VBoxContainer/OptionsGrid" unique_id=1303298336]
 custom_minimum_size = Vector2(200, 70)
-text = "0"
-add_theme_font_size_override("font_size", 24)
-add_theme_color_override("font_color", Color(1, 1, 1, 1))
-add_theme_stylebox_override("normal", SubResource("StyleBoxFlat_option"))
-
-[node name="Option4Btn" type="Button" parent="VBoxContainer/OptionsGrid"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ute48")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "0"
+
+[node name="Option4Btn" type="Button" parent="VBoxContainer/OptionsGrid" unique_id=317520666]
 custom_minimum_size = Vector2(200, 70)
-text = "0"
-add_theme_font_size_override("font_size", 24)
-add_theme_color_override("font_color", Color(1, 1, 1, 1))
-add_theme_stylebox_override("normal", SubResource("StyleBoxFlat_option"))
-
-[node name="BackBtn" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_de2d8")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "0"
+
+[node name="BackBtn" type="Button" parent="VBoxContainer" unique_id=890109603]
 custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_xmfbl")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Back to Menu"
-add_theme_color_override("font_color", Color(0, 0, 0, 1))
-add_theme_stylebox_override("normal", SubResource("StyleBoxFlat_back"))
 
-[node name="ResultDialog" type="AcceptDialog" parent="."]
+[node name="ResultDialog" type="AcceptDialog" parent="." unique_id=2122079201]
 title = "Result"
-initial_position = 2
 size = Vector2i(400, 200)
 
-[node name="ResultLabel" type="Label" parent="ResultDialog"]
-layout_mode = 2
-anchor_left = 0.1
-anchor_top = 0.2
-anchor_right = 0.9
-anchor_bottom = 0.7
+[node name="ResultLabel" type="Label" parent="ResultDialog" unique_id=265492839]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_font_sizes/font_size = 28
 text = "Correct!"
 horizontal_alignment = 1
 vertical_alignment = 1
-add_theme_font_size_override("font_size", 28)
 
-[node name="GameTimer" type="Timer" parent="."]
+[node name="GameTimer" type="Timer" parent="." unique_id=525113890]
 wait_time = 60.0
 one_shot = true
 autostart = true
-
-
