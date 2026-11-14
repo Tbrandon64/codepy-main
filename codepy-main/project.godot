@@ -10,11 +10,13 @@ config_version=5
 
 [application]
 
-config/name="MathBlat"
+config/name="Math Blast"
 config/description="Multiplayer math puzzle game with timed challenges"
 config/version="1.0"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="Godot/app_userdata/MathBlat"
 run/main_scene="res://scenes/main_menu.tscn"
-config/features=PackedStringArray("4.6")
+config/features=PackedStringArray("4.7")
 
 [autoload]
 
